@@ -39,6 +39,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->script('jquery-1.9.1.min.js');
 		echo $this->Html->script('jquery.raty');
 		echo $this->Html->script('thMovies.jquery');
+		echo $this->Html->script('searchBar.jquery');
 	?>
 </head>
 <body>
