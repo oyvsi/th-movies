@@ -45,12 +45,17 @@ class PagesController extends AppController {
  */
 	public $uses = array();
 
-/**
- * Displays a view
- *
- * @param mixed What page to display
- * @return void
- */
+	function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('display');
+	}		
+
+	/**
+	 * Displays a view
+	 *
+	 * @param mixed What page to display
+	 * @return void
+	 */
 	public function display() {
 		$path = func_get_args();
 
@@ -69,6 +74,7 @@ class PagesController extends AppController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
+		$this->set('user', $this->Auth->user());
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 		$this->render(implode('/', $path));
 	}
