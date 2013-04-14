@@ -5,10 +5,12 @@ var moviesSearchUrl = baseUrl + '/movies.json?apikey=' + apikey;
 $(document).ready(function() {
 
 function searchCallback(data) {
-        $("#movies").empty();
+        $("#movies").empty();	
         $.each(data.movies, function(index, movie) {
-        var output = '<div style="width: 200px; border-style: solid; border-width:1px" id="hit" <li>' + movie.title + '</li>';
-        $("#movies").append(output);
+        if(movie.ratings.critics_score > 1) {
+	var output = '<div style="width: 300px; border-style: solid; border-width:1px" id="hit" <li>' + movie.title + ' CR: ' + movie.ratings.critics_score + ' AR: ' + movie.ratings.audience_score + '</li>';
+        } 
+	$("#movies").append(output);
 });
 }
 
