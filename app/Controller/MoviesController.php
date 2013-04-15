@@ -1,8 +1,20 @@
 <?php
 
 class MoviesController extends AppController {
-	private $apikey = 'bvswh94ct9uug45678ncjk9v';
-	private $rtBase = 'http://api.rottentomatoes.com/api/public/v1.0/movies/';
+	private $apikey = 'a8049ffed9e54f709cc42647f7a42722';
+	private $rtBase = 'http://api.themoviedb.org/3/movie/';
+
+	private function get_json($url) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, FALSE);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Accept: application/json"));
+		$response = curl_exec($ch);
+		curl_close($ch);
+
+		return $response;
+	}
 
 	public function index($movie = null) {
 		$this->set('movie', $this->paginate());
@@ -11,9 +23,8 @@ class MoviesController extends AppController {
 
 	public function view() {
 		$id = $this->request->params['id'];
-		$movie = file_get_contents($this->rtBase . '/' . $id . '.json?apikey=' . $this->apikey);
+		$movie = $this->get_json($this->rtBase . $id . '?api_key=' . $this->apikey);
 		$this->set('movie', json_decode($movie));
-		
 		$this->render('index');
 
 	}

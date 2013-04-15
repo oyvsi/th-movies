@@ -7,6 +7,6 @@
 
 	<?php if($movie): ?>
 		<span id="title"><?php echo $movie->title; ?> </span>
-		<div id="description"><?php echo $movie->synopsis; ?> </div>
+		<div id="description"><?php echo $movie->overview; ?> </div>
 	<?php endif; ?>
 
