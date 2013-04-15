@@ -1,23 +1,21 @@
 $(document).ready(function() {
 
-	var apikey = "bvswh94ct9uug45678ncjk9v";
-	var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0";
-	var moviesSearchUrl = baseUrl + '/movies.json?apikey=' + apikey;
+	var apikey = "a8049ffed9e54f709cc42647f7a42722";
+	var baseUrl = "http://api.themoviedb.org/3/search/";
+	var moviesSearchUrl = baseUrl + 'movie?api_key=' + apikey;
 	var lastSearchValue = '';
 	
 	function searchCallback(data) {
       $("#movies").empty();
-      $.each(data.movies, function(index, movie) {
-			if(movie.ratings.critics_score > 1) {
-				var output = '<li class="search_item" id="' + movie.id + '"><span id="title">' + movie.title + ' (' + movie.year + ') CR: ' + movie.ratings.critics_score + ' AR: ' + movie.ratings.audience_score + '</span><span id="thumb"><img src="' + movie.posters.thumbnail + '" /></thumb></li>';
+      $.each(data.results, function(index, movie) {
+				var output = '<li class="search_item" id="' + movie.id + '"><span id="title">' + movie.original_title + ' (' + movie.release_date + ')</span><span id="thumb"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92' + movie.poster_path + '" /></thumb></li>';
 				$("#movies").append(output);
-			}
 		});
 	}
 
 	function ajaxCall(searchValue) {
         $.ajax({
-        url: moviesSearchUrl + '&q=' + encodeURI(searchValue) + '&page_limit=20',
+        url: moviesSearchUrl + '&query=' + encodeURI(searchValue),
         dataType: "jsonp",
         success: searchCallback
         });
