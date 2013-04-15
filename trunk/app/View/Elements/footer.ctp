@@ -1,1 +1,4 @@
-2013 - Bundy, Flash, Laffen & PK
+
+	<?php
+		echo $this->Html->link('About us', '/pages/about'); 
+	?>
