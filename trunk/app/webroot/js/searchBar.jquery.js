@@ -30,7 +30,7 @@ $(document).ready(function() {
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
 				if($current.length) {
-					document.location = 'movie/' + $current.attr('id');
+					document.location = '/www-tek/th-movies/movies/' + $current.attr('id');
 					//console.log($current.attr('id'));
 				}
 			} else if (event.keyCode === 40) {
