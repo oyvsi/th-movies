@@ -26,7 +26,27 @@ $(document).ready(function() {
 	$('#searchBox').keyup(function(event){
 		var inputRegEx = new RegExp("^[a-zA-Z0-9]+$");  
 		var allowedKeys = new Array(27, 40, 8);
+		var $prev, $next, $current = $("#movies li.selected");		
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
+			if(event.keyCode === 13) {
+				if($current.length) {
+					document.location = 'movie/' + $current.attr('id');
+					//console.log($current.attr('id'));
+				}
+			} else if (event.keyCode === 40) {
+				if(!$current.length) $("#movies li:first").addClass("selected");
+				$next = $current.next("li");
+				if ($next.length) {
+					$current.removeClass("selected");
+					$next.addClass("selected");
+				}
+			} else if (event.keyCode === 38) {
+				$prev = $current.prev("li");
+				if ($prev.length) {
+					$current.removeClass("selected");
+					$prev.addClass("selected");
+				}
+			}
 			var searchValue = $(this).val();
 			if(searchValue.length > 3) {
 				if(searchValue != lastSearchValue) {

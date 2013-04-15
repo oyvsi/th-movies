@@ -20,3 +20,7 @@
 	text-align: right;
 	float: right;
 }
+
+.selected { 
+    background-color: pink;
+}
