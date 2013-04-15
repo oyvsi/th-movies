@@ -16,7 +16,7 @@ $(document).ready(function() {
 	}
 
 	function ajaxCall(searchValue) {
-         $.ajax({
+        $.ajax({
         url: moviesSearchUrl + '&q=' + encodeURI(searchValue) + '&page_limit=20',
         dataType: "jsonp",
         success: searchCallback
@@ -43,7 +43,7 @@ $(document).ready(function() {
 	});
 
 $('#movies').delegate('li', 'click', function() {
-		document.location = 'movie/' + this.id;
+		document.location = '/www-tek/th-movies/movies/' + this.id;
 });
 });
 
