@@ -1,0 +1,22 @@
+.search_item {
+	width: 400px;
+	border-style: solid;
+	border-width: 1px;
+	display: block;
+	overflow: auto;
+	cursor: pointer;
+}
+
+.search_item:hover {
+	background-color: #66BBEE;
+	font-weight: bold;
+}
+
+.search_item #title {
+	font-size: 1.3em;
+}
+
+.search_item #thumb {
+	text-align: right;
+	float: right;
+}
