@@ -74,8 +74,23 @@ p {
 }
 
 /** Layout **/
+
 #container {
 	text-align: left;
+}
+
+#menu {
+	text-align: center;
+}
+#menu a {
+	color: #C0C0C0;
+	text-decoration: none;
+}
+#menu a:hover {
+	color: white;
+}
+#menu li {
+	display: inline;
 }
 
 #header{
@@ -108,7 +123,15 @@ p {
 #footer {
 	clear: both;
 	padding: 6px 10px;
-	text-align: right;
+	text-align: center;
+}
+#footer a {
+	color: #C0C0C0;
+	text-decoration: none;
+}
+
+#footer a:hover {
+	color: white;
 }
 
 /** containers **/
