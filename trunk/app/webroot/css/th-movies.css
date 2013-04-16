@@ -4,11 +4,13 @@
 }
 
 #movies {
-	width: 500px;
+	width: 501px;
+	background-color: #000000;
 	list-style: none;
 	padding-left: 0;
 	margin-left: 0;
 	margin-right: 0;
+	position:absolute;
 }
 
 .search_item {
@@ -26,7 +28,7 @@
 }
 
 .search_item #title {
-	font-size: 1.3em;
+	font-size: 1em;
 }
 
 .search_item #thumb {
