@@ -10,10 +10,10 @@ $(document).ready(function() {
       $.each(data.results, function(index, movie) {
 				var output = '<li class="search_item" id="' + movie.id + '"><span id="title">' + movie.original_title + ' (' + movie.release_date + ')</span><span id="thumb"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92' + movie.poster_path + '" /></thumb></li>';
 				$("#movies").append(output);
-				$('#movies li:gt(4)').hide();
 				if(index == 4) {
 					$("#movies").append('<li class="search_item" id="moremovies">More movies! (Down Arrow here m8y) </li>');
 				}
+				$('#movies li:gt(5)').hide();
 				if(index == 9) {
 					return false;
 				}
