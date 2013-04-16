@@ -1,10 +1,10 @@
 <div class="profileInfo">
-	<p>User: <?php echo $user['User']['username'];
-	if ($user['User']['role'] === "admin") {
+	<p>User: <?php echo $user['username'];
+	if ($user['role'] === "admin") {
 		echo " <b>(admin)</b>";
 	} ?> </p>
 	<?php 
-		echo "<p>" . $user['User']['firstName'] . " " . $user['User']['lastName'] . "</p>";
+		echo "<p>" . $user['firstName'] . " " . $user['lastName'] . "</p>";
 
 	?>
 </div>

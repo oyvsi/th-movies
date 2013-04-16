@@ -16,8 +16,11 @@
 			echo $this->Html->link('Profil', '/users'); 
 			?>
 		</li>
-		<li>
-			<a>A little searchbox</a>		
-		</li>
-	</ul>
+				</ul>
 </div>
+<div id="search">
+<input type="text" id="searchBox" >
+<ul id="movies"></ul>
+</div>
+
+
