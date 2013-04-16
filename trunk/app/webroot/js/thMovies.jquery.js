@@ -1,5 +1,14 @@
-function sendRating(test) {
-	console.log("This is where we get our ajax on. Vars in: " + test);
+function sendRating(rating) {
+	var id = $('.rating').attr('id');
+	console.log("This is where we get our ajax on. Vars in: " + rating + 'on movie: ' + id);
+	$.ajax({
+		type: 'POST',
+		url: 'http://bmore.teamhenkars.com/www-tek/th-movies/movies/rate',
+		data: { movie: id, rating: rating },
+	}).done(function(result) {
+		console.log('good ajax gave us:' + result);
+		
+	});
 }
 
 $(document).ready(function() {
@@ -10,5 +19,8 @@ $(document).ready(function() {
 		targetKeep: true,
 		width: false,
 		click: sendRating,
+		score: function() {
+		     return $(this).attr('data-score');
+		}
 	});
 });
