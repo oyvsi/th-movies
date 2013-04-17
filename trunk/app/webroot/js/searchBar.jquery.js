@@ -39,7 +39,7 @@ $(document).ready(function() {
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
 				 if ($current.length) {
-					document.location = baseURL + $current.attr('id');
+					document.location = baseURL + 'movies/' + $current.attr('id');
 					//console.log($current.attr('id'));
 					} 
 			} else if (event.keyCode === 40) {
