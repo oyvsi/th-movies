@@ -1,6 +1,6 @@
 <?php
 class Rating extends AppModel {
-    
+	var $primaryKey = 'movie_rating_id';    
  /*   public $validate = array(
       'movie_id' => array(
           array(

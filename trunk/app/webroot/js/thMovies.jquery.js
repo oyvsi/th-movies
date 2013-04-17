@@ -1,10 +1,11 @@
 function sendRating(rating) {
 	var id = $('.rating').attr('id');
-	console.log("This is where we get our ajax on. Vars in: " + rating + 'on movie: ' + id);
+	//console.log("This is where we get our ajax on. Vars in: " + rating + 'on movie: ' + id);
+
 	$.ajax({
 		type: 'POST',
 		url: 'http://bmore.teamhenkars.com/www-tek/th-movies/movies/rate',
-		data: { movie: id, rating: rating },
+		data: { movie_id: id, rating: rating },
 	}).done(function(result) {
 		console.log('good ajax gave us:' + result);
 		
