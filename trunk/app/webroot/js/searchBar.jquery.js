@@ -78,7 +78,7 @@ $(document).ready(function() {
 	});
 
 $('#movies').delegate('li', 'click', function() {
-		document.location = '/www-tek/th-movies/movies/' + this.id;
+		document.location = baseURL + 'movies/' + this.id;
 });
 });
 
