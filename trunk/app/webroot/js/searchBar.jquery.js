@@ -1,12 +1,14 @@
 $(document).ready(function() {
-
+	var appUrl = "http://bmore.teamhenkars.com/bundy/th-movies/";
 	var apikey = "a8049ffed9e54f709cc42647f7a42722";
 	var baseUrl = "http://api.themoviedb.org/3/search/";
 	var moviesSearchUrl = baseUrl + 'movie?api_key=' + apikey;
 	var lastSearchValue = '';
 	
-	function searchCallback(data) {
+	function searchCallBack(data) {
       $("#movies").empty();
+	  console.log(data);
+	  
       $.each(data.results, function(index, movie) {
 				var output = '<li class="search_item" id="' + movie.id + '"><span id="title">' + movie.original_title + ' (' + movie.release_date + ')</span><span id="thumb"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92' + movie.poster_path + '" /></thumb></li>';
 				$("#movies").append(output);
@@ -20,12 +22,14 @@ $(document).ready(function() {
 		});
 	}
 
-	function ajaxCall(searchValue) {
-        $.ajax({
-        url: moviesSearchUrl + '&query=' + encodeURI(searchValue),
-        dataType: "jsonp",
-        success: searchCallback
-        });
+	function ajaxCall(url, controller, action, searchString, callBack) {
+          $.ajax({
+                    type: 'GET',
+                        url: url + controller + action,
+                        data: { search: searchString },
+						dataType: "json",
+                        success: callBack
+           });
 	}
 
 	$('#searchBox').keyup(function(event){
@@ -35,7 +39,7 @@ $(document).ready(function() {
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
 				 if ($current.length) {
-					document.location = baseURL + 'movies/' + $current.attr('id');
+					document.location = '/www-tek/th-movies/movies/' + $current.attr('id');
 					//console.log($current.attr('id'));
 					} 
 			} else if (event.keyCode === 40) {
@@ -61,7 +65,7 @@ $(document).ready(function() {
 			var searchValue = $(this).val();
 			if(searchValue.length > 3) {
 				if(searchValue != lastSearchValue) {
-					ajaxCall(searchValue);
+					ajaxCall(appUrl, "movies/", "searchMovies", searchValue, searchCallBack);
 				}
 				lastSearchValue = searchValue;
 			} else {
@@ -74,7 +78,7 @@ $(document).ready(function() {
 	});
 
 $('#movies').delegate('li', 'click', function() {
-		document.location = baseURL + 'movies/' + this.id;
+		document.location = '/www-tek/th-movies/movies/' + this.id;
 });
 });
 

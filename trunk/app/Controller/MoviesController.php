@@ -4,6 +4,7 @@ class MoviesController extends AppController {
 	private $user;
 	private $apikey = 'a8049ffed9e54f709cc42647f7a42722';
 	private $rtBase = 'http://api.themoviedb.org/3/movie/';
+	private $searchURL = "http://api.themoviedb.org/3/search/movie";
 	var $components = array('RequestHandler');
 
 	public function beforeFilter() {
@@ -16,7 +17,7 @@ class MoviesController extends AppController {
 		elseif(isset($this->data['movie_id']))
 			$this->movie_id = $this->data['movie_id'];
 		else
-			$this->setAction('movieList');
+			//$this->setAction('movieList');
 
 		if(isset($this->movie_id) && $this->user) {
 			$this->Rating->data = $this->Rating->find('first', array('conditions' => array('user_id' => $this->user['id'], 'movie_id' => $this->movie_id)));
@@ -25,9 +26,10 @@ class MoviesController extends AppController {
 				$this->Rating->set(array('user_id' => $this->user['id'], 'movie_id' => $this->movie_id));
 			} else
 				$this->Rating->id = $this->Rating->data['Rating']['movie_rating_id'];
-		}	
+		}
 	}
-
+	
+	
 	public function movieList() {
 		echo "Cool list of movies or something";
 	}
@@ -50,6 +52,17 @@ class MoviesController extends AppController {
 			else
 				$this->Rating->save($this->data);
 		}	
+	}
+	
+	public function searchMovies() {
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+			if(isset($_GET['search'])) {
+				$searchResult = $this->get_json($this->searchURL .'?api_key=' . $this->apikey . '&query=' . urlencode($_GET['search']));
+				print($searchResult);
+			}
+			
+		}
 	}
 
 	private function get_json($url) {
