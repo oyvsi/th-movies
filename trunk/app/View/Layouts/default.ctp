@@ -17,14 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
@@ -41,6 +39,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->script('jquery.raty');
 		echo $this->Html->script('thMovies.jquery');
 		echo $this->Html->script('searchBar.jquery');
+		echo $this->Html->script('loadDiv.jquert.s');
 	?>
 </head>
 <body>
@@ -53,6 +52,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
+		</div>
+		<div id="sidebar">
+			<?php echo $this->fetch('sideBar'); ?>
 		</div>
 
 		<div id="footer">
