@@ -39,7 +39,7 @@
 		echo $this->Html->script('jquery.raty');
 		echo $this->Html->script('thMovies.jquery');
 		echo $this->Html->script('searchBar.jquery');
-		echo $this->Html->script('loadDiv.jquert.s');
+		echo $this->Html->script('loadDiv.jquery');
 	?>
 </head>
 <body>
