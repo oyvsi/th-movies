@@ -12,6 +12,17 @@ class UsersController extends AppController {
 		//$this->set('user', $this->Auth->user());
 		//$this->set('users', $this->paginate());
 		$user = $this->User->read(null, $this->Auth->user('id'));
+		$this->set('ratedMovies', $this->User->Rating->find('all', 
+		array(	'conditions' => array('User.username' => $this->Auth->user('username')) ,
+				'order' => array('Rating.rating DESC'),
+				'limit' => 3 
+		)));
+		$this->set('latestMovies', $this->User->Rating->find('all', 
+		array(	'conditions' => array('User.username' => $this->Auth->user('username')) ,
+				'order' => array('Rating.modified DESC'),
+				'limit' => 3 
+		)));
+
 		$this->set('user', $user);
 	}
 
