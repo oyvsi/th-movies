@@ -4,7 +4,7 @@
 </div>
 
 <div id="movie_info">
-	<?php if($movie): ?>
+	<?php if($movie): print_r($movie);?>
 		<span id="title"><?php echo $movie->title; ?> </span>
 		<div id="description"><?php echo $movie->overview; ?> </div>
 	<?php endif; ?>
