@@ -113,7 +113,27 @@ p {
 	background: #003d4c;
 	text-decoration: underline;
 }
+#sidebar {
+	width: 15%;
+	float: right;
+	background: #003d4c;
+	text-decoration: none;
+}
+#sidebar ul li {
+	list-style-type: none;
+	border: none;
+	margin-left: 0px;
+}
+#sidebar a {
+	color: #C0C0C0;	
+	text-decoration: none;
+}
+#sidebar a:hover {
+	color: white;
+}
 #content{
+	width: 80%;
+	float: left;
 	background: #fff;
 	clear: both;
 	color: #333;
