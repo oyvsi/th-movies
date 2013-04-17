@@ -456,5 +456,9 @@ class TimeHelper extends AppHelper {
 	public function i18nFormat($date, $format = null, $invalid = false, $timezone = null) {
 		return $this->_engine->i18nFormat($date, $format, $invalid, $timezone);
 	}
+	
+	public function readableTime($time) {
+		return date("m.d.y, G:i:s", strtotime($time));
+	}
 
 }
