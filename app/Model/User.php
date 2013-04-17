@@ -1,6 +1,8 @@
 <?php
 class User extends AppModel {
     
+    public $hasMany = array('Rating' => array('className' => 'Rating', 'foreignKey' => 'movie_rating_id'));
+    
     public $validate = array(
       'username' => array(
           array(
