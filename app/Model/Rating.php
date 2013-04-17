@@ -1,6 +1,9 @@
 <?php
 class Rating extends AppModel {
-	var $primaryKey = 'movie_rating_id';    
+	public $primaryKey = 'movie_rating_id';    
+	public $belongsTo = array('Movie' => array('className' => 'Movie', 'foreignKey' => 'movie_id'),
+							  		  'User' => array('className' => 'User', 'foreignKey' => 'user_id'));
+
  /*   public $validate = array(
       'movie_id' => array(
           array(

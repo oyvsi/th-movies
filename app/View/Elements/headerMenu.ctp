@@ -8,7 +8,7 @@
 		</li>
 		<li>
 			<?php
-			echo $this->Html->link('Movies', '/movies'); 
+			echo $this->Html->link('Movies', '/movies/rated/'); 
 			?>
 		</li>
 		<li>
