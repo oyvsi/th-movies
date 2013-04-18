@@ -10,16 +10,19 @@
 		echo "<p>" . $user['User']['email'];
 	?>
 </div>
+
 <div class="groups">
 	<h3>Gruppemedlemskap:</h3>
+	<table>
 	<?php //echo "<pre>"; print_r($groups); echo "</pre>";
-	foreach($groups as $group):
+	foreach($groups as $group):?><tr><td><?php
 		$link = '<a href="' . Router::url('/groups/') . $group['Group']['id'] . '">' . $group['Group']['groupName'] . '</a>';
-		echo $link;
+		echo $link;?></td></tr><?php
 	endforeach;	
 	?>
-
+	</table>
 </div>
+
 <div id="ratedMovies">
 	<h3>Top three movies for <?php echo $user['User']['username'];?></h3>
 	<table>
