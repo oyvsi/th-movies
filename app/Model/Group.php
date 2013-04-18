@@ -1,6 +1,6 @@
 <?php
 	
-class GroupModel extends AppModel {
+class Group extends AppModel {
 	$primaryKey 
 		
 	
