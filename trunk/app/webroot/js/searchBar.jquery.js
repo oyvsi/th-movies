@@ -4,6 +4,7 @@ $(document).ready(function() {
 	var baseUrl = "http://api.themoviedb.org/3/search/";
 	var moviesSearchUrl = baseUrl + 'movie?api_key=' + apikey;
 	var lastSearchValue = '';
+	var $prev, $next, $current;
 	
 	function searchCallBack(data) {
       $("#movies").empty();
@@ -35,7 +36,7 @@ $(document).ready(function() {
 	$('#searchBox').keyup(function(event){
 		var inputRegEx = new RegExp("^[a-zA-Z0-9]+$");  
 		var allowedKeys = new Array(27, 40, 8);
-		var $prev, $next, $current = $("#movies li.selected");		
+		$prev, $next, $current = $("#movies li.selected");		
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
 				 if ($current.length) {
@@ -80,6 +81,16 @@ $(document).ready(function() {
 $('#movies').delegate('li', 'click', function() {
 		document.location = baseURL + 'movies/' + this.id;
 });
+$('#movies').mouseover(function(){
+	$next.removeClass('selected');
+});
+
+$('#movies').mouseout(function(){
+	$next.addClass('selected');
+});
+
+
+
 });
 
 
