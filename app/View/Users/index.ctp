@@ -3,11 +3,22 @@
 	<p>User: <?php echo $user['User']['username'];
 	if ($user['User']['role'] === "admin") {
 		echo " <b>(admin)</b>";
-	} ?> </p>
+	}?> 
+	</p>
 	<?php 
 		echo "<p>" . $user['User']['firstName'] . " " . $user['User']['lastName'] . "</p>";
 		echo "<p>" . $user['User']['email'];
 	?>
+</div>
+<div class="groups">
+	<h3>Gruppemedlemskap:</h3>
+	<?php //echo "<pre>"; print_r($groups); echo "</pre>";
+	foreach($groups as $group):
+		$link = '<a href="' . Router::url('/groups/') . $group['Group']['id'] . '">' . $group['Group']['groupName'] . '</a>';
+		echo $link;
+	endforeach;	
+	?>
+
 </div>
 <div id="ratedMovies">
 	<h3>Top three movies for <?php echo $user['User']['username'];?></h3>
