@@ -16,6 +16,10 @@
 			echo $this->Html->link('Profil', '/users'); 
 			?>
 		</li>
+		<li>
+			<?php if ($this->Session->read('Auth.User')) { echo $this->Html->link('Groups', '/groups'); }  
+			?>
+		</li>
 				</ul>
 </div>
 <div id="search">
