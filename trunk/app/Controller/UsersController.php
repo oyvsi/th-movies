@@ -23,6 +23,9 @@ class UsersController extends AppController {
 				'limit' => 3 
 		)));
 
+		$this->set('groups', $this->User->Membership->find('all', array('conditions' => array('User.username' => $this->Auth->user('username')))));
+
+
 		$this->set('user', $user);
 	}
 
