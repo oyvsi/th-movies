@@ -12,10 +12,12 @@ class MoviesController extends AppController {
 		//$this->loadModel('Rating');
 		$this->user = $this->Auth->user();
 
+		// Regular request
 		if(isset($this->request->params['id']))
 			$this->movie_id = $this->request->params['id'];
-		elseif(isset($this->data['movie_id']))
-			$this->movie_id = $this->data['movie_id'];
+		// For ajax
+		elseif(isset($this->data['id']))
+			$this->movie_id = $this->data['id'];
 
 		if(isset($this->movie_id) && $this->user) {
 			$this->Movie->Rating->data = $this->Movie->Rating->find('first', array('conditions' => array('Rating.user_id' => $this->user['id'], 'Rating.movie_id' => $this->movie_id)));
@@ -24,7 +26,7 @@ class MoviesController extends AppController {
 				$this->Movie->Rating->set(array('user_id' => $this->user['id'], 'movie_id' => $this->movie_id));
 			} else
 				$this->Movie->Rating->id = $this->Movie->Rating->data['Rating']['movie_rating_id'];
-		}
+		} 	
 	}
 	
 	
@@ -38,7 +40,8 @@ class MoviesController extends AppController {
 			$movie = json_decode($this->get_json($this->rtBase . $this->movie_id . '?api_key=' . $this->apikey));
 			$this->Movie->save(array('id' => $movie->id, 'title' => $movie->title, 'year' => substr($movie->release_date, 0, 4))); 
 		}	
-		$this->set('movie', ($this->Movie->data['Movie']));
+
+		$this->set('movie', $this->Movie->data);
 		$this->render('index');
 	}
 
