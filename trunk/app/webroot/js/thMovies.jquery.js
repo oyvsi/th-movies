@@ -33,5 +33,14 @@ $(document).ready(function() {
 			$('#rating-hint').html('');
 		};	
 		ajaxPost('movies/drop', {id: $(this).parent().attr("id")}, callback); 
-	});		
+	});	
+	
+	$('.membership').bind("click", function() {
+		var id = $(this).attr("id");
+		var callback =  function() {
+			console.log('cool beans');
+			$('.membership#' + id ).html('<span class="feedback"> Request sent</span>');
+		};	
+		ajaxPost('groups/requestMembership', {id: $(this).attr("id")}, callback); 
+	});
 });
