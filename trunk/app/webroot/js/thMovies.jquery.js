@@ -1,17 +1,15 @@
-function sendRating(rating) {
-	var id = $('.rating').attr('id');
-	//console.log("This is where we get our ajax on. Vars in: " + rating + 'on movie: ' + id);
-
+function ajaxPost(url, data, callback) {
 	$.ajax({
 		type: 'POST',
-		url: baseURL + 'movies/rate',
-		data: { id: id, rating: rating },
-	}).done(function(result) {
-		console.log('good ajax gave us:' + result);
-		
+		url: baseURL + url,
+		data: data,
+		success: callback
 	});
 }
 
+function test() {
+	console.log("Call back");
+}
 $(document).ready(function() {
 	$('#star').raty({
 		path: baseURL + '/js/img/',
@@ -20,9 +18,20 @@ $(document).ready(function() {
 		target: '#rating-hint',
 		targetKeep: true,
 		width: false,
-		click: sendRating,
+		click: function(rating) {
+			ajaxPost('movies/rate', {id: $(this).parent().attr("id"), rating: rating });
+		},
 		score: function() {
-		     return $(this).attr('data-score');
+			return $(this).attr('data-score');
 		}
 	});
+
+	$('#drop_rating').bind("click", function() {
+		var callback =  function() {
+			console.log('cool beans');
+			$('#star').raty('score', 0);
+			$('#rating-hint').html('');
+		};	
+		ajaxPost('movies/drop', {id: $(this).parent().attr("id")}, callback); 
+	});		
 });
