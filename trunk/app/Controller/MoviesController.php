@@ -9,7 +9,6 @@ class MoviesController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		//$this->loadModel('Rating');
 		$this->user = $this->Auth->user();
 
 		// Regular request
@@ -28,17 +27,22 @@ class MoviesController extends AppController {
 				$this->Movie->Rating->id = $this->Movie->Rating->data['Rating']['movie_rating_id'];
 		} 	
 	}
-	
-	
-		public function view() {
+
+
+	public function view() {
 		if($this->user && isset($this->Movie->Rating->data['Rating']['rating'])) {
 			$this->set('rating', $this->Movie->Rating->data['Rating']['rating']);
 		}
 
-		$this->Movie->data = $this->Movie->find('first', array('conditions' => array('Movie.id' => $this->movie_id)));
-		if(!$this->Movie->data) { 
-			$movie = json_decode($this->get_json($this->rtBase . $this->movie_id . '?api_key=' . $this->apikey));
-			$this->Movie->save(array('id' => $movie->id, 'title' => $movie->title, 'year' => substr($movie->release_date, 0, 4))); 
+		$query = $this->Movie->find('first', array('conditions' => array('Movie.id' => $this->movie_id)));
+
+		if($query) {
+			$this->Movie->data = $query['Movie'];
+		}	else { 
+			$movie = json_decode($this->get_json($this->rtBase . $this->movie_id . '?api_key=' . $this->apikey), true);
+			//$this->Movie->create();
+			$this->Movie->save($movie);
+			$this->Movie->data = $movie;	
 		}	
 
 		$this->set('movie', $this->Movie->data);
@@ -60,7 +64,7 @@ class MoviesController extends AppController {
 			$user = $this->user['username'];
 		$this->set('ratedMovies', $this->Movie->Rating->find('all', array('conditions' => array('User.username' => $user))));
 	}	
-	
+
 	public function searchMovies() {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
