@@ -1,6 +1,6 @@
 <?php
 class Movie extends AppModel {
-	public $primaryKey = 'movie_id';    
+	public $primaryKey = 'id';    
 	public $hasMany = array('Rating' => array('className' => 'Rating', 'foreignKey' => 'movie_rating_id'));
 ///	public $hasOne = 'Movie';
 

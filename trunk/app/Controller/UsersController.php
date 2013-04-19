@@ -4,7 +4,7 @@ class UsersController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add');
+		$this->Auth->allow('add', 'logout');
 	}
 
 	public function index() {
@@ -29,12 +29,13 @@ class UsersController extends AppController {
 		$this->set('user', $user);
 	}
 
-	public function view($id = null) {
+	public function view($id) {
 		$this->User->id = $id;
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
 		}
-		$this->set('user', $this->User->read(null, $id));
+		$this->set('userInfo', $this->User->findById($id)); 
+		$this->set('membership', $this->User->Membership->find('all', array('conditions' => array('User.id' => $id))));
 	}
 
 	public function add() {

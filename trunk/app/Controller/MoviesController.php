@@ -33,10 +33,10 @@ class MoviesController extends AppController {
 			$this->set('rating', $this->Movie->Rating->data['Rating']['rating']);
 		}
 
-		$this->Movie->data = $this->Movie->find('first', array('conditions' => array('Movie.movie_id' => $this->movie_id)));
+		$this->Movie->data = $this->Movie->find('first', array('conditions' => array('Movie.id' => $this->movie_id)));
 		if(!$this->Movie->data) { 
 			$movie = json_decode($this->get_json($this->rtBase . $this->movie_id . '?api_key=' . $this->apikey));
-			$this->Movie->save(array('movie_id' => $movie->id, 'movie_title' => $movie->title, 'movie_year' => substr($movie->release_date, 0, 4))); 
+			$this->Movie->save(array('id' => $movie->id, 'title' => $movie->title, 'year' => substr($movie->release_date, 0, 4))); 
 		}	
 		$this->set('movie', ($this->Movie->data['Movie']));
 		$this->render('index');

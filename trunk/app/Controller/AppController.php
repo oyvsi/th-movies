@@ -42,6 +42,7 @@ class AppController extends Controller {
 			),
 			'Form'
 		);
+		 $this->Auth->logoutRedirect = '/';
 	}
 
 	public function isAuthorized($user) {

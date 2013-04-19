@@ -1,30 +1,35 @@
-
-<div id="menu">
+<?php if ($this->Session->read('Auth.User')) { echo "
+<div id=\"menu\">
 	<ul>
 		<li>
-			<?php
-			echo $this->Html->link('Home', '/pages/home'); 
-			?>
+			" . $this->Html->link('Home', '/pages/home') . "
+			
 		</li>
 		<li>
-			<?php
-			echo $this->Html->link('Movies', '/movies/rated/'); 
-			?>
+			" . $this->Html->link('Movies', '/movies/rated/') . "
 		</li>
 		<li>
-			<?php
-			echo $this->Html->link('Profil', '/users'); 
-			?>
+			
+			" . $this->Html->link('Profil', '/users') . "
+			
 		</li>
 		<li>
-			<?php if ($this->Session->read('Auth.User')) { echo $this->Html->link('Groups', '/groups'); }  
-			?>
+			" . $this->Html->link('Groups', '/groups') . " 
+			
 		</li>
-				</ul>
+		<li>
+			" . $this->Html->link('Log out', '/users/logout') . " 
+			
+		</li>
+</ul>
 </div>
-<div id="search">
-<input type="text" id="searchBox" >
-<ul id="movies"></ul>
-</div>
+<div id=\"search\">
+<input type=\"text\" id=\"searchBox\" >
+<ul id=\"movies\"></ul>
+</div>";
+} else { echo " <div id=\"menu\">
+		 <li>
+			" . $this->Html->link('Login', '/users/login') . "
+		</li> </div>"; }?>
 
 
