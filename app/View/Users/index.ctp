@@ -24,7 +24,7 @@
 </div>
 
 <div id="ratedMovies">
-	<h3>Top three movies for <?php echo $user['User']['username'];?></h3>
+	<h3>Top three movies for <?php echo $userInfo['User']['username'];?></h3>
 	<table>
 		<?php	
 		foreach($ratedMovies as $movie): 
@@ -33,7 +33,7 @@
 			<tr><?php echo '<td>' . implode('</td><td>', $data) . '</td>';  ?></tr>
 	<?php endforeach; ?>
 	</table>
-	<h3>Latest ratings for <?php echo $user['User']['username'];?></h3>
+	<h3>Latest ratings for <?php echo $userInfo['User']['username'];?></h3>
 	<table>
 		<?php	//TimeHelper::
 	foreach($latestMovies as $movie):

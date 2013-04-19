@@ -6,11 +6,11 @@
 			
 		</li>
 		<li>
-			" . $this->Html->link('Movies', '/movies/rated/') . "
+			" . $this->Html->link('Movies', '/movies/rated') . "
 		</li>
 		<li>
 			
-			" . $this->Html->link('Profil', '/users') . "
+			" . $this->Html->link('Profil', '/users/view/') . "
 			
 		</li>
 		<li>

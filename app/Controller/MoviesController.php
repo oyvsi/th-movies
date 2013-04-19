@@ -7,6 +7,9 @@ class MoviesController extends AppController {
 	private $searchURL = "http://api.themoviedb.org/3/search/movie";
 	var $components = array('RequestHandler');
 
+	public function index() {
+	}
+	
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->user = $this->Auth->user();
@@ -62,7 +65,11 @@ class MoviesController extends AppController {
 	public function rated($user = null) {
 		if($user === null)
 			$user = $this->user['username'];
-		$this->set('ratedMovies', $this->Movie->Rating->find('all', array('conditions' => array('User.username' => $user))));
+		$data = $this->Movie->Rating->find('all', array('conditions' => array('User.username' => $user)));
+		($data) ? $this->set('ratedMovies', $data) : $this->set('noContent', true);
+		
+			 
+		
 	}	
 
 	public function searchMovies() {

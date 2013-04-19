@@ -8,35 +8,30 @@ class UsersController extends AppController {
 	}
 
 	public function index($user = null) {
-		print_r($user);
 		$this->User->recursive = 0;
 		//$this->set('user', $this->Auth->user());
 		//$this->set('users', $this->paginate());
 		//$user = $this->User->read(null, $this->Auth->user('id'));
+	}
+
+	public function view($user = null) {
+		if($user === null)
+			$user = $this->Auth->user('username');
 		$this->set('ratedMovies', $this->User->Rating->find('all', 
-		array(	'conditions' => array('User.username' => $this->Auth->user('username')) ,
+		array(	'conditions' => array('User.username' => $user) ,
 				'order' => array('Rating.rating DESC'),
 				'limit' => 3 
 		)));
 		$this->set('latestMovies', $this->User->Rating->find('all', 
-		array(	'conditions' => array('User.username' => $this->Auth->user('username')) ,
+		array(	'conditions' => array('User.username' => $user) ,
 				'order' => array('Rating.modified DESC'),
 				'limit' => 3 
 		)));
 
-		$this->set('groups', $this->User->Membership->find('all', array('conditions' => array('User.username' => $this->Auth->user('username')))));
+		$this->set('groups', $this->User->Membership->find('all', array('conditions' => array('User.username' => $user))));
 
 
-		$this->set('user', $user);
-	}
-
-	public function view($id) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$this->set('userInfo', $this->User->findById($id)); 
-		$this->set('membership', $this->User->Membership->find('all', array('conditions' => array('User.id' => $id))));
+		$this->set('userInfo', $this->User->findByUsername($user));
 	}
 
 	public function add() {
