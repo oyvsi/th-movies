@@ -28,6 +28,10 @@
 	cursor: pointer;
 }
 
+#drop_rating {
+	cursor: pointer;
+}
+
 .search_item:hover {
 	background-color: #66BBEE;
 	font-weight: bold;

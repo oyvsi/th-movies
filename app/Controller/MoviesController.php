@@ -54,12 +54,19 @@ class MoviesController extends AppController {
 
 	public function rate() {
 		if($this->request->is('ajax')) {
-			$this->layout = 'ajax';
+			$this->autoRender = false;
 			if($this->Movie->Rating->id)
 				$this->Movie->Rating->saveField('rating', $this->data['rating']);
 			else
 				$this->Movie->Rating->save($this->data);
 		}	
+	}
+
+	public function drop() {
+		if($this->request->is('ajax')) {
+			$this->autoRender = false;
+			$this->Movie->Rating->delete();
+		}
 	}
 
 	public function rated($user = null) {
