@@ -5,7 +5,7 @@ function sendRating(rating) {
 	$.ajax({
 		type: 'POST',
 		url: baseURL + 'movies/rate',
-		data: { movie_id: id, rating: rating },
+		data: { id: id, rating: rating },
 	}).done(function(result) {
 		console.log('good ajax gave us:' + result);
 		

@@ -7,11 +7,12 @@ class UsersController extends AppController {
 		$this->Auth->allow('add', 'logout');
 	}
 
-	public function index() {
+	public function index($user = null) {
+		print_r($user);
 		$this->User->recursive = 0;
 		//$this->set('user', $this->Auth->user());
 		//$this->set('users', $this->paginate());
-		$user = $this->User->read(null, $this->Auth->user('id'));
+		//$user = $this->User->read(null, $this->Auth->user('id'));
 		$this->set('ratedMovies', $this->User->Rating->find('all', 
 		array(	'conditions' => array('User.username' => $this->Auth->user('username')) ,
 				'order' => array('Rating.rating DESC'),
