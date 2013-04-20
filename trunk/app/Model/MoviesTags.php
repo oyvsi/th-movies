@@ -1,18 +1,11 @@
 <?php
-class Movie extends AppModel {
-	public $primaryKey = 'id';    
-	public $hasMany = array('Rating' => array('className' => 'Rating', 'foreignKey' => 'movie_rating_id',), 'MoviesTags' /*'MovieTag' => array('className' => 'MovieTag', 'foreignKey' => 'movie_id')*/);
-/*	public $hasAndBelongsToMany = array(
-												'Tag' => 
-													array(
-														'className' => 'Tag',
-														'with' => 'MoviesTags',
-														'associationForeignKey'  => 'movie_id',
-														'fields' => 'Tag.tag'
-													)
-														
-														);
- */
+class MoviesTags extends AppModel {
+	public $actAs = array('Containable');
+	public $belongsTo = array('Tag', 'Movie');	
+//	public $hasOne = array('Tag' => array('className' => 'Tag', 'foreignKey' => 'tag_id')); 
+//	public $hasAndBelongsToMany = array('Movie' => array('className' => 'Movie', 'foreignKey' => 'movie_id'));
+
+//	public $hasMany = array('Rating' => array('className' => 'Rating', 'foreignKey' => 'movie_rating_id'));
 ///	public $hasOne = 'Movie';
 
  /*   public $validate = array(
