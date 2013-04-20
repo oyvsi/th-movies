@@ -1,4 +1,5 @@
-<?php if ($this->Session->read('Auth.User')) { echo "
+<?php $user = $this->Session->read('Auth.User');
+		if ($user) { echo "
 <div id=\"menu\">
 	<ul>
 		<li>
@@ -20,7 +21,11 @@
 		<li>
 			" . $this->Html->link('Log out', '/users/logout') . " 
 			
-		</li>
+		</li> 
+		    "; if($user['role'] === 'admin') echo "<li>
+			" . $this->Html->link('Requests', '/groups/listRequests') . " 
+			</li>";
+		echo "
 </ul>
 </div>
 <div id=\"search\">
