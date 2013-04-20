@@ -61,7 +61,6 @@ class MoviesController extends AppController {
 				$this->Movie->Rating->saveField('rating', $this->data['rating']);
 			else
 				$this->Movie->Rating->save($this->data);
-				print_r($this->data);
 		}	
 	}
 
