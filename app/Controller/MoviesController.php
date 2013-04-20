@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 class MoviesController extends AppController {
 	private $user;
 	private $apikey = 'a8049ffed9e54f709cc42647f7a42722';
@@ -28,7 +27,8 @@ class MoviesController extends AppController {
 				$this->Movie->Rating->set(array('user_id' => $this->user['id'], 'movie_id' => $this->movie_id));
 			} else
 				$this->Movie->Rating->id = $this->Movie->Rating->data['Rating']['movie_rating_id'];
-		} 	
+		} 
+
 	}
 
 
@@ -36,8 +36,10 @@ class MoviesController extends AppController {
 		if($this->user && isset($this->Movie->Rating->data['Rating']['rating'])) {
 			$this->set('rating', $this->Movie->Rating->data['Rating']['rating']);
 		}
-
-		$query = $this->Movie->find('first', array('conditions' => array('Movie.id' => $this->movie_id)));
+ 
+		$this->Movie->Behaviors->attach('Containable');
+		$query = $this->Movie->find('first', array('contain' => array('MoviesTags.Tag'), 'conditions' => array('Movie.id' => $this->movie_id)));
+		$this->Movie->Behaviors->detach('Containable');
 
 		if($query) {
 			$this->Movie->data = $query['Movie'];
@@ -47,7 +49,7 @@ class MoviesController extends AppController {
 			$this->Movie->save($movie);
 			$this->Movie->data = $movie;	
 		}	
-
+		$this->set('tags', $query['MoviesTags']); 
 		$this->set('movie', $this->Movie->data);
 		$this->render('index');
 	}

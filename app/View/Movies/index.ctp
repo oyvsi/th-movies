@@ -9,3 +9,15 @@
 		<span id="title"><?php if(isset($movie)) echo $movie['title']; ?> </span>
 		<div id="description"><?php //echo $movie->overview; ?> </div>
 </div>
+<div id="tags">
+<h4>Tags</h4>
+<?php 
+echo $this->Form->create('Tag', array('url' => array('controller' => 'tags', 'action' => 'add')));
+echo $this->Form->input('Tag', array('type' => 'text', 'value' => 'Add tag...'));
+echo $this->Form->end();
+
+?>
+	<?php foreach($tags as $tag): extract($tag['Tag']) ?>
+		<span class="tag" "id"="<?php echo $id ?>"><?php echo  $tag . " |"?></span>
+	<?php endforeach; ?>
+</div>
