@@ -39,8 +39,20 @@ $(document).ready(function() {
 		var id = $(this).attr("id");
 		var callback =  function() {
 			console.log('cool beans');
+			console.log(id);
 			$('.membership#' + id ).html('<span class="feedback"> Request sent</span>');
 		};	
-		ajaxPost('groups/requestMembership', {id: $(this).attr("id")}, callback); 
+		ajaxPost('groups/requestMembership', {group_id: id}, callback); 
+	});
+	
+	$("[class^='user_']").bind("click", function() {
+		var userClass = $(this).attr("class");
+		var userId = parseInt(userClass.split('_')[1]);
+		var groupId = $(this).parents('.group').attr("id");
+		var callback =  function() {
+			console.log('cool beans');
+			console.log($('.' + userClass, '.group#' + groupId).html('<span class="feedback"> User added</span>'));
+		};	
+		ajaxPost('groups/addUser', {group_id: groupId, user_id: userId}, callback); 
 	});
 });
