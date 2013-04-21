@@ -17,6 +17,6 @@ echo $this->Form->end();
 
 ?>
 	<?php foreach($tags as $tag): extract($tag['Tag']) ?>
-		<span class="tag" "id"="<?php echo $id ?>"><?php echo  $tag . " |"?></span>
+		<span class="tag" "id"="<?php echo $id ?>"><?php echo  $this->Html->link($tag, array('controller' => 'Tags', 'action' => 'findMovies', $tag)) . " |"?></span>
 	<?php endforeach; ?>
 </div>

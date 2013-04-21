@@ -1,7 +1,7 @@
 <?php
 class Movie extends AppModel {
 	public $primaryKey = 'id';    
-	public $hasMany = array('Rating' => array('className' => 'Rating', 'foreignKey' => 'movie_rating_id',), 'MoviesTags' /*'MovieTag' => array('className' => 'MovieTag', 'foreignKey' => 'movie_id')*/);
+	public $hasMany = array('Rating' => array('className' => 'Rating', 'foreignKey' => 'movie_rating_id'), 'MoviesTags' /*'MovieTag' => array('className' => 'MovieTag', 'foreignKey' => 'movie_id')*/);
 /*	public $hasAndBelongsToMany = array(
 												'Tag' => 
 													array(
