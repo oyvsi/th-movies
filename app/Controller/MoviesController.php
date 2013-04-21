@@ -64,6 +64,27 @@ class MoviesController extends AppController {
 		}	
 	}
 
+	public function tag() {
+		if($this->request->is('ajax')) 
+			$this->autoRender = false;
+		
+		$tag = $this->data['tag'];
+
+		$dbTag = $this->Movie->MoviesTags->Tag->findByTag($tag);
+		$tagMovie = false;
+		// Tag exists
+		if($dbTag) {
+			$tagMovie = $this->Movie->MoviesTags->findByTagIdAndMovieId($dbTag['Tag']['id'], $this->movie_id);
+		} else { // Add the tag
+			$data = array('tag' => $tag, 'user_id' => $this->user['id']);
+			$dbTag = $this->Movie->MoviesTags->Tag->Save($data);
+			print_r($dbTag);
+		}
+		// Add the tag to the movie
+		if(!$tagMovie)
+			$this->Movie->MoviesTags->save(array('movie_id' => $this->movie_id, 'tag_id' => $dbTag['Tag']['id']));
+	}
+
 	public function drop() {
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
@@ -77,7 +98,6 @@ class MoviesController extends AppController {
 		$data = $this->Movie->Rating->find('all', array('conditions' => array('User.username' => $user)));
 		($data) ? $this->set('ratedMovies', $data) : $this->set('noContent', true);
 		
-			 
 		
 	}	
 
