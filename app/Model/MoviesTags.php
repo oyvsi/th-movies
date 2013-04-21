@@ -1,6 +1,6 @@
 <?php
 class MoviesTags extends AppModel {
-	public $actAs = array('Containable');
+//	public $actAs = array('Containable');
 	public $belongsTo = array('Tag', 'Movie');	
 //	public $hasOne = array('Tag' => array('className' => 'Tag', 'foreignKey' => 'tag_id')); 
 //	public $hasAndBelongsToMany = array('Movie' => array('className' => 'Movie', 'foreignKey' => 'movie_id'));

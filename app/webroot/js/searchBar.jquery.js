@@ -89,8 +89,6 @@ $('#movies').mouseout(function(){
 	$next.addClass('selected');
 });
 
-
-
 });
 
 

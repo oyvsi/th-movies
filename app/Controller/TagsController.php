@@ -9,5 +9,15 @@ class TagsController extends AppController {
 		echo "<pre>";
 		print_r($tags);
 	}
+
+	public function findMovies($tag) {
+//        $query = $this->Movie->find('first', array('contain' => array('MoviesTags.Tag'), 'conditions' => array('Movie.id' => $this->movie_id)));
+
+  		$this->Tag->Behaviors->attach('Containable');
+		$movies = $this->Tag->find('all', array('contain' => array('MoviesTags.Movie.title'), 'conditions' => array('Tag.tag' => $tag)));
+		$this->set('tag', $tag);
+		if($movies) 
+			$this->set('movies', $movies[0]['MoviesTags']);
+	}
 }
 ?>

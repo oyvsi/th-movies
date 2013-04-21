@@ -59,15 +59,18 @@ $(document).ready(function() {
 	});
 
 	$('input').focus(function() {
-		$(this).attr('value', '');	
+		$(this).val('');	
+	});
+	
+	$('input').focusout(function() {
+		$(this).val('Add tag...');	
 	});
 	$("#AddTag").submit(function() {
 		var tag = $(this).find('#tag').val();
 		var movie = $('.rating').attr('id');
 		var action = $(this).attr('action');
 		var callback = function() {
-			$('#tags').append('<span class="tag">' + tag + '</span>');
-			$('#AddTag #tag').val('Add tag...');
+			$('#tags').append(' <span class="tag"><a href="' + baseURL + 'Tags/findMovies/' + tag + '">' + tag + '</a> |</span>');
 			$('#AddTag #tag').blur();
 		};
 		ajaxPost(action, {id: movie, tag: tag}, callback, false);

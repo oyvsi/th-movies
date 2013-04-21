@@ -41,6 +41,8 @@ class MoviesController extends AppController {
 		$query = $this->Movie->find('first', array('contain' => array('MoviesTags.Tag'), 'conditions' => array('Movie.id' => $this->movie_id)));
 		$this->Movie->Behaviors->detach('Containable');
 
+		print_r($query);
+
 		if($query) {
 			$this->Movie->data = $query['Movie'];
 		}	else { 
