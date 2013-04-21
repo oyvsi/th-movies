@@ -33,9 +33,11 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->Html->css('th-movies');
+		echo $this->Html->css('jquery-ui/jquery-ui');
 		echo $this->fetch('script');
 		echo $this->Html->scriptBlock('var baseURL = \'' . Router::url('/') . '\';');
 		echo $this->Html->script('jquery-1.9.1.min.js');
+		echo $this->Html->script('jquery-ui-1.10.2/ui/jquery-ui.js');
 		echo $this->Html->script('jquery.raty');
 		echo $this->Html->script('thMovies.jquery');
 		echo $this->Html->script('searchBar.jquery');
