@@ -58,11 +58,11 @@ $(document).ready(function() {
 		ajaxPost('groups/addUser', {group_id: groupId, user_id: userId}, callback); 
 	});
 
-	$('input').focus(function() {
+	$('#AddTag input').focus(function() {
 		$(this).val('');	
 	});
 	
-	$('input').focusout(function() {
+	$('#AddTag input').focusout(function() {
 		$(this).val('Add tag...');	
 		});
 	$( "#AddTag #tag" ).autocomplete({
