@@ -1,4 +1,6 @@
-function ajaxPost(url, data, callback) {
+function ajaxPost(url, data, callback, base) {
+	if(base === false)
+		 baseURL = '';
 	$.ajax({
 		type: 'POST',
 		url: baseURL + url,
@@ -55,4 +57,22 @@ $(document).ready(function() {
 		};	
 		ajaxPost('groups/addUser', {group_id: groupId, user_id: userId}, callback); 
 	});
+
+	$('input').focus(function() {
+		$(this).attr('value', '');	
+	});
+	$("#AddTag").submit(function() {
+		var tag = $(this).find('#tag').val();
+		var movie = $('.rating').attr('id');
+		var action = $(this).attr('action');
+		var callback = function() {
+			$('#tags').append('<span class="tag">' + tag + '</span>');
+			$('#AddTag #tag').val('Add tag...');
+			$('#AddTag #tag').blur();
+		};
+		ajaxPost(action, {id: movie, tag: tag}, callback, false);
+
+		return false;	
+	});
+	
 });

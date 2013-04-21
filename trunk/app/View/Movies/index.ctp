@@ -10,10 +10,9 @@
 		<div id="description"><?php //echo $movie->overview; ?> </div>
 </div>
 <div id="tags">
-<h4>Tags</h4>
 <?php 
-echo $this->Form->create('Tag', array('url' => array('controller' => 'tags', 'action' => 'add')));
-echo $this->Form->input('Tag', array('type' => 'text', 'value' => 'Add tag...'));
+echo $this->Form->create('Tag', array('id' => 'AddTag', 'url' => array('controller' => 'movies', 'action' => 'tag')));
+echo $this->Form->input('Tag', array('id' => 'tag', 'type' => 'text', 'value' => 'Add tag...'));
 echo $this->Form->end();
 
 ?>
