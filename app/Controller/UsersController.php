@@ -15,8 +15,10 @@ class UsersController extends AppController {
 	}
 
 	public function view($user = null) {
-		if($user === null)
+		if($user === null) {
 			$user = $this->Auth->user('username');
+			$this->set('userID', $this->Auth->user('id'));
+		}
 		$this->set('ratedMovies', $this->User->Rating->find('all', 
 		array(	'conditions' => array('User.username' => $user) ,
 				'order' => array('Rating.rating DESC'),
@@ -47,7 +49,7 @@ class UsersController extends AppController {
 	}
 
 	public function edit($id = null) {
-		$this->User->id = $id;
+	/*	$this->User->id = $id;
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
 		}
@@ -61,7 +63,8 @@ class UsersController extends AppController {
 		} else {
 			$this->request->data = $this->User->read(null, $id);
 			unset($this->request->data['User']['password']);
-		}
+		}*/
+		$this->set('userInfo', $this->User->findById($this->Auth->user('id')));
 	}
 
 	public function delete($id = null) {
