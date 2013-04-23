@@ -52,8 +52,8 @@ $(document).ready(function() {
 		var userId = parseInt(userClass.split('_')[1]);
 		var groupId = $(this).parents('.group').attr("id");
 		var callback =  function() {
-			console.log('cool beans');
-			console.log($('.' + userClass, '.group#' + groupId).html('<span class="feedback"> User added</span>'));
+			$('.' + userClass, '.group#' + groupId).html('<span class="feedback"> User added</span>');
+
 		};	
 		ajaxPost('groups/addUser', {group_id: groupId, user_id: userId}, callback); 
 	});

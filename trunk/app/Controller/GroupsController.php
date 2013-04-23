@@ -61,7 +61,7 @@ class GroupsController extends AppController {
 													   'MembershipRequest.user_id = User.id'
           )
       )
-   ), 'conditions' => array('Group.owner' => $this->user['id']));
+   ), 'conditions' => array('Group.owner' => $this->user['id'], 'MembershipRequest.pending' => 1));
 
 	
 		$groups = $this->Group->find('all', $temp);
@@ -80,7 +80,15 @@ class GroupsController extends AppController {
 	
 	public function addUser() {
 		if($this->request->is('ajax')) {
-			$this->autoRender = false;
+		    $this->autoRender = false;
+		    $userId = $this->request->data['user_id'];
+		    $groupId = $this->request->data['group_id'];
+		    $id = $this->Group->MembershipRequest->findByUserIdAndGroupId($userId, $groupId);
+		    print_r($id);
+		    $this->Group->MembershipRequest->id = $id['MembershipRequest']['id'];
+		    $this->Group->MembershipRequest->saveField('pending', 0);
+                    $this->Group->Membership->save($this->request->data);
+	
 		}
 	}
 	
