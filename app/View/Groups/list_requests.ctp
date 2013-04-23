@@ -1,5 +1,4 @@
 <div class="requests"> 
-	
 <?php //print_r($groups);
 			$viewArray = array();
 		   $i = 0;
