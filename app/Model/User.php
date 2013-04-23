@@ -19,14 +19,22 @@ class User extends AppModel {
       ),
       'password' => array(
           array(
-            'rule' => 'notEmpty',
-            'message' => 'Password cannot be empty'
+            	'on' => 'create',
+            	'rule' => 'notEmpty',
+            	'message' => 'Password cannot be empty'
           ),
+          array(
+          	'on' => 'update',
+          	'allowEmpty' => true,
+          	'rule' => 'notEmpty'
+          ),
+          
           array(
             'rule' => array('minLength', 4),
             'message' => 'Must be at least 4 chars' 
           ),
           array(
+          	'on' => 'create',
             'rule' => array('passCompare'),
             'message' => 'The passwords do not match'
           )
