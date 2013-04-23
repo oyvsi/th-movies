@@ -64,7 +64,17 @@ class UsersController extends AppController {
 			$this->request->data = $this->User->read(null, $id);
 			unset($this->request->data['User']['password']);
 		}*/
-		$this->set('userInfo', $this->User->findById($this->Auth->user('id')));
+//		print_r($this->request->data);
+		if($this->request->is('post') || $this->request->is('put')) {
+			if($this->User->save($this->request->data)){
+				$this->Session->setFlash(__('Updates saved'));
+				$this->redirect(array('action' => 'view'));
+			} else {
+				$this->Session->setFlash(__('The user could not be updated. Please, try again.'));
+			}
+		} else {
+			$this->set('userInfo', $this->User->findById($this->Auth->user('id')));
+		}
 	}
 
 	public function delete($id = null) {
