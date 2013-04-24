@@ -10,8 +10,6 @@ class UsersController extends AppController {
 	public function index($user = null) {
 		$this->User->recursive = 0;
 		//$this->set('user', $this->Auth->user());
-		//$this->set('users', $this->paginate());
-		//$user = $this->User->read(null, $this->Auth->user('id'));
 	}
 
 	public function view($user = null) {
@@ -41,7 +39,7 @@ class UsersController extends AppController {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'view'));
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
@@ -49,21 +47,6 @@ class UsersController extends AppController {
 	}
 
 	public function edit($id = null) {
-	/*	$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->User->read(null, $id);
-			unset($this->request->data['User']['password']);
-		}*/
 //		print_r($this->request->data);
 		if($this->request->is('post') || $this->request->is('put')) {
 			if($this->User->save($this->request->data)){
