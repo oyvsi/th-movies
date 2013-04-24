@@ -5,7 +5,7 @@
         <legend><?php echo __('Add User'); ?></legend>
         <?php echo $this->Form->input('username');
         echo $this->Form->input('password');
-        echo $this->Form->input('password_confirm');
+        echo $this->Form->input('password_confirm', array('type' => 'password'));
         echo $this->Form->input('role', array(
             'options' => array('admin' => 'Admin', 'author' => 'Author')
         ));

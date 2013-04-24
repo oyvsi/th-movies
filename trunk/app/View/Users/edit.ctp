@@ -7,6 +7,7 @@
 	echo $this->Form->input('lastName', array('id' => 'lastName', 'type' => 'text', 'value' => $userInfo['User']['lastName']));
 	echo $this->Form->input('email', array('id' => 'email', 'type' => 'email', 'value' => $userInfo['User']['email']));
 	echo $this->Form->input('password', array('id' => 'password', 'type' => 'password'));
+	echo $this->Form->input('password_confirm', array('id' => 'password_confirm', 'type' => 'password'));
 	echo $this->Form->end('Submit');
 
  ?>
