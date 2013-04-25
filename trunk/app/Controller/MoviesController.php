@@ -93,6 +93,38 @@ class MoviesController extends AppController {
 			$this->Movie->Rating->delete();
 		}
 	}
+	
+	public function top() {
+		
+		$ratings = $this->Movie->Rating->find('all', array(
+				'order' => array('Rating.movie_id ASC')));
+				
+		//$this->set('ratings', $ratings);
+		$lastMovie = NULL; $thisMovie = NULL; $totRating = 0; $numRating = 1; $i = 0;
+		$movieRatings = array();
+
+		foreach($ratings as $rating) {
+			$thisMovie = $rating['Rating']['movie_id'];
+			if($lastMovie ===  $thisMovie) {
+				$totRating += $rating['Rating']['rating'];
+				$numRating++;
+			} else {
+				if ($i) { 
+					$movieRatings[$i - 1]['score'] = $totRating / $numRating;
+				}
+				$numRating = 1;
+				$totRating = $rating['Rating']['rating'];
+				$movieRatings[$i]['score'] = 0;
+				$movieRatings[$i++]['title'] = $rating['Movie']['title'];
+			}
+			
+			$lastMovie = $thisMovie;
+		}
+		$movieRatings[$i - 1]['score'] = $totRating / $numRating;
+		arsort($movieRatings);
+		$this->set('rated', $movieRatings);
+		
+	}
 
 	public function rated($user = null) {
 		if($user === null)

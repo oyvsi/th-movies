@@ -1,3 +1,4 @@
+<div><?php echo $this->Html->Link('Top 100 movies', '/movies/top') ?></div>
 <?php if(isset($noContent)) { 
 		echo "My goodness, no movies rated? Use the search bar or visit " . $this->Html->Link('the Movies gallery', '/movies/'); 
 	  } else { 
