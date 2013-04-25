@@ -107,14 +107,16 @@ class MoviesController extends AppController {
 			$thisMovie = $rating['Rating']['movie_id'];
 			if($lastMovie ===  $thisMovie) {
 				$totRating += $rating['Rating']['rating'];
-				$numRating++;
+				$movieRatings[$i - 1]['count'] = ++$numRating;
 			} else {
 				if ($i) { 
 					$movieRatings[$i - 1]['score'] = $totRating / $numRating;
 				}
 				$numRating = 1;
 				$totRating = $rating['Rating']['rating'];
+				
 				$movieRatings[$i]['score'] = 0;
+				$movieRatings[$i]['count'] = $numRating;
 				$movieRatings[$i++]['title'] = $rating['Movie']['title'];
 			}
 			
