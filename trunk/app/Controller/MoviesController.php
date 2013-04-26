@@ -98,34 +98,26 @@ class MoviesController extends AppController {
 		
 		$ratings = $this->Movie->Rating->find('all', array(
 				'order' => array('Rating.movie_id ASC')));
-				
-		//$this->set('ratings', $ratings);
-		$lastMovie = NULL; $thisMovie = NULL; $totRating = 0; $numRating = 1; $i = 0;
-		$movieRatings = array();
 
+		$movieRatings = array();
 		foreach($ratings as $rating) {
-			$thisMovie = $rating['Rating']['movie_id'];
-			if($lastMovie ===  $thisMovie) {
-				$totRating += $rating['Rating']['rating'];
-				$movieRatings[$i - 1]['count'] = ++$numRating;
+			$movieRatings[$rating['Rating']['movie_id']]['rating'] = 0;
+			$movieRatings[$rating['Rating']['movie_id']]['title'] = $rating['Movie']['title'];
+			if(!isset($movieRatings[$rating['Rating']['movie_id']]['score'])) { 
+				$movieRatings[$rating['Rating']['movie_id']]['score'] = $rating['Rating']['rating'];
+				$movieRatings[$rating['Rating']['movie_id']]['count'] = 1;
 			} else {
-				if ($i) { 
-					$movieRatings[$i - 1]['score'] = $totRating / $numRating;
-				}
-				$numRating = 1;
-				$totRating = $rating['Rating']['rating'];
-				
-				$movieRatings[$i]['score'] = 0;
-				$movieRatings[$i]['count'] = $numRating;
-				$movieRatings[$i++]['title'] = $rating['Movie']['title'];
+				$movieRatings[$rating['Rating']['movie_id']]['score'] += $rating['Rating']['rating'];
+				$movieRatings[$rating['Rating']['movie_id']]['count']++;
 			}
-			
-			$lastMovie = $thisMovie;
 		}
-		$movieRatings[$i - 1]['score'] = $totRating / $numRating;
+		
+		foreach($movieRatings as &$movieRating) {
+			$movieRating['rating'] = $movieRating['score'] / $movieRating['count'];
+		}
+		
 		arsort($movieRatings);
 		$this->set('rated', $movieRatings);
-		
 	}
 
 	public function rated($user = null) {
