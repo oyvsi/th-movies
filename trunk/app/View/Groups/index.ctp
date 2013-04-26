@@ -1,8 +1,12 @@
 
 <?php 	
+
+	echo "<input type='submit' id='newGroup'  value='New Group'/>";
+
+
 	$memberOf = array();
 	foreach($memberships as $membership) {
-	 	array_push($memberOf, $membership['Group']['groupName']) ;
+	 	array_push($memberOf, $membership['Group']['groupName']);
 	}
 	
 	foreach($groups as $group) {

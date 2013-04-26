@@ -94,7 +94,11 @@ class GroupsController extends AppController {
 	
 	
 	public function createGroup() {
-		
+		if($this->request->is('ajax')) {
+		    $this->autoRender = false;
+			$this->Group->set(array('owner' => $this->user['id']));
+			$this->Group->save($this->request->data);
+		}
 	}
 	
 	public function _getMembers($id) {
