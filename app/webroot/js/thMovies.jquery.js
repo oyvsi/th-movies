@@ -85,5 +85,42 @@ $("#AddTag").submit(function() {
 
 		return false;	
 		});
-
+		
+		
+$(document).on('keydown', 'input.groupName', function(event) {
+		if(event.keyCode == 27) {
+			$('#newGroupWrapper').replaceWith("<input type='submit' id='newGroup'  value='New Group'/>");
+		}
+			
+		if(event.keyCode == 13) {
+			$('.submitGroup').click();
+		}
+			
 });
+
+$(document).on("click", 'input#newGroup', function() {
+		var html = $(this).html();
+		$(this).replaceWith("<div id='newGroupWrapper'> <input class='groupName' type='text' value='Group name...'> <input class='submitGroup' type='submit'></div>");
+		$('input.groupName').focus();
+	
+});		
+
+$(document).on("click", '.submitGroup', function() {
+		var groupName = $('.groupName').val();
+		var callback = function() {
+			$('#newGroupWrapper').replaceWith('<p> Group created </p>');
+		};
+		if(groupName.length > 3) {
+			ajaxPost('/groups/createGroup', {groupName: groupName}, callback, true);
+		} else {
+			$('#newGroupWrapper').append("<p class='error'> The name must be longer then 3 chars </p>");
+		}
+			
+});	
+
+	
+});
+
+
+
+
