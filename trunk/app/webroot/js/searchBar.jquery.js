@@ -5,7 +5,9 @@ $(document).ready(function() {
 	var moviesSearchUrl = baseUrl + 'movie?api_key=' + apikey;
 	var lastSearchValue = '';
 	var $prev, $next, $current;
-	
+	var timeOut = 400;
+	var timer = null;
+
 	function searchCallBack(data) {
       $("#movies").empty();
 	  console.log(data);
@@ -37,6 +39,7 @@ $(document).ready(function() {
 		var inputRegEx = new RegExp("^[a-zA-Z0-9]+$");  
 		var allowedKeys = new Array(27, 40, 8);
 		$prev, $next, $current = $("#movies li.selected");		
+
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
 				 if ($current.length) {
@@ -66,7 +69,10 @@ $(document).ready(function() {
 			var searchValue = $(this).val();
 			if(searchValue.length > 3) {
 				if(searchValue != lastSearchValue) {
-					ajaxCall(appUrl, "movies/", "searchMovies", searchValue, searchCallBack);
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+							ajaxCall(appUrl, "movies/", "searchMovies", searchValue, searchCallBack);
+					}, timeOut);
 				}
 				lastSearchValue = searchValue;
 			} else {

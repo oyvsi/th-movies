@@ -1,9 +1,8 @@
 function ajaxPost(url, data, callback, base) {
-	if(base === false)
-		 baseURL = '';
+	var ajaxURL = (base == false ? url : baseURL + url);
 	$.ajax({
 		type: 'POST',
-		url: baseURL + url,
+		url: ajaxURL,
 		data: data,
 		success: callback
 	});
@@ -58,26 +57,27 @@ $(document).ready(function() {
 		ajaxPost('groups/addUser', {group_id: groupId, user_id: userId}, callback); 
 	});
 
-	$('#AddTag input').focus(function() {
+	$('#AddTag #tag').focus(function() {
 		$(this).val('');	
 	});
 	
-	$('#AddTag input').focusout(function() {
-		$(this).val('Add tag...');	
-		});
-	$( "#AddTag #tag" ).autocomplete({
+	$('#AddTag #tag').focusout(function() {
+		$(this).val(this.getAttribute('value'));	
+	});
+	$("#AddTag #tag" ).autocomplete({
 		source: baseURL + "Tags/find/" + $('.rating').attr('id'),
 		minLength: 2,
 		select: function( event, ui ) {
 //			"Selected: " + ui.item.value + " aka " + ui.item.id :
 //			"Nothing selected, input was " + this.value );
 		}
-});
+	});
 $("#AddTag").submit(function() {
 		var tag = $(this).find('#tag').val();
 		var movie = $('.rating').attr('id');
 		var action = $(this).attr('action');
 		var callback = function() {
+		console.log('base: ' + baseURL);
 		$('#tags').append(' <span class="tag"><a href="' + baseURL + 'Tags/findMovies/' + tag + '">' + tag + '</a> |</span>');
 		$('#AddTag #tag').blur();
 		};
