@@ -42,7 +42,6 @@
 		echo $this->Html->script('thMovies.jquery');
 		echo $this->Html->script('searchBar.jquery');
 		echo $this->Html->script('loadDiv.jquery');
-		echo $this->Html->script('js-sort/jquery-latest');
 		echo $this->Html->script('js-sort/jquery.tablesorter');
 
 		

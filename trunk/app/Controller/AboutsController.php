@@ -16,7 +16,7 @@ class AboutsController extends AppController {
 		
 	}
 	public function about() {
-				if($this->request->is('ajax')) {
+		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
 			if(isset($_GET['search'])) {
 
