@@ -113,7 +113,7 @@ class MoviesController extends AppController {
 		}
 		
 		foreach($movieRatings as &$movieRating) {
-			$movieRating['rating'] = $movieRating['score'] / $movieRating['count'];
+			$movieRating['rating'] = number_format($movieRating['score'] / $movieRating['count'], 2);
 		}
 		
 		arsort($movieRatings);
