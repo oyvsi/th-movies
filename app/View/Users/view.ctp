@@ -1,3 +1,4 @@
+
 <div class="profileInfo">
 	<h3>User info</h3>
 	<p>User: <?php echo $userInfo['User']['username'];

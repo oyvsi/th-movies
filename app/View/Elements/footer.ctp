@@ -1,4 +1,4 @@
 
 	<?php
-		echo $this->Html->link('About us', '/about'); 
+		echo $this->Html->link('About us', '/abouts'); 
 	?>

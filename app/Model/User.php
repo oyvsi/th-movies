@@ -48,9 +48,15 @@ class User extends AppModel {
     public function passCompare() {
         return ($this->data[$this->alias]['password'] === $this->data[$this->alias]['password_confirm']);        
     }
-    
-    public function beforeSave() {
-        $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+    //exchanging the code beneath to make it compable to PHP 5.4
+    // "$optoins = array()" was not there before.
+    public function beforeSave($options = array()) {
+      if (isset($this->data[$this->alias]['password'])) {
+        $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
+        }
+
+        //exchanging the code beneath to make it compable to PHP 5.4
+        //$this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
         return true;
     }
 }
