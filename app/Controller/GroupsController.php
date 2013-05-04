@@ -21,8 +21,40 @@ class GroupsController extends AppController {
 		
 	}
 	
-	public function listGroup($id) {
-		$this->set('members', $this->_getMembers($id));
+	public function listGroup($id) {		
+		$users = $this->_getMembers($id);
+		$this->set('members', $users);
+		
+		$ratings = array();
+		foreach($users as $user) {
+			array_push($ratings, $this->Group->Membership->User->Rating->find('all', array('conditions' => array('Rating.user_id' => $user['User']['id']))));
+		}
+		
+		$this->set('data', $ratings);
+		
+		//$movies = array();
+		$movieRatings = array();
+		foreach($ratings as $rate) {
+			foreach($rate as $rating){
+				$movieRatings[$rating['Rating']['movie_id']]['rating'] = 0;
+				$movieRatings[$rating['Rating']['movie_id']]['title'] = $rating['Movie']['title'];
+				if(!isset($movieRatings[$rating['Rating']['movie_id']]['score'])) { 
+					$movieRatings[$rating['Rating']['movie_id']]['score'] = $rating['Rating']['rating'];
+					$movieRatings[$rating['Rating']['movie_id']]['count'] = 1;
+				} else {
+					$movieRatings[$rating['Rating']['movie_id']]['score'] += $rating['Rating']['rating'];
+					$movieRatings[$rating['Rating']['movie_id']]['count']++;
+				}
+			}
+		}
+		
+		foreach($movieRatings as &$movieRating) {
+			$movieRating['rating'] = number_format($movieRating['score'] / $movieRating['count'], 2);
+		}
+		
+		arsort($movieRatings);
+		$this->set('rated', $movieRatings);
+	
 	}
 	
 	public function listRequests() {
