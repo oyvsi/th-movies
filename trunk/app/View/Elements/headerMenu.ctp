@@ -11,7 +11,7 @@
 		</li>
 		<li>
 			
-			" . $this->Html->link('Profil', '/users/view/') . "
+			" . $this->Html->link('Profil', '/users') . "
 			
 		</li>
 		<li>

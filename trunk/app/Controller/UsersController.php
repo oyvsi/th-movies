@@ -2,7 +2,7 @@
 
 class UsersController extends AppController {
 
-	public function beforeFilter() {
+	public function beforeFilter($user = null) {
 		parent::beforeFilter();
 		$this->Auth->allow('add', 'logout');
 	}
@@ -10,9 +10,67 @@ class UsersController extends AppController {
 	public function index($user = null) {
 		$this->User->recursive = 0;
 		//$this->set('user', $this->Auth->user());
+
+
 	}
 
+
+//Function called as "GET"-value and shit, its for easyness
+	public function profileInfo($user = null) {
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+
+			if($user === null) {
+				$user = $this->Auth->user('username');
+				$this->set('userID', $this->Auth->user('id'));
+				$this->set('userInfo', $this->User->findByUsername($user));
+			}
+		}
+		//cakephp magic runs profileInfo.ctp (its viewfile).
+	}
+
+	public function groupsInfo($user = null) {
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+
+			if($user === null) {
+				$user = $this->Auth->user('username');
+				$this->set('userID', $this->Auth->user('id'));
+				$this->set('groups', $this->User->Membership->find('all', array('conditions' => array('User.username' => $user))));
+
+			}
+		}
+		//cakephp magic runs profileInfo.ctp (its viewfile).
+	}
+
+	public function ratedInfo($user = null) {
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+
+			if($user === null) {
+				$user = $this->Auth->user('username');
+				$this->set('userID', $this->Auth->user('id'));
+				$this->set('userInfo', $this->User->findByUsername($user));
+
+				$this->set('ratedMovies', $this->User->Rating->find('all', 
+				array(	'conditions' => array('User.username' => $user) ,
+				'order' => array('Rating.rating DESC'),
+				'limit' => 3 
+				)));
+				$this->set('latestMovies', $this->User->Rating->find('all', 
+				array(	'conditions' => array('User.username' => $user) ,
+				'order' => array('Rating.modified DESC'),
+				'limit' => 3 
+				)));
+			}
+		}
+		//cakephp magic runs profileInfo.ctp (its viewfile).
+	}
+
+
+//This function is now obsolete, but remains as laffedr8 does not understand cake
 	public function view($user = null) {
+
 		if($user === null) {
 			$user = $this->Auth->user('username');
 			$this->set('userID', $this->Auth->user('id'));
@@ -32,6 +90,7 @@ class UsersController extends AppController {
 
 
 		$this->set('userInfo', $this->User->findByUsername($user));
+
 	}
 
 	public function add() {
