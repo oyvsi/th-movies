@@ -123,4 +123,3 @@ $(document).on("click", '.submitGroup', function() {
 
 
 
-
