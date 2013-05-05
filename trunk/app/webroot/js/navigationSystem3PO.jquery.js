@@ -13,7 +13,11 @@ function ajaxPost(url, callback, data) {
 	});
 }
 
-function tabSelect(div, bgcolor = 'white', text = '#003d4c') {
+function tabSelect(div, bgcolor, text) {
+		if(bgcolor == null && text == null) {
+			bgcolor = 'white';
+			text = '#003d4c';
+		}
 		var header = document.getElementById(div);
 		header.style.backgroundColor = bgcolor;
 		header.style.color = text;

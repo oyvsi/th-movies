@@ -142,7 +142,7 @@ p {
 /* The content css*/
 #content{
 	width: 60%;
-	min-height: 160px;
+	min-height: 130px;
 	float: left;
 	background: #fff;
 	color: #333;
