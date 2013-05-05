@@ -50,16 +50,21 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<?php echo $this->element('headerMenu'); ?>
+			<?php echo $this->element('searchBox'); ?>
 		</div>
+
+		<div id="maintabs">
+			<?php echo $this->element('mainTabs'); ?>
+		</div>
+
 		<div id="content">
 
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
-		<div id="sidebar">
-			<?php echo $this->fetch('sideBar'); ?>
+		<div id="sidetabs">
+			<?php echo $this->fetch('sideTabs'); ?>
 		</div>
 
 		<div id="footer">
