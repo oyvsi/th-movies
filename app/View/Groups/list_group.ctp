@@ -1,3 +1,13 @@
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#myTable").tablesorter({ 		//call tablesort plugin
+		sortList: [[0,0], [2,0]], 		//sort on first column asc
+		headers: {3:{sorter: false}} 	//disable sorting for column 3 and 4		
+	});
+});
+</script>
+
 <div class="etelleranne">
 	<h3>Medlemskap:</h3>
 	<table>
@@ -16,7 +26,14 @@
 <div id="movies_rated">
 	<h3>Rated movies with score:</h3>
 
-	<table id="myTable" class="tablesorter"><thead><tr><th># <?php echo $this->Html->image('arrows.png');?></th><th>Title<?php echo $this->Html->image('arrows.png');?></th><th># of ratings<?php echo $this->Html->image('arrows.png');?></th><th>Avg. score</th></tr></thead><tbody><?php
+	<table id="myTable" class="tablesorter">
+	<thead>
+		<tr><th># <?php echo $this->Html->image('arrows.png');?></th>
+		<th>Title<?php echo $this->Html->image('arrows.png');?></th>
+		<th># of ratings<?php echo $this->Html->image('arrows.png');?></th>
+		<th>Avg. score</th></tr>
+	</thead>
+	<tbody><?php
 	$i = 1;
 	foreach($rated as $rate){
 		echo "<tr><td>" . $i++ . "</td><td>" . $rate['title'] . "</td><td>" . $rate['count'] . "</td><td>" . $rate['rating'] . "</td></tr>";

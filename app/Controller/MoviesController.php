@@ -50,7 +50,17 @@ class MoviesController extends AppController {
 			//$this->Movie->create();
 			$this->Movie->save($movie);
 			$this->Movie->data = $movie;	
-		}	
+		}
+		
+		$ratings = $this->Movie->Rating->find('all', array('conditions' => array('Rating.movie_id' => $this->Movie->data['id'])));
+		$i = 0; $total = 0; $avg = 0;
+		foreach($ratings as $rating){
+			$total += $rating['Rating']['rating'];
+			$i++;
+			$avg = $total / $i;
+		}
+		
+		$this->set('avgrating', number_format($avg, 2));
 		$this->set('tags', $query['MoviesTags']); 
 		$this->set('movie', $this->Movie->data);
 		$this->render('index');
