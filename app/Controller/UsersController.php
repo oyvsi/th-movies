@@ -23,6 +23,7 @@ class UsersController extends AppController {
 			if($user === null) {
 				$user = $this->Auth->user('username');
 				$this->set('userID', $this->Auth->user('id'));
+				
 				$this->set('userInfo', $this->User->findByUsername($user));
 			}
 		}
