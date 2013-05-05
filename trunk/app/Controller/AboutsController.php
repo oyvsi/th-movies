@@ -18,24 +18,20 @@ class AboutsController extends AppController {
 	public function about() {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
-			if(isset($_GET['search'])) {
-
-				$choice = $_GET['search'];
-
-				switch($choice) {
-					case "PK":
-						print($this->aboutPK);
-						break;
-					case "bundy":
-						print($this->aboutBundy);
-						break;
-					case "flash":
-						print($this->aboutFlesh);
-						break;
-					case "laff":
-						print($this->aboutLaff);
-						break;
-				}
+			$choice = $this->request->data['choice'];
+			switch($choice) {
+				case "PK":
+					print($this->aboutPK);
+					break;
+				case "bundy":
+					print($this->aboutBundy);
+					break;
+				case "flash":
+					print($this->aboutFlesh);
+					break;
+				case "laff":
+					print($this->aboutLaff);
+					break;
 			}
 		}
 	}

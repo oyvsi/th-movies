@@ -1,10 +1,11 @@
 <?php
 
 $this->startIfEmpty('sideBar');
-echo $this->element('sideBar', array("theSearches" => array(1 => "Userinfo", 2 => "Groups", 3 => "Ratings"),
- 			"theController" => "users/", 
- 			"theAction" =>  array(1 => "profileInfo", 2 => "groupsInfo", 3 => "ratedInfo"), 
- 			"theDiv" => "profile"));
+echo $this->element('sideBar',
+	array("links" => array(
+		0 => array("divId" => "user1", "header" => "Profile info"), 
+		1 => array("divId" => "user2", "header" => "Groups"), 
+		2 => array("divId" => "user3", "header" => "Ratings"))));
 $this->end();
 
 ?>
