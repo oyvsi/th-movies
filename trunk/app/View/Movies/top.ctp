@@ -2,7 +2,12 @@
 ?>
 
 <script type="text/javascript">
-
+$(document).ready(function() {
+	$("#myTable").tablesorter({ 		//call tablesort plugin
+		sortList: [[0,0], [2,0]], 		//sort on first column asc
+		headers: {3:{sorter: false}} 	//disable sorting for column 3 and 4		
+	});
+});
 </script>
 
 <div>

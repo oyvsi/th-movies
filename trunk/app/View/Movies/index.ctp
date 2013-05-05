@@ -5,9 +5,27 @@
 </div>
 
 <div id="movie_info">
-	<?php if(isset($movie)) print_r($movie); ?>
-		<span id="title"><?php if(isset($movie)) echo $movie['title']; ?> </span>
-		<div id="description"><?php //echo $movie->overview; ?> </div>
+	<?php if(isset($movie)) //print_r($movie); ?>
+		<span id="title"><?php if(isset($movie)) {
+			echo "<h3>" . $movie['title'] . "</h3>"; 	
+		?> </span>
+		<div id ="rating">
+		<?php
+			if(isset($avgrating)) {
+				echo "Rating at TH-movies: " . $avgrating . ".";
+				
+			}
+		?>
+		</div>
+		<div id="description"><?php 
+		
+		if (isset($movie['overview']) && strlen($movie['overview']) > 3){
+			echo "<h3>Overview:</h3><p>" . $movie['overview'] . "</p>";
+		}
+		
+		?> </div>
+		<?php 
+		} ?>
 </div>
 <div id="tags">
 <?php 
