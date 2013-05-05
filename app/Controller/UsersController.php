@@ -11,7 +11,6 @@ class UsersController extends AppController {
 		$this->User->recursive = 0;
 		//$this->set('user', $this->Auth->user());
 
-
 	}
 
 
@@ -81,11 +80,13 @@ class UsersController extends AppController {
 				'order' => array('Rating.rating DESC'),
 				'limit' => 3 
 		)));
+
 		$this->set('latestMovies', $this->User->Rating->find('all', 
 		array(	'conditions' => array('User.username' => $user) ,
 				'order' => array('Rating.modified DESC'),
 				'limit' => 3 
 		)));
+
 
 		$this->set('groups', $this->User->Membership->find('all', array('conditions' => array('User.username' => $user))));
 
@@ -93,7 +94,7 @@ class UsersController extends AppController {
 		$this->set('userInfo', $this->User->findByUsername($user));
 
 	}
-
+	
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->User->create();

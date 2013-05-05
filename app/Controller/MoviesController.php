@@ -129,6 +129,12 @@ class MoviesController extends AppController {
 		arsort($movieRatings);
 		$this->set('rated', $movieRatings);
 	}
+	
+	public function latestMovies() {
+		$this->set('latestMovies', $this->Movie->Rating->find('all', 
+		array(	'order' => array('Rating.modified DESC')
+		)));
+	}
 
 	public function rated($user = null) {
 		if($user === null)
