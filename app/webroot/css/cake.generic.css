@@ -32,7 +32,7 @@ body {
 }
 a {
 	color: #003d4c;
-	text-decoration: underline;
+	text-decoration: none;
 	font-weight: bold;
 }
 a:hover {
@@ -113,33 +113,67 @@ p {
 	background: #003d4c;
 	text-decoration: underline;
 }
-#sidebar {
+/* main tabs css*/
+#maintabs {
 	width: 15%;
-	float: right;
-	background: #003d4c;
-	text-decoration: none;
+	float: left;
+	cursor: pointer;
 }
-#sidebar ul li {
+#maintabs ul {
+	margin-right: 0px;
+}
+#maintabs li {
+	height: 30px;
+	margin-right: 0px;
+	padding-right: 10px;
+}
+#maintabs ul li {
 	list-style-type: none;
-	border: none;
-	margin-left: 0px;
 }
-#sidebar a {
-	color: #C0C0C0;	
+
+#maintabs a {
 	text-decoration: none;
+	color: #C0C0C0;
 }
-#sidebar a:hover {
-	color: white;
+#maintabs li:hover {
+	background: grey;
 }
+/**********/
+/* The content css*/
 #content{
-	width: 80%;
+	width: 60%;
+	min-height: 160px;
 	float: left;
 	background: #fff;
-	clear: both;
 	color: #333;
 	padding: 10px 20px 40px 20px;
 	overflow: auto;
 }
+/***************/
+/*The page specific tabs on the right hand side of the pages.*/
+#sidetabs {
+	width: 15%;
+	float: left;
+	background: #003d4c;
+	text-decoration: none;
+	cursor: pointer;
+}
+#sidetabs ul {
+	margin-left: 0px;
+}
+#sidetabs li {
+	margin-left: 0px;
+	padding-left: 10px;
+	height: 30px;
+}
+#sidetabs ul li {
+	list-style-type: none;
+}
+#sidetabs div {
+	margin-left: 10px;
+}
+
+/**************/
 #footer {
 	clear: both;
 	padding: 6px 10px;

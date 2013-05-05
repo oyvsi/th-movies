@@ -1,8 +1,8 @@
 
 <?php
 
-$this->startIfEmpty('sideBar');
-echo $this->element('sideBar', 	
+$this->startIfEmpty('sideTabs');
+echo $this->element('sideTabs', 	
 	array("links" => array(
 		0 => array("divId" => "about1", "header" => "PK"), 
 		1 => array("divId" => "about2", "header" => "bundy"), 
