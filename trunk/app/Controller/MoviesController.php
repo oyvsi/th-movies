@@ -33,6 +33,7 @@ class MoviesController extends AppController {
 
 
 	public function view() {
+	
 		if($this->user && isset($this->Movie->Rating->data['Rating']['rating'])) {
 			$this->set('rating', $this->Movie->Rating->data['Rating']['rating']);
 		}
@@ -41,7 +42,7 @@ class MoviesController extends AppController {
 		$query = $this->Movie->find('first', array('contain' => array('MoviesTags.Tag'), 'conditions' => array('Movie.id' => $this->movie_id)));
 		$this->Movie->Behaviors->detach('Containable');
 
-		print_r($query);
+		//print_r($query);
 
 		if($query) {
 			$this->Movie->data = $query['Movie'];
@@ -64,6 +65,7 @@ class MoviesController extends AppController {
 		$this->set('tags', $query['MoviesTags']); 
 		$this->set('movie', $this->Movie->data);
 		$this->render('index');
+		
 	}
 
 	public function rate() {

@@ -1,3 +1,24 @@
+
+<?php //echo $this->Html->Link('Top 100 movies', '/movies/top') 
+	$this->startIfEmpty('sideTabs');
+	echo $this->element('sideTabs',
+	array("links" => array(
+		0 => array("divId" => "movies1", "header" => "Top 100"), 
+		1 => array("divId" => "movies2", "header" => "Latest"), 
+		//2 => array("divId" => "", "header" => "hello")
+		)));
+$this->end();
+?>
+
+<div id="movieInfo"></div>
+
+<?php
+	if(!isset($movie)) {
+		echo "I am not sure what to show on this page?<br>
+			Only thing that is for sure is that the code showing this page is bad.<!--";
+	}
+?>
+
 <div class="rating" id="<?php if(isset($movie))echo $movie['id']; ?>">
 <span id="drop_rating"><?php echo $this->Html->image('kuba_icon_delete.png'); ?></span>
 <span id="star" <?php if(isset($rating)) echo ' data-score="'. $rating . '"'; ?>></span>
@@ -38,3 +59,9 @@ echo $this->Form->end();
 		<span class="tag" "id"="<?php echo $id ?>"><?php echo  $this->Html->link($tag, array('controller' => 'Tags', 'action' => 'findMovies', $tag)) . " |"?></span>
 	<?php endforeach; ?>
 </div>
+
+<?php
+	if(!isset($movie)) {
+		echo "-->";
+	}
+?>

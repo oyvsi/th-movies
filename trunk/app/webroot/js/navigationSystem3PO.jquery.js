@@ -1,5 +1,11 @@
 /*
-	The navigation code for navigating our coded site - plugin.
+	The navigation code for navigating our coded site - "plugin".
+
+	To make the script compatible with your server:
+
+	1. change the variable "baseUrl" to your needs.
+	2. change the variable "urlEnd". The array "drawers" should be the
+	two last "variables" in the url. ie. xxx/xxx/xxx/"urlPart[4]"/"urlPart[5]"/.
 */
 
 function ajaxPost(url, callback, data) {
@@ -30,14 +36,15 @@ $(document).ready(function() {
 	//ensuring that the selected tab is colored nicely
 	var urlInfo = document.URL;
 	var urlParts = urlInfo.split('/');
-	console.log(urlParts[4]+urlParts[5]);
+	var urlEnd = urlParts[4]+urlParts[5];
 
-	switch(urlParts[4]+urlParts[5]) {
+
+	switch(urlEnd) {
 
 		case 'pageshome':
 			tabSelect('homepage');
 			break;
-		case 'moviesrated':
+		case 'movies':
 			tabSelect('moviepage');
 			break;
 		case 'users':
@@ -50,63 +57,88 @@ $(document).ready(function() {
 			tabSelect('aboutpage');
 			break;
 	}
-
-	//action for when the id "home" is clicked
-	$('#homepage').click(function(e) {
-		window.location = baseUrl+'/pages/home/';
-	});
-
-	//action for when the id "moviespage" is clicked
-	$('#moviepage').click(function(e) {
-		window.location = baseUrl+'/movies/rated/';
-	});
-
 //action for when the id "sidetabs" and its "li" element is mouseovered
 
 	$('#sidetabs li').mouseover(function() {
 		var div = $(this).attr('id');
-		var header = document.getElementById(div);
+		if(div != 'currentuser') {
+			var header = document.getElementById(div);
 
-		//checks if the header already was white
-		if(header.style.backgroundColor != 'white') {
-			header.style.backgroundColor = 'grey';
+			//checks if the header already was white
+			if(header.style.backgroundColor != 'white') {
+				header.style.backgroundColor = 'grey';
+			}
 		}
 	});
 //and mouseOUTED
 	$('#sidetabs li').mouseout(function() {
 		var div = $(this).attr('id');
-		var header = document.getElementById(div);
+		if(div != 'currentuser') {
+			var header = document.getElementById(div);
 
-		//checks if the header was clicked (white)
-		if(header.style.backgroundColor != 'white') {
-			header.style.backgroundColor = '#003d4c';
+			//checks if the header was clicked (white)
+			if(header.style.backgroundColor != 'white') {
+				header.style.backgroundColor = '#003d4c';
+			}
 		}
 	});
 
+//action for when the id "home" is clicked
+	$('#homepage').click(function(e) {
+		window.location = baseUrl+'/pages/home/';
+	});
+
+//action for when the id "moviespage" is clicked
+	$('#moviepage').click(function(e) {
+		window.location = baseUrl+'/movies/';
+	});
+//action for when the id "movies1" is clicked
+	$('#movies1').click(function(e) {
+
+		var callBack = function(data) {
+			//tabSelect('user2', '#003d4c', 'white');
+			tabSelect('movies2', '#003d4c', 'white');
+			tabSelect('movies1');
+			$('#movieInfo').html(data);
+		}
+		ajaxPost('top/', callBack);
+	});
+
+//action for when the id "movies1" is clicked
+	$('#movies2').click(function(e) {
+
+		var callBack = function(data) {
+			//tabSelect('user2', '#003d4c', 'white');
+			tabSelect('movies1', '#003d4c', 'white');
+			tabSelect('movies2');
+			$('#movieInfo').html(data);
+		}
+		ajaxPost('latestMovies/', callBack);
+	});
 //action for when the id "userpage" is clicked
 
 	$('#userpage').click(function(e) {
 		window.location = baseUrl+'/users/';
 	});
-//action for when the id "user1" is clicked
+	//action for when the id "user1" is clicked
 	$('#user1').click(function(e) {
 
 		var callBack = function(data) {
 			tabSelect('user2', '#003d4c', 'white');
 			tabSelect('user3', '#003d4c', 'white');
 			tabSelect('user1');
-			$('#profile').html(data);
+			$('#profilepage').html(data);
 		}
 		ajaxPost('profileInfo/', callBack);
 	});
-//action for when the id "user2" is clicked
+	//action for when the id "user2" is clicked
 	$('#user2').click(function(e) {
 
 		var callBack = function(data) {
 			tabSelect('user1', '#003d4c', 'white');
 			tabSelect('user3', '#003d4c', 'white');
 			tabSelect('user2');
-			$('#profile').html(data);
+			$('#profilepage').html(data);
 		}
 		ajaxPost('groupsInfo/', callBack);
 	});
@@ -117,7 +149,7 @@ $(document).ready(function() {
 			tabSelect('user1', '#003d4c', 'white');
 			tabSelect('user2', '#003d4c', 'white');
 			tabSelect('user3');
-			$('#profile').html(data);
+			$('#profilepage').html(data);
 		}
 		ajaxPost('ratedInfo/', callBack);
 	});

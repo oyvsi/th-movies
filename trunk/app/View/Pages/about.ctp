@@ -1,1 +1,0 @@
-<p>We are teamhenkars, and this is our story...</p>

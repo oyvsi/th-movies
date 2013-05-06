@@ -10,4 +10,4 @@ $this->end();
 
 ?>
 
-<div id="profile">This is the standard Page</div>
+<div id="profilepage">This is the standard Page</div>

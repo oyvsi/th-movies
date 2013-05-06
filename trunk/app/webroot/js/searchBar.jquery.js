@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var appUrl = "http://bmore.teamhenkars.com/bundy/th-movies/";
+	var appUrl = "/th-movies/";
 	var apikey = "a8049ffed9e54f709cc42647f7a42722";
 	var baseUrl = "http://api.themoviedb.org/3/search/";
 	var moviesSearchUrl = baseUrl + 'movie?api_key=' + apikey;
@@ -38,7 +38,8 @@ $(document).ready(function() {
 	$('#searchBox').keyup(function(event){
 		var inputRegEx = new RegExp("^[a-zA-Z0-9]+$");  
 		var allowedKeys = new Array(27, 40, 8);
-		$prev, $next, $current = $("#movies li.selected");		
+		$prev, $next, $current = $("#movies li.selected");
+		
 
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
@@ -87,6 +88,8 @@ $(document).ready(function() {
 $('#movies').delegate('li', 'click', function() {
 		document.location = baseURL + 'movies/' + this.id;
 });
+
+/* I have not seen proof of this code doing anything other than creating console errors. - laffedr8
 $('#movies').mouseover(function(){
 	$next.removeClass('selected');
 });
@@ -94,6 +97,7 @@ $('#movies').mouseover(function(){
 $('#movies').mouseout(function(){
 	$next.addClass('selected');
 });
+*/
 
 });
 

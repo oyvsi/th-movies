@@ -1,6 +1,5 @@
 
 <?php
-//print_r($latestMovies);
 echo " <div id=\"latestMovies\"><h3>Movies</h3><table>"; 
 		 $i = 0;
 		 foreach($latestMovies as $movie) {
