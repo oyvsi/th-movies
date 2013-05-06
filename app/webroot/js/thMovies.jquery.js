@@ -20,7 +20,7 @@ $(document).ready(function() {
 		targetKeep: true,
 		width: false,
 		click: function(rating) {
-			ajaxPost('movies/rate', {id: $(this).parent().attr("id"), rating: rating });
+			ajaxPost('rate/', {id: $(this).parent().attr("id"), rating: rating });
 		},
 		score: function() {
 			return $(this).attr('data-score');
@@ -30,10 +30,10 @@ $(document).ready(function() {
 	$('#drop_rating').bind("click", function() {
 		var callback =  function() {
 			console.log('cool beans');
-			$('#star').raty('score', 0);
+			$('#star').raty({score: 0});
 			$('#rating-hint').html('');
 		};	
-		ajaxPost('movies/drop', {id: $(this).parent().attr("id")}, callback); 
+		ajaxPost('drop/', {id: $(this).parent().attr("id")}, callback); 
 	});	
 	
 	$('.membership').bind("click", function() {

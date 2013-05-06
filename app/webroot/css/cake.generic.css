@@ -151,6 +151,7 @@ p {
 }
 /***************/
 /*The page specific tabs on the right hand side of the pages.*/
+
 #sidetabs {
 	width: 15%;
 	float: left;
@@ -161,6 +162,7 @@ p {
 #sidetabs ul {
 	margin-left: 0px;
 }
+
 #sidetabs li {
 	margin-left: 0px;
 	padding-left: 10px;
@@ -168,6 +170,9 @@ p {
 }
 #sidetabs ul li {
 	list-style-type: none;
+}
+#currentuser {
+	font-weight: bold;
 }
 #sidetabs div {
 	margin-left: 10px;
