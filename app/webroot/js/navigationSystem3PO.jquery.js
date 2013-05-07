@@ -6,6 +6,7 @@
 	1. change the variable "baseUrl" to your needs.
 	2. change the variable "urlEnd". The array "drawers" should be the
 	two last "variables" in the url. ie. xxx/xxx/xxx/"urlPart[4]"/"urlPart[5]"/.
+		- urlEnd can be edited in other ways, but currently this works on my local machine - laffedr8.
 	3. the function ajaxIndex needs to be changed incase length of the actual
 	url changes.
 */
@@ -57,7 +58,6 @@ $(document).ready(function() {
 	var urlParts = urlInfo.split('/');
 	var urlEnd = urlParts[4]+urlParts[5];
 
-
 	switch(urlEnd) {
 
 		case 'undefined':
@@ -73,6 +73,14 @@ $(document).ready(function() {
 			break;
 		case 'users':
 			tabSelect('userpage');
+			break;
+		//same as the "moviesmovie"-case, as edit is not
+		//loaded with ajax, selection of its tab must be done 
+		//this way.
+		case 'usersedit':
+			tabSelect('userpage');
+			tabSelect('user2', '#003d4c', 'white');
+			tabSelect('user1');
 			break;
 		case 'groups':
 			tabSelect('grouppage');
@@ -117,12 +125,19 @@ function mouseOnmouseOff(state, div) {
 	$('#moviepage').click(function(e) {
 		window.location = baseUrl+'/movies/';
 	});
-
+//function used as an index for the movie page.
 function ratedInfoPage() {
 	var callBack = function(data) {
 		$('#movieInfo').html(data);
 	}
 	ajaxPost(baseUrl+'/users/ratedInfo/', callBack);
+}
+//function used as an index for the profile page.
+function profileInfoPage() {
+	var callBack = function(data) {
+		$('#profileInfo').html(data);
+	}
+	ajaxPost(baseUrl+'/users/profileInfo/', callBack);
 }
 
 /*
@@ -135,12 +150,34 @@ function sideTabIndex() {
 	if(document.getElementById('movieInfo') && urlParts.length == 6) {
 		ratedInfoPage();
 	};
+	if(document.getElementById('profileInfo') && urlParts.length == 6) {
+		profileInfoPage();
+	};
+	if(document.getElementById('groupsInfo')) {
 		$('#currentuser').click(function(e) {
-		//get the li elements within current document
-		var liIds = document.getElementsByTagName("li");
-		//send the last element in array, as it tells what tabs (div id) to select.
-		defineTabs(liIds[liIds.length-1]);
-		ratedInfoPage();
+			var callBack = function(data) {
+			$('#groupsInfo').html(data);
+			}
+		ajaxPost(baseUrl+'/groups/', callBack);
+		});
+	};
+
+	$('#currentuser').click(function(e) {
+	//get the li elements within current document
+	var liIds = document.getElementsByTagName("li");
+	//send the last element in array, as it tells what tabs (div id) to select.
+	defineTabs(liIds[liIds.length-1]);
+
+
+	switch(urlParts[4]) {
+		case 'movies':
+			ratedInfoPage();
+			break;
+		case 'users':
+			profileInfoPage();
+			break;
+	}
+	//ratedInfoPage();
 	});
 }
 
@@ -187,29 +224,31 @@ sideTabIndex();
 	});
 	//action for when the id "user1" is clicked
 	$('#user1').click(function(e) {
-
+		window.location = baseUrl+'/users/edit/';	
+		/*
 		var callBack = function(data) {
 			tabSelect('user2', '#003d4c', 'white');
 			tabSelect('user1');
-			$('#profilepage').html(data);
+			$('#profileInfo').html(data);
 		}
-		ajaxPost('profileInfo/', callBack);
-	});
-	//action for when the id "user2" is clicked
-	$('#user2').click(function(e) {
+		ajaxPost('edit/', callBack);
+		*/
 
-		var callBack = function(data) {
-			tabSelect('user1', '#003d4c', 'white');
-			tabSelect('user2');
-			$('#profilepage').html(data);
-		}
-		ajaxPost('groupsInfo/', callBack);
 	});
 
 
 	//action for when the id "moviespage" is clicked
 	$('#grouppage').click(function(e) {
 		window.location = baseUrl+'/groups/';
+	});
+	//action for when the id "user2" is clicked
+	$('#groups1').click(function(e) {
+
+		var callBack = function(data) {
+			tabSelect('groups1');
+			$('#groupsInfo').html(data);
+		}
+		ajaxPost(baseUrl+'/users/groupsInfo/', callBack);
 	});
 
 

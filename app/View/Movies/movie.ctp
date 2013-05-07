@@ -1,7 +1,6 @@
 
 <?php
-	//load sideTabs since this function are called from multiple
-	//seperate locations.
+	//load sideTabs since this function are called from seperate locations.
 	$this->startIfEmpty('sideTabs');
 	echo $this->element('sideTabs',
 		array("links" => array(

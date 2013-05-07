@@ -107,17 +107,23 @@ class UsersController extends AppController {
 		}
 	}
 
-	public function edit($id = null) {
-//		print_r($this->request->data);
-		if($this->request->is('post') || $this->request->is('put')) {
-			if($this->User->save($this->request->data)){
-				$this->Session->setFlash(__('Updates saved'));
-				$this->redirect(array('action' => 'view'));
+	public function edit($id = null, $user = null) {
+		if($user === null) {
+			$user = $this->Auth->user('username');
+			$this->set('userID', $this->Auth->user('id'));
+		}
+		$this->set('userInfo', $this->User->findByUsername($user));
+		if(isset($userID) && $userID === $userInfo['User']['id']) {
+			if($this->request->is('post') || $this->request->is('put')) {
+				if($this->User->save($this->request->data)){
+					$this->Session->setFlash(__('Updates saved'));
+					$this->redirect(array('action' => 'view'));
+				} else {
+					$this->Session->setFlash(__('The user could not be updated. Please, try again.'));
+				}
 			} else {
-				$this->Session->setFlash(__('The user could not be updated. Please, try again.'));
+				$this->set('userInfo', $this->User->findById($this->Auth->user('id')));
 			}
-		} else {
-			$this->set('userInfo', $this->User->findById($this->Auth->user('id')));
 		}
 	}
 
