@@ -10,7 +10,6 @@ $(document).ready(function() {
 });
 </script>
 
-<div>
 <h3>Top 100 movies</h3>
 
 <table id="myTable" class="tablesorter"><thead><tr><th># <?php echo $this->Html->image('arrows.png');?></th><th>Title<?php echo $this->Html->image('arrows.png');?></th><th># of ratings<?php echo $this->Html->image('arrows.png');?></th><th>Avg. score</th></tr></thead><tbody><?php
@@ -24,5 +23,4 @@ $(document).ready(function() {
 	}
 	
 ?>
-</tbody></table>	
-</div>
+</tbody></table>

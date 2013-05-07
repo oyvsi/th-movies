@@ -1,6 +1,6 @@
 
 <?php
-echo " <div id=\"latestMovies\"><h3>Movies</h3><table>"; 
+echo " <h3>Movies</h3><table>"; 
 		 $i = 0;
 		 foreach($latestMovies as $movie) {
 			if($movie['Rating']['rating'] && $i < 50){ //satte limit her fordi de første 6 radene i arrayet var tomme.
@@ -10,4 +10,4 @@ echo " <div id=\"latestMovies\"><h3>Movies</h3><table>";
 				$i++;
 			}
 		}
-echo "</table></div>";
+echo "</table>";

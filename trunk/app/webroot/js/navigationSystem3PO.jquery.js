@@ -33,7 +33,7 @@ function tabSelect(div, bgcolor, text) {
 $(document).ready(function() {
 	var baseUrl = "/th-movies";
 
-	//ensuring that the selected tab is colored nicely
+//ensuring that the selected tab is colored nicely
 	var urlInfo = document.URL;
 	var urlParts = urlInfo.split('/');
 	var urlEnd = urlParts[4]+urlParts[5];
@@ -83,6 +83,7 @@ $(document).ready(function() {
 		}
 	});
 
+
 //action for when the id "home" is clicked
 	$('#homepage').click(function(e) {
 		window.location = baseUrl+'/pages/home/';
@@ -92,11 +93,31 @@ $(document).ready(function() {
 	$('#moviepage').click(function(e) {
 		window.location = baseUrl+'/movies/';
 	});
+
+function ratedInfoPage() {
+	var callBack = function(data) {
+		$('#movieInfo').html(data);
+	}
+	ajaxPost(baseUrl+'/users/ratedInfo/', callBack);
+}
+
+//loading an "index" for the movieInfo div if its empty
+//action if the id "currentuser" is clicked when
+//the moviepage is loaded.
+	if(document.getElementById('movieInfo')) {
+		ratedInfoPage();
+		$('#currentuser').click(function(e) {
+			ratedInfoPage();
+		});
+	};
+
+
+
 //action for when the id "movies1" is clicked
 	$('#movies1').click(function(e) {
 
 		var callBack = function(data) {
-			//tabSelect('user2', '#003d4c', 'white');
+			tabSelect('movies3', '#003d4c', 'white');
 			tabSelect('movies2', '#003d4c', 'white');
 			tabSelect('movies1');
 			$('#movieInfo').html(data);
@@ -104,16 +125,27 @@ $(document).ready(function() {
 		ajaxPost('top/', callBack);
 	});
 
-//action for when the id "movies1" is clicked
+//action for when the id "movies2" is clicked
 	$('#movies2').click(function(e) {
 
 		var callBack = function(data) {
-			//tabSelect('user2', '#003d4c', 'white');
+			tabSelect('movies3', '#003d4c', 'white');
 			tabSelect('movies1', '#003d4c', 'white');
 			tabSelect('movies2');
 			$('#movieInfo').html(data);
 		}
 		ajaxPost('latestMovies/', callBack);
+	});
+//action for when the id "movies3" is clicked
+	$('#movies3').click(function(e) {
+
+		var callBack = function(data) {
+			tabSelect('movies2', '#003d4c', 'white');
+			tabSelect('movies1', '#003d4c', 'white');
+			tabSelect('movies3');
+			$('#movieInfo').html(data);
+		}
+		ajaxPost('rated/', callBack);
 	});
 //action for when the id "userpage" is clicked
 
@@ -125,7 +157,6 @@ $(document).ready(function() {
 
 		var callBack = function(data) {
 			tabSelect('user2', '#003d4c', 'white');
-			tabSelect('user3', '#003d4c', 'white');
 			tabSelect('user1');
 			$('#profilepage').html(data);
 		}
@@ -136,22 +167,10 @@ $(document).ready(function() {
 
 		var callBack = function(data) {
 			tabSelect('user1', '#003d4c', 'white');
-			tabSelect('user3', '#003d4c', 'white');
 			tabSelect('user2');
 			$('#profilepage').html(data);
 		}
 		ajaxPost('groupsInfo/', callBack);
-	});
-//action for when the id "about4" is clicked
-	$('#user3').click(function(e) {
-
-		var callBack = function(data) {
-			tabSelect('user1', '#003d4c', 'white');
-			tabSelect('user2', '#003d4c', 'white');
-			tabSelect('user3');
-			$('#profilepage').html(data);
-		}
-		ajaxPost('ratedInfo/', callBack);
 	});
 
 

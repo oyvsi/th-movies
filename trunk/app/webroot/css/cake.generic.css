@@ -29,6 +29,7 @@ body {
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
 	margin: 0;
+	overflow-y: scroll;
 }
 a {
 	color: #003d4c;
@@ -136,18 +137,31 @@ p {
 	color: #C0C0C0;
 }
 #maintabs li:hover {
-	background: grey;
+	background: gray;
+}
+#logoutpage:hover {
+	background: none !important;
+	font-weight: bold;
 }
 /**********/
-/* The content css*/
-#content{
-	width: 60%;
-	min-height: 130px;
-	float: left;
+/* The content css:
+	- There is a padding added in the content div to ensure that
+	its content are nicely placed/spaced.
+	- a contentSize "wrapper" is added to ensure that its width
+	and size matches the other wrappers on the site. A max heigth
+	of 180px is chosen so that the content never is shorter than
+	the maintab.
+*/
+#content {
+	padding: 10px 20px 40px 20px;
+}
+#contentSize {
 	background: #fff;
 	color: #333;
-	padding: 10px 20px 40px 20px;
 	overflow: auto;
+	float: left;
+	width: 70%;
+	min-height: 180px;
 }
 /***************/
 /*The page specific tabs on the right hand side of the pages.*/

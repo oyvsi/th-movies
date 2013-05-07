@@ -57,12 +57,13 @@
 			<?php echo $this->element('mainTabs'); ?>
 		</div>
 
-		<div id="content">
-
-			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $this->fetch('content'); ?>
+		<div id="contentSize">
+			<div id="content">
+				<?php echo $this->Session->flash(); ?>
+				<?php echo $this->fetch('content'); ?>
+			</div>
 		</div>
+
 		<div id="sidetabs">
 			<?php echo $this->fetch('sideTabs'); ?>
 		</div>
