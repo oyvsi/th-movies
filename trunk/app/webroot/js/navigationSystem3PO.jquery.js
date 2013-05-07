@@ -20,15 +20,32 @@ function ajaxPost(url, callback, data) {
 		success: callback
 	});
 }
+//function that goes through an element to find all ids,
+//(li elements in particular) to recursively "deselect" the tabs.
+function defineTabs(div) {
+	if(div.nodeType) {
+		//get how many tabs there are in the sidetabs.
+		var idLength = div.id.length;
+		var liAmount = div.id.slice(idLength-1, idLength);
+		//get the genre name of the id.
+		var idGenre = div.id.slice(0, - 1)
+
+		for(var i = 1; i <= liAmount; i++) {
+			tabSelect(idGenre+i, '#003d4c', 'white');
+		}
+	} 
+}
 
 function tabSelect(div, bgcolor, text) {
-		if(bgcolor == null && text == null) {
-			bgcolor = 'white';
-			text = '#003d4c';
-		}
-		var header = document.getElementById(div);
+	var header = document.getElementById(div);
+	if(bgcolor == null && text == null) {
+		bgcolor = 'white';
+		text = '#003d4c';
+	}
+	if(header) {
 		header.style.backgroundColor = bgcolor;
 		header.style.color = text;
+	}
 }
 
 //ensures page is properly loaded.
@@ -40,9 +57,10 @@ $(document).ready(function() {
 	var urlParts = urlInfo.split('/');
 	var urlEnd = urlParts[4]+urlParts[5];
 
+
 	switch(urlEnd) {
 
-		case 'pageshome':
+		case 'undefined':
 			tabSelect('homepage');
 			break;
 		case 'movies':
@@ -63,36 +81,36 @@ $(document).ready(function() {
 			tabSelect('aboutpage');
 			break;
 	}
-//action for when the id "sidetabs" and its "li" element is mouseovered
 
+function mouseOnmouseOff(state, div) {
+	var bgcolor = (state ? 'gray' : '#003d4c');
+
+	if(div != 'currentuser') {
+		var header = document.getElementById(div);
+
+		//checks if the "header" background was white
+		if(header.style.backgroundColor != 'white') {
+			header.style.backgroundColor = bgcolor;
+		}
+	}	
+
+}
+
+//action for when the id "sidetabs" and its "li" element is mouseovered
 	$('#sidetabs li').mouseover(function() {
 		var div = $(this).attr('id');
-		if(div != 'currentuser') {
-			var header = document.getElementById(div);
-
-			//checks if the header already was white
-			if(header.style.backgroundColor != 'white') {
-				header.style.backgroundColor = 'grey';
-			}
-		}
+		mouseOnmouseOff(true, div);
 	});
 //and mouseOUTED
 	$('#sidetabs li').mouseout(function() {
 		var div = $(this).attr('id');
-		if(div != 'currentuser') {
-			var header = document.getElementById(div);
-
-			//checks if the header was clicked (white)
-			if(header.style.backgroundColor != 'white') {
-				header.style.backgroundColor = '#003d4c';
-			}
-		}
+		mouseOnmouseOff(false, div);
 	});
 
 
 //action for when the id "home" is clicked
 	$('#homepage').click(function(e) {
-		window.location = baseUrl+'/pages/home/';
+		window.location = baseUrl+'/';
 	});
 
 //action for when the id "moviespage" is clicked
@@ -113,16 +131,20 @@ This is a function that ensures two things:
 	2. Fixes a "bug" that appears When inoformation about a specific movie
 	is loaded and the url changes.
 */
-function ajaxIndex() {
+function sideTabIndex() {
 	if(document.getElementById('movieInfo') && urlParts.length == 6) {
 		ratedInfoPage();
-		$('#currentuser').click(function(e) {
-			ratedInfoPage();
-		});
 	};
+		$('#currentuser').click(function(e) {
+		//get the li elements within current document
+		var liIds = document.getElementsByTagName("li");
+		//send the last element in array, as it tells what tabs (div id) to select.
+		defineTabs(liIds[liIds.length-1]);
+		ratedInfoPage();
+	});
 }
 
-ajaxIndex();
+sideTabIndex();
 
 //action for when the id "movies1" is clicked
 	$('#movies1').click(function(e) {

@@ -111,10 +111,13 @@ class MoviesController extends AppController {
 		$ratings = $this->Movie->Rating->find('all', array(
 				'order' => array('Rating.movie_id ASC')));
 
+		//print_r($ratings);
+
 		$movieRatings = array();
 		foreach($ratings as $rating) {
 			$movieRatings[$rating['Rating']['movie_id']]['rating'] = 0;
 			$movieRatings[$rating['Rating']['movie_id']]['title'] = $rating['Movie']['title'];
+			$movieRatings[$rating['Rating']['movie_id']]['movie_id'] = $rating['Rating']['movie_id'];
 			if(!isset($movieRatings[$rating['Rating']['movie_id']]['score'])) { 
 				$movieRatings[$rating['Rating']['movie_id']]['score'] = $rating['Rating']['rating'];
 				$movieRatings[$rating['Rating']['movie_id']]['count'] = 1;
