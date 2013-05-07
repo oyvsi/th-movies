@@ -86,7 +86,7 @@ $(document).ready(function() {
 	});
 
 $('#movies').delegate('li', 'click', function() {
-		document.location = baseURL + 'movies/' + this.id;
+		document.location = baseURL + 'movies/movie/' + this.id;
 });
 
 /* I have not seen proof of this code doing anything other than creating console errors. - laffedr8

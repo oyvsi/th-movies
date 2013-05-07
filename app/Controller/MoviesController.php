@@ -31,8 +31,7 @@ class MoviesController extends AppController {
 
 	}
 
-
-	public function view() {
+	public function movie() {
 	
 		if($this->user && isset($this->Movie->Rating->data['Rating']['rating'])) {
 			$this->set('rating', $this->Movie->Rating->data['Rating']['rating']);
@@ -62,10 +61,11 @@ class MoviesController extends AppController {
 		}
 		
 		$this->set('avgrating', number_format($avg, 2));
-		$this->set('tags', $query['MoviesTags']); 
+		if(!isset($query['MovieTags'])) {
+			$this->set('tags', $query['MoviesTags']); 
+		}
 		$this->set('movie', $this->Movie->data);
-		$this->render('index');
-		
+		$this->render('movie');
 	}
 
 	public function rate() {
@@ -139,12 +139,14 @@ class MoviesController extends AppController {
 	}
 
 	public function rated($user = null) {
-		if($user === null)
-			$user = $this->user['username'];
-		$data = $this->Movie->Rating->find('all', array('conditions' => array('User.username' => $user)));
-		($data) ? $this->set('ratedMovies', $data) : $this->set('noContent', true);
-		
-		
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+			if($user === null) {
+				$user = $this->user['username'];
+			}
+			$data = $this->Movie->Rating->find('all', array('conditions' => array('User.username' => $user)));
+			($data) ? $this->set('ratedMovies', $data) : $this->set('noContent', true);
+		}
 	}	
 
 	public function searchMovies() {
