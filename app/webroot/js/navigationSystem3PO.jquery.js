@@ -6,6 +6,8 @@
 	1. change the variable "baseUrl" to your needs.
 	2. change the variable "urlEnd". The array "drawers" should be the
 	two last "variables" in the url. ie. xxx/xxx/xxx/"urlPart[4]"/"urlPart[5]"/.
+	3. the function ajaxIndex needs to be changed incase length of the actual
+	url changes.
 */
 
 function ajaxPost(url, callback, data) {
@@ -38,13 +40,17 @@ $(document).ready(function() {
 	var urlParts = urlInfo.split('/');
 	var urlEnd = urlParts[4]+urlParts[5];
 
-
 	switch(urlEnd) {
 
 		case 'pageshome':
 			tabSelect('homepage');
 			break;
 		case 'movies':
+			tabSelect('moviepage');
+			break;
+		//this makes the maintab selected even when a movie 
+		//with another url-ending is "loaded".
+		case 'moviesmovie':
 			tabSelect('moviepage');
 			break;
 		case 'users':
@@ -101,17 +107,22 @@ function ratedInfoPage() {
 	ajaxPost(baseUrl+'/users/ratedInfo/', callBack);
 }
 
-//loading an "index" for the movieInfo div if its empty
-//action if the id "currentuser" is clicked when
-//the moviepage is loaded.
-	if(document.getElementById('movieInfo')) {
+/*
+This is a function that ensures two things:
+	1. The div "currentuser" loads the page index.
+	2. Fixes a "bug" that appears When inoformation about a specific movie
+	is loaded and the url changes.
+*/
+function ajaxIndex() {
+	if(document.getElementById('movieInfo') && urlParts.length == 6) {
 		ratedInfoPage();
 		$('#currentuser').click(function(e) {
 			ratedInfoPage();
 		});
 	};
+}
 
-
+ajaxIndex();
 
 //action for when the id "movies1" is clicked
 	$('#movies1').click(function(e) {
@@ -122,7 +133,7 @@ function ratedInfoPage() {
 			tabSelect('movies1');
 			$('#movieInfo').html(data);
 		}
-		ajaxPost('top/', callBack);
+		ajaxPost(baseUrl+'/movies/top/', callBack);
 	});
 
 //action for when the id "movies2" is clicked
@@ -134,7 +145,7 @@ function ratedInfoPage() {
 			tabSelect('movies2');
 			$('#movieInfo').html(data);
 		}
-		ajaxPost('latestMovies/', callBack);
+		ajaxPost(baseUrl+'/movies/latestMovies/', callBack);
 	});
 //action for when the id "movies3" is clicked
 	$('#movies3').click(function(e) {
@@ -145,7 +156,7 @@ function ratedInfoPage() {
 			tabSelect('movies3');
 			$('#movieInfo').html(data);
 		}
-		ajaxPost('rated/', callBack);
+		ajaxPost(baseUrl+'/movies/rated/', callBack);
 	});
 //action for when the id "userpage" is clicked
 
