@@ -13,8 +13,6 @@ class UsersController extends AppController {
 
 	}
 
-
-//Function called as "GET"-value and shit, its for easyness
 	public function profileInfo($user = null) {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';

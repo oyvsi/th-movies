@@ -164,12 +164,12 @@ p {
 	min-height: 180px;
 }
 
-#grouplist li {
+#groupsInfo li {
 	list-style-type: none;
 	font-weight: bold;
 	cursor: pointer;
 }
-#grouplist li:hover {
+#groupsInfo li:hover {
 	text-decoration: underline;
 }
 /***************/
