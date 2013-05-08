@@ -24,7 +24,12 @@ class GroupsController extends AppController {
 		
 	}
 	
-	public function listGroup($id) {		
+	public function listGroup($id) {
+
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+		}
+
 		$users = $this->_getMembers($id);
 		$this->set('members', $users);
 		
