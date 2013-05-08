@@ -140,6 +140,32 @@ function profileInfoPage() {
 	ajaxPost(baseUrl+'/users/profileInfo/', callBack);
 }
 
+//this function ensures not only that the page loads (as the once above).
+//but also makes sure that the li elements loaded are clickable.
+function groupInfoPage() {
+	var callBack = function(data) {
+		$('#groupsInfo').html(data);
+
+		//when the li elements are clicked.
+		$('#grouplist li').click(function(e) {
+			//get id of the element clicked.
+			var groupId = this.id;
+
+			var callBack = function(data) {
+				$('#groupsInfo').html(data);
+				e.preventDefault();
+			}
+			ajaxPost(baseUrl+'/groups/listGroup/'+groupId, callBack);
+	});
+		/*************************/
+
+
+
+	}
+	ajaxPost(baseUrl+'/groups/listGroups/', callBack);
+}
+
+
 /*
 This is a function that ensures two things:
 	1. The div "currentuser" loads the page index.
@@ -153,13 +179,8 @@ function sideTabIndex() {
 	if(document.getElementById('profileInfo') && urlParts.length == 6) {
 		profileInfoPage();
 	};
-	if(document.getElementById('groupsInfo')) {
-		$('#currentuser').click(function(e) {
-			var callBack = function(data) {
-			$('#groupsInfo').html(data);
-			}
-		ajaxPost(baseUrl+'/groups/', callBack);
-		});
+	if(document.getElementById('groupsInfo') && urlParts.length == 6) {
+		groupInfoPage();
 	};
 
 	$('#currentuser').click(function(e) {
@@ -175,6 +196,9 @@ function sideTabIndex() {
 			break;
 		case 'users':
 			profileInfoPage();
+			break;
+		case 'groups':
+			groupInfoPage();
 			break;
 	}
 	//ratedInfoPage();
@@ -241,7 +265,7 @@ sideTabIndex();
 	$('#grouppage').click(function(e) {
 		window.location = baseUrl+'/groups/';
 	});
-	//action for when the id "user2" is clicked
+	//action for when the id "groups1" is clicked
 	$('#groups1').click(function(e) {
 
 		var callBack = function(data) {
@@ -250,22 +274,6 @@ sideTabIndex();
 		}
 		ajaxPost(baseUrl+'/users/groupsInfo/', callBack);
 	});
-
-	$('#grouplist li').click(function(e) {
-
-		//var liIds = document.getElementsByTagName("li");
-
-		var groupId = this.id;
-
-		var callBack = function(data) {
-			$('#groupsInfo').html(data);
-			e.preventDefault();
-		}
-
-		ajaxPost(baseUrl+'/groups/listGroup/'+groupId, callBack);
-
-	});
-
 
 	//action for when the id "aboutpage" is clicked
 	$('#aboutpage').click(function(e) {
