@@ -163,6 +163,15 @@ p {
 	width: 70%;
 	min-height: 180px;
 }
+
+#grouplist li {
+	list-style-type: none;
+	font-weight: bold;
+	cursor: pointer;
+}
+#grouplist li:hover {
+	text-decoration: underline;
+}
 /***************/
 /*The page specific tabs on the right hand side of the pages.*/
 

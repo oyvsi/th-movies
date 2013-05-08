@@ -251,6 +251,21 @@ sideTabIndex();
 		ajaxPost(baseUrl+'/users/groupsInfo/', callBack);
 	});
 
+	$('#grouplist li').click(function(e) {
+
+		//var liIds = document.getElementsByTagName("li");
+
+		var groupId = this.id;
+
+		var callBack = function(data) {
+			$('#groupsInfo').html(data);
+			e.preventDefault();
+		}
+
+		ajaxPost(baseUrl+'/groups/listGroup/'+groupId, callBack);
+
+	});
+
 
 	//action for when the id "aboutpage" is clicked
 	$('#aboutpage').click(function(e) {
