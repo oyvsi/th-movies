@@ -13,9 +13,7 @@
 			echo '<table>';
 		foreach($groupName as $users) {
 			foreach($users as $userId => $userName) {
-				echo '<tr><td>' . $this->Html->link($userName, '/users/view/' . $userName) .
-						      "<span class=user_" . $userId .  ">" . 
-								$this->Html->image('list-add.png') . '</span>' .'</td></tr>';
+				echo '<tr><td><span class="membership" id="' . $userId .  '">' . $userName . $this->Html->image('list-add.png') . '</span>' .'</td></tr>';
 			}
 		}
 		echo '</table>';

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	var appUrl = "/th-movies/";
 	var apikey = "a8049ffed9e54f709cc42647f7a42722";
 	var baseUrl = "http://api.themoviedb.org/3/search/";
 	var moviesSearchUrl = baseUrl + 'movie?api_key=' + apikey;
@@ -44,7 +43,7 @@ $(document).ready(function() {
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
 				 if ($current.length) {
-					document.location = baseURL + 'movies/' + $current.attr('id');
+					document.location = baseURL + 'movies/movie/' + $current.attr('id');
 					//console.log($current.attr('id'));
 					} 
 			} else if (event.keyCode === 40) {
@@ -72,7 +71,7 @@ $(document).ready(function() {
 				if(searchValue != lastSearchValue) {
 					clearTimeout(timer);
 					timer = setTimeout(function() {
-							ajaxCall(appUrl, "movies/", "searchMovies", searchValue, searchCallBack);
+							ajaxCall(baseURL, "movies/", "searchMovies", searchValue, searchCallBack);
 					}, timeOut);
 				}
 				lastSearchValue = searchValue;
