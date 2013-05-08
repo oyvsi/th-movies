@@ -35,7 +35,10 @@ $(document).ready(function() {
 		};	
 		ajaxPost('drop/', {id: $(this).parent().attr("id")}, callback); 
 	});	
-	
+
+// this code is moved into navigationsystem since it needs to be loaded
+// after its page/wrapper is loaded.
+/*
 	$('.membership').bind("click", function() {
 		var id = $(this).attr("id");
 		var callback =  function() {
@@ -45,7 +48,7 @@ $(document).ready(function() {
 		};	
 		ajaxPost('groups/requestMembership', {group_id: id}, callback); 
 	});
-	
+*/	
 	$("[class^='user_']").bind("click", function() {
 		var userClass = $(this).attr("class");
 		var userId = parseInt(userClass.split('_')[1]);
