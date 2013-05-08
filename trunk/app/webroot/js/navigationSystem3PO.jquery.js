@@ -11,7 +11,7 @@
 	url changes.
 */
 
-function ajaxPost(url, callback, data) {
+function l_ajaxPost(url, callback, data) {
 
 	$.ajax({
 		type: 'POST',
@@ -51,7 +51,6 @@ function tabSelect(div, bgcolor, text) {
 
 //ensures page is properly loaded.
 $(document).ready(function() {
-	var baseUrl = "/th-movies";
 
 //ensuring that the selected tab is colored nicely
 	var urlInfo = document.URL;
@@ -118,26 +117,26 @@ function mouseOnmouseOff(state, div) {
 
 //action for when the id "home" is clicked
 	$('#homepage').click(function(e) {
-		window.location = baseUrl+'/';
+		window.location = baseURL;
 	});
 
 //action for when the id "moviespage" is clicked
 	$('#moviepage').click(function(e) {
-		window.location = baseUrl+'/movies/';
+		window.location = baseURL+'movies/';
 	});
 //function used as an index for the movie page.
 function ratedInfoPage() {
 	var callBack = function(data) {
 		$('#movieInfo').html(data);
 	}
-	ajaxPost(baseUrl+'/users/ratedInfo/', callBack);
+	l_ajaxPost(baseURL+'users/ratedInfo/', callBack);
 }
 //function used as an index for the profile page.
 function profileInfoPage() {
 	var callBack = function(data) {
 		$('#profileInfo').html(data);
 	}
-	ajaxPost(baseUrl+'/users/profileInfo/', callBack);
+	l_ajaxPost(baseURL+'users/profileInfo/', callBack);
 }
 
 //this function ensures not only that the page loads (as the once above).
@@ -156,11 +155,11 @@ function groupInfoPage() {
 				var message = document.getElementsByClassName('membership');
 				$(message).html('<span class="feedback"> Request sent</span>');
 			};	
-			ajaxPost(baseUrl+'/groups/requestMembership/', callback2, {group_id: id}); 
+			l_ajaxPost(baseURL+'groups/requestMembership/', callback2, {group_id: id}); 
 		});
 		//////////////////////////////
 	}
-	ajaxPost(baseUrl+'/groups/listGroups/', callBack);
+	l_ajaxPost(baseURL+'groups/listGroups/', callBack);
 }
 
 //function that
@@ -174,7 +173,7 @@ function groupListLi() {
 			$('#groupsInfo').html(data);
 			e.preventDefault();
 		}
-		ajaxPost(baseUrl+'/groups/listGroup/'+groupId, callBack);
+		l_ajaxPost(baseURL+'groups/listGroup/'+groupId, callBack);
 	});
 }
 
@@ -228,7 +227,7 @@ sideTabIndex();
 			tabSelect('movies1');
 			$('#movieInfo').html(data);
 		}
-		ajaxPost(baseUrl+'/movies/top/', callBack);
+		l_ajaxPost(baseURL+'movies/top/', callBack);
 	});
 
 //action for when the id "movies2" is clicked
@@ -240,7 +239,7 @@ sideTabIndex();
 			tabSelect('movies2');
 			$('#movieInfo').html(data);
 		}
-		ajaxPost(baseUrl+'/movies/latestMovies/', callBack);
+		l_ajaxPost(baseURL+'movies/latestMovies/', callBack);
 	});
 //action for when the id "movies3" is clicked
 	$('#movies3').click(function(e) {
@@ -251,23 +250,23 @@ sideTabIndex();
 			tabSelect('movies3');
 			$('#movieInfo').html(data);
 		}
-		ajaxPost(baseUrl+'/movies/rated/', callBack);
+		l_ajaxPost(baseURL+'/movies/rated/', callBack);
 	});
 //action for when the id "userpage" is clicked
 
 	$('#userpage').click(function(e) {
-		window.location = baseUrl+'/users/';
+		window.location = baseURL+'users/';
 	});
 	//action for when the id "user1" is clicked
 	$('#user1').click(function(e) {
-		window.location = baseUrl+'/users/edit/';	
+		window.location = baseURL+'/users/edit/';	
 		/*
 		var callBack = function(data) {
 			tabSelect('user2', '#003d4c', 'white');
 			tabSelect('user1');
 			$('#profileInfo').html(data);
 		}
-		ajaxPost('edit/', callBack);
+		l_ajaxPost('edit/', callBack);
 		*/
 
 	});
@@ -275,7 +274,7 @@ sideTabIndex();
 
 	//action for when the id "moviespage" is clicked
 	$('#grouppage').click(function(e) {
-		window.location = baseUrl+'/groups/';
+		window.location = baseURL+'groups/';
 	});
 	//action for when the id "groups1" is clicked
 	$('#groups1').click(function(e) {
@@ -286,7 +285,7 @@ sideTabIndex();
 			$('#groupsInfo').html(data);
 			groupListLi();
 		}
-		ajaxPost(baseUrl+'/users/groupsInfo/', callBack);
+		l_ajaxPost(baseURL+'users/groupsInfo/', callBack);
 	});
 $('#groups2').click(function(e) {
 
@@ -296,11 +295,11 @@ $('#groups2').click(function(e) {
 			$('#groupsInfo').html(data);
 			//groupListLi();
 		}
-		ajaxPost(baseUrl+'/groups/listRequests/', callBack);
+		l_ajaxPost(baseURL+'groups/listRequests/', callBack);
 	});
 	//action for when the id "aboutpage" is clicked
 	$('#aboutpage').click(function(e) {
-		window.location = baseUrl+'/abouts/';
+		window.location = baseURL+'abouts/';
 
 	});
 
@@ -314,7 +313,7 @@ $('#groups2').click(function(e) {
 			tabSelect('about1');
 			$('#information').html(data);
 		}
-		ajaxPost('about/', callBack, {choice: 'PK'});
+		l_ajaxPost('about/', callBack, {choice: 'PK'});
 	});
 //action for when the id "about2" is clicked
 	$('#about2').click(function(e) {
@@ -326,7 +325,7 @@ $('#groups2').click(function(e) {
 			tabSelect('about2');
 			$('#information').html(data);
 		}
-		ajaxPost('about/', callBack, {choice: 'flash'});
+		l_ajaxPost('about/', callBack, {choice: 'flash'});
 	});
 //action for when the id "about3" is clicked
 	$('#about3').click(function(e) {
@@ -338,7 +337,7 @@ $('#groups2').click(function(e) {
 			tabSelect('about3');
 			$('#information').html(data);
 		}
-		ajaxPost('about/', callBack, {choice: 'bundy'});
+		l_ajaxPost('about/', callBack, {choice: 'bundy'});
 	});
 //action for when the id "about4" is clicked
 	$('#about4').click(function(e) {
@@ -350,18 +349,18 @@ $('#groups2').click(function(e) {
 			tabSelect('about4');
 			$('#information').html(data);
 		}
-		ajaxPost('about/', callBack, {choice: 'laff'});
+		l_ajaxPost('about/', callBack, {choice: 'laff'});
 	});
 
 
 	//action for when the id "moviespage" is clicked
 	$('#logoutpage').click(function(e) {
-		window.location = baseUrl+'/users/logout/';
+		window.location = baseURL+'users/logout/';
 	});
 
 	//action for when the id "moviespage" is clicked
 	$('#loginpage').click(function(e) {
-		window.location = baseUrl+'/users/login/';
+		window.location = baseURL+'users/login/';
 	});
 
 
