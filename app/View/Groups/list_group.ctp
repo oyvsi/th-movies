@@ -45,10 +45,19 @@ $(document).ready(function() {
 		<th># of ratings<?php echo $this->Html->image('arrows.png');?></th>
 		<th>Avg. score</th></tr>
 	</thead>
-	<tbody><?php
+	<tbody>
+<?php
 	$i = 1;
 	foreach($rated as $rate){
-		echo "<tr><td>" . $i++ . "</td><td>" . $rate['title'] . "</td><td>" . $rate['count'] . "</td><td>" . $rate['rating'] . "</td></tr>";
+		$link = '<a href="' . Router::url('/movies/movie/') . $rate['movie_id'] . '">' . $rate['title'] . '</a>';
+		$data = array($link); 
+
+		echo "<tr>
+				<td>" . $i++ . "</td>
+				<td>" . implode('</td><td>', $data) . "</td>
+				<td>" . $rate['count'] . "</td>
+				<td>" . $rate['rating'] . "</td>
+			</tr>";
 	}
 	
 ?>

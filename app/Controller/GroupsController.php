@@ -49,6 +49,7 @@ class GroupsController extends AppController {
 			foreach($rate as $rating){
 				$movieRatings[$rating['Rating']['movie_id']]['rating'] = 0;
 				$movieRatings[$rating['Rating']['movie_id']]['title'] = $rating['Movie']['title'];
+				$movieRatings[$rating['Rating']['movie_id']]['movie_id'] = $rating['Rating']['movie_id'];
 				if(!isset($movieRatings[$rating['Rating']['movie_id']]['score'])) { 
 					$movieRatings[$rating['Rating']['movie_id']]['score'] = $rating['Rating']['rating'];
 					$movieRatings[$rating['Rating']['movie_id']]['count'] = 1;
@@ -118,7 +119,7 @@ class GroupsController extends AppController {
 	}
 //this function should have a "failsafe" that occurs when requesting multiple times
 //for membership at the same group. could incorporate it with ajax. must have database results first.
-	
+
 	public function requestMembership() {
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
