@@ -161,7 +161,7 @@ p {
 	overflow: auto;
 	float: left;
 	width: 70%;
-	min-height: 180px;
+	min-height: 120px;
 }
 
 #groupsInfo li {

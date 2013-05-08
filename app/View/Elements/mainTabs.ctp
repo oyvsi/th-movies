@@ -2,10 +2,9 @@
 	if ($user) { echo "
 	<ul>
 
-		<li id='homepage'>Home
+		<li id='homepage'>TH-movies
 		</li>
-		<li id='moviepage'>Movies
-		</li>
+
 		<li id='userpage'>Profile
 		</li>
 		<li id='grouppage'>Groups
@@ -21,5 +20,8 @@
 		<ul>
 			<li id='loginpage'>Login
 			</li>
-		</ul>"; }?>
+		</ul>"; }
+	
+		//	<li id='moviepage'>Movies</li>  var movies-side
+		?>
 		

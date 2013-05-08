@@ -16,14 +16,14 @@ class UsersController extends AppController {
 	public function profileInfo($user = null) {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
-
-			if($user === null) {
-				$user = $this->Auth->user('username');
-				$this->set('userID', $this->Auth->user('id'));
-				
-				$this->set('userInfo', $this->User->findByUsername($user));
-			}
 		}
+		if($user === null) {
+			$user = $this->Auth->user('username');
+			$this->set('userID', $this->Auth->user('id'));
+				
+			$this->set('userInfo', $this->User->findByUsername($user));
+		}
+		
 		//cakephp magic runs profileInfo.ctp (its viewfile).
 	}
 
@@ -110,12 +110,13 @@ class UsersController extends AppController {
 			$user = $this->Auth->user('username');
 			$this->set('userID', $this->Auth->user('id'));
 		}
+
 		$this->set('userInfo', $this->User->findByUsername($user));
-		if(isset($userID) && $userID === $userInfo['User']['id']) {
+		if(isset($id) && $id === $this->Auth->user('id')) {
 			if($this->request->is('post') || $this->request->is('put')) {
 				if($this->User->save($this->request->data)){
 					$this->Session->setFlash(__('Updates saved'));
-					$this->redirect(array('action' => 'view'));
+					$this->redirect(array('action' => 'profileInfo'));
 				} else {
 					$this->Session->setFlash(__('The user could not be updated. Please, try again.'));
 				}

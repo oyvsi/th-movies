@@ -10,8 +10,10 @@
 	$this->startIfEmpty('sideTabs');
 	echo $this->element('sideTabs',
 		array("links" => array(
-			0 => array("divId" => "asd", "header" => "Nye muligheter"), 
-			//1 => array("divId" => "user2", "header" => "Groups")
+			0 => array("divId" => "movies4", "header" => "My top 3's"),
+			1 => array("divId" => "movies3", "header" => "My movies"), 
+			2 => array("divId" => "movies1", "header" => "Top 100"), 
+			3 => array("divId" => "movies2", "header" => "Latest ratings") 
 			)));
 	$this->end();
 

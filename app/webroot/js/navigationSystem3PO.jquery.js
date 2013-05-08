@@ -10,6 +10,8 @@
 	3. the function ajaxIndex needs to be changed incase length of the actual
 	url changes.
 */
+//MÅ ENDRES FOR Å TILPASSE SEG ULIKE URL-OPPSETT:
+var urlLength = 8;
 
 function l_ajaxPost(url, callback, data) {
 
@@ -43,9 +45,12 @@ function tabSelect(div, bgcolor, text) {
 		bgcolor = 'white';
 		text = '#003d4c';
 	}
+	console.log(header);
 	if(header) {
 		header.style.backgroundColor = bgcolor;
 		header.style.color = text;
+	} else {
+		console.log("fuck all");
 	}
 }
 
@@ -55,38 +60,39 @@ $(document).ready(function() {
 //ensuring that the selected tab is colored nicely
 	var urlInfo = document.URL;
 	var urlParts = urlInfo.split('/');
-	var urlEnd = urlParts[4]+urlParts[5];
-
-	switch(urlEnd) {
-
-		case 'undefined':
-			tabSelect('homepage');
-			break;
-		case 'movies':
-			tabSelect('moviepage');
-			break;
-		//this makes the maintab selected even when a movie 
-		//with another url-ending is "loaded".
-		case 'moviesmovie':
-			tabSelect('moviepage');
-			break;
-		case 'users':
-			tabSelect('userpage');
-			break;
-		//same as the "moviesmovie"-case, as edit is not
-		//loaded with ajax, selection of its tab must be done 
-		//this way.
-		case 'usersedit':
-			tabSelect('userpage');
-			tabSelect('user2', '#003d4c', 'white');
-			tabSelect('user1');
-			break;
-		case 'groups':
-			tabSelect('grouppage');
-			break;
-		case 'abouts':
-			tabSelect('aboutpage');
-			break;
+	var urlEnd = urlParts[urlParts.length-1];//+urlParts[urlParts.length-1];
+	//console.log(urlEnd);
+	if(urlParts[urlParts.length - 3] == 'movies' || urlParts[urlParts.length - 3] == 'Tags') {
+		tabSelect('homepage');
+	} else {		
+		switch(urlEnd) {
+			case 'users': 
+				tabSelect('userpage');
+				tabSelect('user2');
+				break;
+			case 'profileInfo':
+				tabSelect('userpage');
+				tabSelect('user2');
+				break;
+			//same as the "moviesmovie"-case, as edit is not
+			//loaded with ajax, selection of its tab must be done 
+			//this way.
+			case 'edit':
+				tabSelect('userpage');
+				tabSelect('user2', '#003d4c', 'white');
+				tabSelect('user1');
+				break;
+			case 'groups':
+				tabSelect('grouppage');
+				tabSelect('groups3');
+				break;
+			case 'abouts':
+				tabSelect('aboutpage');
+				break;
+			default:
+				tabSelect('homepage');
+				break;
+		}
 	}
 
 function mouseOnmouseOff(state, div) {
@@ -122,21 +128,21 @@ function mouseOnmouseOff(state, div) {
 
 //action for when the id "moviespage" is clicked
 	$('#moviepage').click(function(e) {
-		window.location = baseURL+'movies/';
+		window.location = baseURL+'movies';
 	});
 //function used as an index for the movie page.
 function ratedInfoPage() {
 	var callBack = function(data) {
-		$('#movieInfo').html(data);
+		$('#frontpage').html(data);
 	}
-	l_ajaxPost(baseURL+'users/ratedInfo/', callBack);
+	l_ajaxPost(baseURL+'users/ratedInfo', callBack);
 }
 //function used as an index for the profile page.
 function profileInfoPage() {
 	var callBack = function(data) {
 		$('#profileInfo').html(data);
 	}
-	l_ajaxPost(baseURL+'users/profileInfo/', callBack);
+	l_ajaxPost(baseURL+'users/profileInfo', callBack);
 }
 
 //this function ensures not only that the page loads (as the once above).
@@ -155,11 +161,11 @@ function groupInfoPage() {
 				var message = document.getElementsByClassName('membership');
 				$(message).html('<span class="feedback"> Request sent</span>');
 			};	
-			l_ajaxPost(baseURL+'groups/requestMembership/', callback2, {group_id: id}); 
+			l_ajaxPost(baseURL+'groups/requestMembership', callback2, {group_id: id}); 
 		});
 		//////////////////////////////
 	}
-	l_ajaxPost(baseURL+'groups/listGroups/', callBack);
+	l_ajaxPost(baseURL+'groups/listGroups', callBack);
 }
 
 //function that
@@ -184,13 +190,15 @@ This is a function that ensures two things:
 	is loaded and the url changes.
 */
 function sideTabIndex() {
-	if(document.getElementById('movieInfo') && urlParts.length == 6) {
+	//console.log(urlParts.length);
+	if(document.getElementById('frontpage') && urlParts.length == urlLength) {
+	//	console.log("hello");
 		ratedInfoPage();
 	};
-	if(document.getElementById('profileInfo') && urlParts.length == 6) {
+	if(document.getElementById('profileInfo') && urlParts.length == urlLength - 1) {
 		profileInfoPage();
 	};
-	if(document.getElementById('groupsInfo') && urlParts.length == 6) {
+	if(document.getElementById('groupsInfo') ){//&& urlParts.length == 6) {
 		groupInfoPage();
 	};
 
@@ -200,18 +208,27 @@ function sideTabIndex() {
 	//send the last element in array, as it tells what tabs (div id) to select.
 	defineTabs(liIds[liIds.length-1]);
 
-
-	switch(urlParts[4]) {
-		case 'movies':
+//	if(urlParts[urlParts - 3] == 'movies'){
+//		ratedInfoPage();
+//	} else {
+	switch(urlParts[urlParts.length-1]) {
+		/*case 'movies':
 			ratedInfoPage();
-			break;
-		case 'users':
-			profileInfoPage();
+			break;*/
+		case 'users': case 'edit':
+			//profileInfoPage();
 			break;
 		case 'groups':
-			groupInfoPage();
+			//groupInfoPage();
+			break;
+		case 'abouts':
+			window.location = baseURL+'abouts';
+			break;
+		default:
+			ratedInfoPage();
 			break;
 	}
+//	}
 	//ratedInfoPage();
 	});
 }
@@ -224,10 +241,11 @@ sideTabIndex();
 		var callBack = function(data) {
 			tabSelect('movies3', '#003d4c', 'white');
 			tabSelect('movies2', '#003d4c', 'white');
+			tabSelect('movies4', '#003d4c', 'white');
 			tabSelect('movies1');
-			$('#movieInfo').html(data);
+			$('#frontpage').html(data);
 		}
-		l_ajaxPost(baseURL+'movies/top/', callBack);
+		l_ajaxPost(baseURL+'movies/top', callBack);
 	});
 
 //action for when the id "movies2" is clicked
@@ -236,10 +254,11 @@ sideTabIndex();
 		var callBack = function(data) {
 			tabSelect('movies3', '#003d4c', 'white');
 			tabSelect('movies1', '#003d4c', 'white');
+			tabSelect('movies4', '#003d4c', 'white');
 			tabSelect('movies2');
-			$('#movieInfo').html(data);
+			$('#frontpage').html(data);
 		}
-		l_ajaxPost(baseURL+'movies/latestMovies/', callBack);
+		l_ajaxPost(baseURL+'movies/latestMovies', callBack);
 	});
 //action for when the id "movies3" is clicked
 	$('#movies3').click(function(e) {
@@ -247,19 +266,28 @@ sideTabIndex();
 		var callBack = function(data) {
 			tabSelect('movies2', '#003d4c', 'white');
 			tabSelect('movies1', '#003d4c', 'white');
+			tabSelect('movies4', '#003d4c', 'white');
 			tabSelect('movies3');
-			$('#movieInfo').html(data);
+			$('#frontpage').html(data);
 		}
-		l_ajaxPost(baseURL+'/movies/rated/', callBack);
+		l_ajaxPost(baseURL+'movies/rated', callBack);
+	});
+	
+	$('#movies4').click(function(e) {
+		tabSelect('movies2', '#003d4c', 'white');
+		tabSelect('movies1', '#003d4c', 'white');
+		tabSelect('movies3', '#003d4c', 'white');
+		tabSelect('movies4');
+		ratedInfoPage();
 	});
 //action for when the id "userpage" is clicked
 
 	$('#userpage').click(function(e) {
-		window.location = baseURL+'users/';
+		window.location = baseURL+'users';
 	});
 	//action for when the id "user1" is clicked
 	$('#user1').click(function(e) {
-		window.location = baseURL+'/users/edit/';	
+		window.location = baseURL+'users/edit';	
 		/*
 		var callBack = function(data) {
 			tabSelect('user2', '#003d4c', 'white');
@@ -270,42 +298,59 @@ sideTabIndex();
 		*/
 
 	});
+	$('#user2').click(function(e) {
+		tabSelect('user1', '#003d4c', 'white');
+		tabSelect('user2');
+		profileInfoPage();
+		
+	});
 
 
 	//action for when the id "moviespage" is clicked
 	$('#grouppage').click(function(e) {
-		window.location = baseURL+'groups/';
+		window.location = baseURL+'groups';
 	});
 	//action for when the id "groups1" is clicked
 	$('#groups1').click(function(e) {
 
 		var callBack = function(data) {
 			tabSelect('groups2', '#003d4c', 'white');
+			tabSelect('groups3', '#003d4c', 'white');
 			tabSelect('groups1');
 			$('#groupsInfo').html(data);
 			groupListLi();
 		}
-		l_ajaxPost(baseURL+'users/groupsInfo/', callBack);
+		l_ajaxPost(baseURL+'users/groupsInfo', callBack);
 	});
-$('#groups2').click(function(e) {
+	
+	$('#groups2').click(function(e) {
 
 		var callBack = function(data) {
 			tabSelect('groups1', '#003d4c', 'white');
+			tabSelect('groups3', '#003d4c', 'white');
 			tabSelect('groups2');
 			$('#groupsInfo').html(data);
 			//groupListLi();
 		}
-		l_ajaxPost(baseURL+'groups/listRequests/', callBack);
+		l_ajaxPost(baseURL+'groups/listRequests', callBack);
 	});
+	
+	$('#groups3').click(function(e) {
+		tabSelect('groups1', '#003d4c', 'white');
+		tabSelect('groups2', '#003d4c', 'white');
+		tabSelect('groups3');
+		groupInfoPage();
+	});
+	
 	//action for when the id "aboutpage" is clicked
 	$('#aboutpage').click(function(e) {
-		window.location = baseURL+'abouts/';
+		window.location = baseURL+'abouts';
 
 	});
 
 //action for when the id "about1" is clicked
 	$('#about1').click(function(e) {
-
+		console.log("tattar");
 		var callBack = function(data) {
 			tabSelect('about2', '#003d4c', 'white');
 			tabSelect('about3', '#003d4c', 'white');
@@ -313,7 +358,7 @@ $('#groups2').click(function(e) {
 			tabSelect('about1');
 			$('#information').html(data);
 		}
-		l_ajaxPost('about/', callBack, {choice: 'PK'});
+		l_ajaxPost('abouts/about', callBack, {choice: 'PK'});
 	});
 //action for when the id "about2" is clicked
 	$('#about2').click(function(e) {
@@ -325,7 +370,7 @@ $('#groups2').click(function(e) {
 			tabSelect('about2');
 			$('#information').html(data);
 		}
-		l_ajaxPost('about/', callBack, {choice: 'flash'});
+		l_ajaxPost('abouts/about', callBack, {choice: 'bundy'});
 	});
 //action for when the id "about3" is clicked
 	$('#about3').click(function(e) {
@@ -337,7 +382,7 @@ $('#groups2').click(function(e) {
 			tabSelect('about3');
 			$('#information').html(data);
 		}
-		l_ajaxPost('about/', callBack, {choice: 'bundy'});
+		l_ajaxPost('abouts/about', callBack, {choice: 'flash'});
 	});
 //action for when the id "about4" is clicked
 	$('#about4').click(function(e) {
@@ -349,18 +394,18 @@ $('#groups2').click(function(e) {
 			tabSelect('about4');
 			$('#information').html(data);
 		}
-		l_ajaxPost('about/', callBack, {choice: 'laff'});
+		l_ajaxPost('abouts/about', callBack, {choice: 'laff'});
 	});
 
 
 	//action for when the id "moviespage" is clicked
 	$('#logoutpage').click(function(e) {
-		window.location = baseURL+'users/logout/';
+		window.location = baseURL+'users/logout';
 	});
 
 	//action for when the id "moviespage" is clicked
 	$('#loginpage').click(function(e) {
-		window.location = baseURL+'users/login/';
+		window.location = baseURL+'users/login';
 	});
 
 
