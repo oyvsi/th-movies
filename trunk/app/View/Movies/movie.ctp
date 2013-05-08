@@ -1,14 +1,14 @@
 
 <?php
 	//load sideTabs since this function are called from seperate locations.
-	$this->startIfEmpty('sideTabs');
+/*	$this->startIfEmpty('sideTabs');
 	echo $this->element('sideTabs',
 		array("links" => array(
 		0 => array("divId" => "movies1", "header" => "Top 100"), 
 		1 => array("divId" => "movies2", "header" => "Latest"), 
 		2 => array("divId" => "movies3", "header" => "Ratings")
 		)));
-	$this->end();
+	$this->end();*/
 ?>
 
 <!-- When this page loads, the sidetabs need this div/id to load the new content.-->

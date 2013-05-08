@@ -4,7 +4,7 @@
    <div id="movieList"><table>
 	<?php foreach($movies as $movie): ?>
 			<?php
-         $link = '<a href="' . Router::url('/movies/') . $movie['movie_id'] . '">' . $movie['Movie']['title'] . '</a>';
+         $link = '<a href="' . Router::url('/movies/movie/') . $movie['movie_id'] . '">' . $movie['Movie']['title'] . '</a>';
          echo "<tr><td>$link</td></tr>";
      		?> 
 

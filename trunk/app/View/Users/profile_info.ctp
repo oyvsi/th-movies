@@ -1,4 +1,13 @@
+<?php
 
+$this->startIfEmpty('sideTabs');
+echo $this->element('sideTabs',
+	array("links" => array(
+		0 => array("divId" => "user2", "header" => "Info"),
+		1 => array("divId" => "user1", "header" => "Edit")
+	)));
+$this->end();
+?>
 <div class="profileInformation">
 	<h3>User info</h3>
 	<p>Ha du nettopp våre å trykkt lite vetta pao "edit" knappen pao sia dar?<br>

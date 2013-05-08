@@ -3,13 +3,12 @@
 
 	//ensures that the Request tab only is visible for admins
 	$user = $this->Session->read('Auth.User');
-	if($user['role'] === 'admin')  {
-		$tabs = array("links" => array(
-			0 => array("divId" => "groups1", "header" => "My Groups"), 
-			1 => array("divId" => "groups2", "header" => "Requests")));
-	} else {
-		$tabs = array("links" => array(
-			0 => array("divId" => "groups1", "header" => "My Groups")));
+	$tabs = array("links" => array(
+		0 => array("divId" => "groups3", "header" => "All Groups"),
+		1 => array("divId" => "groups1", "header" => "My groups")));
+
+	if($user['role'] === 'admin')  { 
+		array_push($tabs['links'], array("divId" => "groups2", "header" => "Requests")); 
 	}
 
 	$this->startIfEmpty('sideTabs');
