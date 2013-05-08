@@ -142,10 +142,23 @@ function profileInfoPage() {
 
 //this function ensures not only that the page loads (as the once above).
 //but also makes sure that the li elements loaded are clickable. (grouplistli).
+//It also makes the membership class clickable for requestmembership.
 function groupInfoPage() {
 	var callBack = function(data) {
 		$('#groupsInfo').html(data);
 		groupListLi();
+		//////////////////////////7
+		$('.membership').bind("click", function() {
+			var id = $(this).attr("id");
+			var callback2 =  function() {
+				//console.log('cool beans');
+				//console.log(id);
+				var message = document.getElementsByClassName('membership');
+				$(message).html('<span class="feedback"> Request sent</span>');
+			};	
+			ajaxPost(baseUrl+'/groups/requestMembership/', callback2, {group_id: id}); 
+		});
+		//////////////////////////////
 	}
 	ajaxPost(baseUrl+'/groups/listGroups/', callBack);
 }
@@ -268,6 +281,7 @@ sideTabIndex();
 	$('#groups1').click(function(e) {
 
 		var callBack = function(data) {
+			tabSelect('groups2', '#003d4c', 'white');
 			tabSelect('groups1');
 			$('#groupsInfo').html(data);
 			groupListLi();
@@ -277,11 +291,12 @@ sideTabIndex();
 $('#groups2').click(function(e) {
 
 		var callBack = function(data) {
-			tabSelect('groups1');
+			tabSelect('groups1', '#003d4c', 'white');
+			tabSelect('groups2');
 			$('#groupsInfo').html(data);
 			//groupListLi();
 		}
-		ajaxPost(baseUrl+'/users/listRequests/', callBack);
+		ajaxPost(baseUrl+'/groups/listRequests/', callBack);
 	});
 	//action for when the id "aboutpage" is clicked
 	$('#aboutpage').click(function(e) {

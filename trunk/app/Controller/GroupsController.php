@@ -69,7 +69,11 @@ class GroupsController extends AppController {
 	}
 	
 	public function listRequests() {
-		$membershipRequests = array('fields' => array('DISTINCT MembershipRequest.group_id',
+
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+
+			$membershipRequests = array('fields' => array('DISTINCT MembershipRequest.group_id',
 															   'Group.groupName'),
 									 'joins' => array(
 												array(
@@ -78,11 +82,11 @@ class GroupsController extends AppController {
 													   'type'=>'LEFT',
 													   'conditions' => array(
 													   'MembershipRequest.group_id = Group.id'
-          )
-      )
-   ), 'conditions' => array('Group.owner' => $this->user['id']));
+          												)
+      												)	
+   												), 'conditions' => array('Group.owner' => $this->user['id']));
 		
-		$temp = array('fields' => array('DISTINCT MembershipRequest.group_id',
+			$temp = array('fields' => array('DISTINCT MembershipRequest.group_id',
 												  'MembershipRequest.id',
 												  'Group.groupName',
 												   'User.username',
@@ -95,21 +99,22 @@ class GroupsController extends AppController {
 													   'type'=>'LEFT',
 													   'conditions' => array(
 													   'MembershipRequest.group_id = Group.id'
-          )
-      ),	array(
+          												)
+      												),	array(
 													  'table'=>'users',
 													   'alias'=>'User',
 													   'type'=>'LEFT',
 													   'conditions' => array(
 													   'MembershipRequest.user_id = User.id'
-          )
-      )
-   ), 'conditions' => array('Group.owner' => $this->user['id'], 'MembershipRequest.pending' => 1));
+          												)
+      												)
+   					), 'conditions' => array('Group.owner' => $this->user['id'], 'MembershipRequest.pending' => 1));
 
 	
-		$groups = $this->Group->find('all', $temp);
-		$this->set('groups', $groups);
+			$groups = $this->Group->find('all', $temp);
+			$this->set('groups', $groups);
 		
+		}
 	}
 
 	public function requestMembership() {
