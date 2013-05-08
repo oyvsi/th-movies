@@ -116,12 +116,13 @@ class GroupsController extends AppController {
 		
 		}
 	}
-
+//this function should have a "failsafe" that occurs when requesting multiple times
+//for membership at the same group. could incorporate it with ajax. must have database results first.
+	
 	public function requestMembership() {
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
 			$this->Group->MembershipRequest->save($this->request->data);
-			
 		}
 		
 	}

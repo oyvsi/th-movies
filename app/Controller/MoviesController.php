@@ -61,8 +61,10 @@ class MoviesController extends AppController {
 		}
 		
 		$this->set('avgrating', number_format($avg, 2));
-		if(!isset($query['MovieTags'])) {
+		if(isset($query['MoviesTags'])) {
 			$this->set('tags', $query['MoviesTags']); 
+		} else {
+			$this->set('tags', null);
 		}
 		$this->set('movie', $this->Movie->data);
 		$this->render('movie');

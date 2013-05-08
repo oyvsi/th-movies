@@ -50,9 +50,14 @@ echo $this->Form->input('Tag', array('id' => 'tag', 'type' => 'text', 'value' =>
 echo $this->Form->end();
 
 ?>
-	<?php foreach($tags as $tag): extract($tag['Tag']) ?>
+	<?php 
+	if(isset($tags)) {
+
+	foreach($tags as $tag): extract($tag['Tag']) ?>
 		<span class="tag" "id"="<?php echo $id ?>"><?php echo  $this->Html->link($tag, array('controller' => 'Tags', 'action' => 'findMovies', $tag)) . " |"?></span>
-	<?php endforeach; ?>
+	<?php endforeach; 
+	}
+	?>
 </div>
 
 <!--end of default content-->
