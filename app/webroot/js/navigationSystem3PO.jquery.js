@@ -153,16 +153,13 @@ function sideTabIndex() {
 	if(document.getElementById('profileInfo') && urlParts.length == 6) {
 		profileInfoPage();
 	};
-
 	if(document.getElementById('groupsInfo')) {
-		console.log('yes');
-		var callBack = function(data) {
-			$('#groupsInfo').html(data);
-		}
 		$('#currentuser').click(function(e) {
-			ajaxPost(baseUrl+'/groups/listGroups', callBack);
+			var callBack = function(data) {
+			$('#groupsInfo').html(data);
+			}
+		ajaxPost(baseUrl+'/groups/', callBack);
 		});
-		ajaxPost(baseUrl+'/groups/listGroups', callBack);
 	};
 
 	$('#currentuser').click(function(e) {
@@ -171,7 +168,6 @@ function sideTabIndex() {
 	//send the last element in array, as it tells what tabs (div id) to select.
 	defineTabs(liIds[liIds.length-1]);
 
-	console.log(urlParts[4]);
 
 	switch(urlParts[4]) {
 		case 'movies':

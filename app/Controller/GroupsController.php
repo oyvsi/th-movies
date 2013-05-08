@@ -11,18 +11,17 @@ class GroupsController extends AppController {
 	}
 	
 	public function index() {
-
+		if($this->request->is('ajax')) {
+			$this->layout = 'ajax';
+		}
+		$data = $this->Group->find('all');
+		$memberships = $this->Group->Membership->find('all', array('conditions' => array('user_id' => $this->user)));
+		$this->set('groups', $data);
+		$this->set('memberships', $memberships);
 	}
 
 	public function listGroups() {
-		if($this->request->is('ajax')) {
-			$this->layout = 'ajax';
 		
-			$data = $this->Group->find('all');
-			$memberships = $this->Group->Membership->find('all', array('conditions' => array('user_id' => $this->user)));
-			$this->set('groups', $data);
-			$this->set('memberships', $memberships);
-		}
 	}
 	
 	public function listGroup($id) {
