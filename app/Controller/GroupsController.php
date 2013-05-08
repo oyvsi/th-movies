@@ -13,6 +13,9 @@ class GroupsController extends AppController {
 	public function index() {
 	}
 
+//this page can not be loaded without ajax.
+//not sure if it is necessary. gives error if loaded as !ajax request. 
+//can be changed in errors view.
 	public function listGroups() {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
@@ -22,7 +25,8 @@ class GroupsController extends AppController {
 			$this->set('memberships', $memberships);
 		}
 	}
-	
+
+//This function can be loaded without ajax.	
 	public function listGroup($id) {
 
 		if($this->request->is('ajax')) {
@@ -69,7 +73,7 @@ class GroupsController extends AppController {
 															   'Group.groupName'),
 									 'joins' => array(
 												array(
-													  'table'=>'membershiprequests',
+													  'table'=>'membership_requests',
 													   'alias'=>'MembershipRequest',
 													   'type'=>'LEFT',
 													   'conditions' => array(
@@ -86,7 +90,7 @@ class GroupsController extends AppController {
 									  'recursive' => 0,
 									 'joins' => array(
 												array(
-													  'table'=>'membershiprequests',
+													  'table'=>'membership_requests',
 													   'alias'=>'MembershipRequest',
 													   'type'=>'LEFT',
 													   'conditions' => array(

@@ -274,7 +274,15 @@ sideTabIndex();
 		}
 		ajaxPost(baseUrl+'/users/groupsInfo/', callBack);
 	});
+$('#groups2').click(function(e) {
 
+		var callBack = function(data) {
+			tabSelect('groups1');
+			$('#groupsInfo').html(data);
+			//groupListLi();
+		}
+		ajaxPost(baseUrl+'/users/listRequests/', callBack);
+	});
 	//action for when the id "aboutpage" is clicked
 	$('#aboutpage').click(function(e) {
 		window.location = baseUrl+'/abouts/';
