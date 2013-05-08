@@ -141,30 +141,29 @@ function profileInfoPage() {
 }
 
 //this function ensures not only that the page loads (as the once above).
-//but also makes sure that the li elements loaded are clickable.
+//but also makes sure that the li elements loaded are clickable. (grouplistli).
 function groupInfoPage() {
 	var callBack = function(data) {
 		$('#groupsInfo').html(data);
-
-		//when the li elements are clicked.
-		$('#grouplist li').click(function(e) {
-			//get id of the element clicked.
-			var groupId = this.id;
-
-			var callBack = function(data) {
-				$('#groupsInfo').html(data);
-				e.preventDefault();
-			}
-			ajaxPost(baseUrl+'/groups/listGroup/'+groupId, callBack);
-	});
-		/*************************/
-
-
-
+		groupListLi();
 	}
 	ajaxPost(baseUrl+'/groups/listGroups/', callBack);
 }
 
+//function that
+function groupListLi() {
+	//when the li elements are clicked.
+	$('#grouplist li').click(function(e) {
+		//get id of the element clicked.
+		var groupId = this.id;
+
+		var callBack = function(data) {
+			$('#groupsInfo').html(data);
+			e.preventDefault();
+		}
+		ajaxPost(baseUrl+'/groups/listGroup/'+groupId, callBack);
+	});
+}
 
 /*
 This is a function that ensures two things:
@@ -271,6 +270,7 @@ sideTabIndex();
 		var callBack = function(data) {
 			tabSelect('groups1');
 			$('#groupsInfo').html(data);
+			groupListLi();
 		}
 		ajaxPost(baseUrl+'/users/groupsInfo/', callBack);
 	});
