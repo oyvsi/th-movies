@@ -1,5 +1,5 @@
 
-<div class="groupsInfo">
+
 	<h3>Groups:</h3>
 	<table>
 	<?php //echo "<pre>"; print_r($groups); echo "</pre>";
@@ -9,4 +9,3 @@
 	endforeach;	
 	?>
 	</table>
-</div>
