@@ -173,7 +173,7 @@ class MoviesController extends AppController {
 	* Fuction shows a users rating based on logged in user
 	* or $user
 	*
-	* @params int $user
+	* @param int $user
 	*/
 	public function rated($user = null) {
 		if($this->request->is('ajax')) {

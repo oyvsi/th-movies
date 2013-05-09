@@ -12,7 +12,11 @@ class UsersController extends AppController {
 		//$this->set('user', $this->Auth->user());
 
 	}
-
+	/**
+	* Fuction shows logged in or $user's info.
+	* 
+	* @param int $user
+	*/
 	public function profileInfo($user = null) {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
@@ -27,6 +31,11 @@ class UsersController extends AppController {
 		//cakephp magic runs profileInfo.ctp (its viewfile).
 	}
 
+	/**
+	* Fuction shows logged in or $user's groupmemberships
+	* 
+	* @param int $user
+	*/
 	public function groupsInfo($user = null) {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
@@ -41,6 +50,12 @@ class UsersController extends AppController {
 		//cakephp magic runs profileInfo.ctp (its viewfile).
 	}
 
+	/**
+	* Fuction shows userinfo, top three rated movies and three latest movies
+	* for a logged in user or $user.
+	* 
+	* @param int $user
+	*/
 	public function ratedInfo($user = null) {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
@@ -92,7 +107,11 @@ class UsersController extends AppController {
 		$this->set('userInfo', $this->User->findByUsername($user));
 
 	}
-	
+
+	/**
+	* Fuction adds a user into the database
+	* 
+	*/	
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->User->create();
@@ -105,6 +124,12 @@ class UsersController extends AppController {
 		}
 	}
 
+	/**
+	* Fuction edits a users info
+	* 
+	* @param int $user
+	* @param int $id
+	*/
 	public function edit($id = null, $user = null) {
 		if($user === null) {
 			$user = $this->Auth->user('username');
@@ -126,6 +151,11 @@ class UsersController extends AppController {
 		}
 	}
 
+	/**
+	* Fuction deletes a user based on the $id
+	* 
+	* @param int $id
+	*/
 	public function delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
@@ -142,6 +172,9 @@ class UsersController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 
+	/**
+	* Fuction to log in a user
+	*/
 	public function login() {
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
@@ -152,6 +185,9 @@ class UsersController extends AppController {
 		}
 	}
 
+	/**
+	* Fuction to log out a user
+	*/
 	public function logout() {
 		$this->redirect($this->Auth->logout());
 	}
