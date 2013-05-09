@@ -41,9 +41,12 @@ $(document).ready(function() {
 		$('#movies').html('');
 	}
 //calls clear function when the document is clicked anywhere.
+//mouseover anywhere is a bit harsh innit...?
 	$(document).click(
 		function() {
-		clearSearch();
+		var itsMore = document.getElementById('moremovies');
+		console.log(itsMore);
+		//clearSearch();
 	});
 
 
@@ -52,7 +55,6 @@ $(document).ready(function() {
 		var inputRegEx = new RegExp("^[a-zA-Z0-9]+$");  
 		var allowedKeys = new Array(27, 40, 8);
 		$prev, $next, $current = $("#movies li.selected");
-		
 
 		if(inputRegEx.test(String.fromCharCode(event.which)) || ($.inArray(event.keyCode, allowedKeys>-1))) {
 			if(event.keyCode === 13) {
@@ -98,11 +100,43 @@ $(document).ready(function() {
 		} else {
 			$("#movies").append("No alphanumeric ova here");
 		}
+	//calls clear function when the document is clicked anywhere.
+	//mouseover anywhere is a bit harsh innit...?
+		$(document).click(
+			function() {
+			var itsMore = document.getElementById('moremovies');
+			if(itsMore) {
+				clearSearch();
+			}
+		});
+
 	});
+/*
+	$('#moremovies').click(
+			function(e) {
+
+				console.log('wassup');
+				$next = $('li[id*=moremovies]').next();
+				$('#movies li:gt(4)').show();
+				$('li[id*=moremovies]').remove();
+				$next.addClass('selected');
+		});
+*/
 
 $('#movies').delegate('li', 'click', function() {
+	if (this.id != 'moremovies') {
 		document.location = baseURL + 'movies/movie/' + this.id;
+	} else {
+		$next = $('li[id*=moremovies]').next();
+		$('#movies li:gt(4)').show();
+		$('li[id*=moremovies]').remove();
+		$next.addClass('selected');
+	}
+
+
+		//document.location = baseURL + 'movies/movie/' + this.id;
 });
+
 
 /* I have not seen proof of this code doing anything other than creating console errors. - laffedr8
 $('#movies').mouseover(function(){
