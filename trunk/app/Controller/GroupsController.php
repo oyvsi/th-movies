@@ -16,6 +16,10 @@ class GroupsController extends AppController {
 //this page can not be loaded without ajax.
 //not sure if it is necessary. gives error if loaded as !ajax request. 
 //can be changed in errors view.
+	/**
+	* fuction lists groupmembers
+	*
+	*/
 	public function listGroups() {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
@@ -28,6 +32,13 @@ class GroupsController extends AppController {
 	}
 
 //This function can be loaded without ajax.	
+	/**
+	* Fuction lists members of a group with $id and
+	* a list of the movies rated by the group members.
+	* the list is sorted by avg rating and set to the view.
+	* 
+	* @param int $id
+	*/
 	public function listGroup($id) {
 
 		if($this->request->is('ajax')) {
@@ -70,6 +81,11 @@ class GroupsController extends AppController {
 	
 	}
 	
+	/**
+	* Fuction lists the membershiprequests an owner
+	* of a group has to confirm.
+	*
+	*/
 	public function listRequests() {
 
 		if($this->request->is('ajax')) {
@@ -121,6 +137,10 @@ class GroupsController extends AppController {
 //this function should have a "failsafe" that occurs when requesting multiple times
 //for membership at the same group. could incorporate it with ajax. must have database results first.
 
+	/**
+	* Fuction saves a membership request from a user to a group
+	*
+	*/
 	public function requestMembership() {
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
@@ -128,7 +148,11 @@ class GroupsController extends AppController {
 		}
 		
 	}
-	
+
+	/**
+	* Fuction adds a user to a group. Info recieved from post
+	*
+	*/	
 	public function addUser() {
 		if($this->request->is('ajax')) {
 		    $this->autoRender = false;
@@ -138,12 +162,15 @@ class GroupsController extends AppController {
 		    print_r($id);
 		    $this->Group->MembershipRequest->id = $id['MembershipRequest']['id'];
 		    $this->Group->MembershipRequest->saveField('pending', 0);
-                    $this->Group->Membership->save($this->request->data);
+            $this->Group->Membership->save($this->request->data);
 	
 		}
 	}
 	
-	
+	/**
+	* Fuction creates a new group. and sets the creator as owner.
+	*
+	*/
 	public function createGroup() {
 		if($this->request->is('ajax')) {
 		    $this->autoRender = false;
@@ -152,6 +179,11 @@ class GroupsController extends AppController {
 		}
 	}
 	
+	/**
+	* Fuction lists members in a group with id $id.
+	*
+	* @params int $id
+	*/
 	public function _getMembers($id) {
 		return $this->Group->Membership->find('all', array('conditions' => array('Group.id' => $id)));	
 	}

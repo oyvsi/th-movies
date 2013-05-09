@@ -11,7 +11,7 @@
 	url changes.
 */
 //MÅ ENDRES FOR Å TILPASSE SEG ULIKE URL-OPPSETT:
-var urlLength = 5;
+var urlLength = 7;
 
 function l_ajaxPost(url, callback, data) {
 
