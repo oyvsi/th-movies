@@ -5,7 +5,8 @@
 
 #movies {
 	width: 501px;
-	background-color: #000000;
+	background-color: white;
+	color: #003d4c;
 	list-style: none;
 	padding-left: 0;
 	margin-left: 0;
@@ -33,7 +34,8 @@
 }
 
 .search_item:hover {
-	background-color: #66BBEE;
+	background-color: #003d4c;
+	color: white;
 	font-weight: bold;
 }
 

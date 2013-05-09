@@ -34,6 +34,20 @@ $(document).ready(function() {
            });
 	}
 
+
+//clears searchbox and its dropdownlist.
+	function clearSearch() {
+		$('#searchBox').val('');
+		$('#movies').html('');
+	}
+//calls clear function when the document is clicked anywhere.
+	$(document).click(
+		function() {
+		clearSearch();
+	});
+
+
+
 	$('#searchBox').keyup(function(event){
 		var inputRegEx = new RegExp("^[a-zA-Z0-9]+$");  
 		var allowedKeys = new Array(27, 40, 8);
@@ -65,6 +79,8 @@ $(document).ready(function() {
 					$current.removeClass("selected");
 					$prev.addClass("selected");
 				}
+			} else if (event.keyCode === 27) {
+				clearSearch();
 			}
 			var searchValue = $(this).val();
 			if(searchValue.length > 3) {
