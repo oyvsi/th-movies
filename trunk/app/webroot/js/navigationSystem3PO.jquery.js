@@ -59,16 +59,18 @@ $(document).ready(function() {
 	var urlParts = urlInfo.split('/');
 	var urlEnd = urlParts[urlParts.length-1];//+urlParts[urlParts.length-1];
 	//console.log(urlEnd);
-	console.log(urlEnd);
 
 	if(urlParts[urlParts.length - 3] == 'movies' || urlParts[urlParts.length - 3] == 'Tags') {
 		tabSelect('homepage');
-	} else {		
+	} else {
+
 		switch(urlEnd) {
 			case 'login':
 				tabSelect('loginpage');
 				break;
-
+			case 'add' :
+				tabSelect('registerpage');
+				break;
 			case 'users': 
 				tabSelect('userpage');
 				tabSelect('user2');
@@ -94,6 +96,7 @@ $(document).ready(function() {
 				break;
 			default:
 				tabSelect('homepage');
+				tabSelect('movies4');
 				break;
 		}
 	}
@@ -133,6 +136,7 @@ function mouseOnmouseOff(state, div) {
 	$('#moviepage').click(function(e) {
 		window.location = baseURL+'movies';
 	});
+
 //function used as an index for the movie page.
 function ratedInfoPage() {
 	var callBack = function(data) {
@@ -149,38 +153,67 @@ function profileInfoPage() {
 }
 
 //this function ensures not only that the page loads (as the once above).
-//but also makes sure that the li elements loaded are clickable. (grouplistli).
+//but also makes sure that the th elements loaded are clickable. (grouplistliink).
 //It also makes the membership class clickable for requestmembership.
 function groupInfoPage() {
 	var callBack = function(data) {
 		$('#groupsInfo').html(data);
-		groupListLi();
-		//////////////////////////7
+		groupListLink('th');
 		$('.membership').bind("click", function() {
+			//gets id clicked.
 			var id = $(this).attr("id");
-			var callback2 =  function() {
-				//console.log('cool beans');
-				//console.log(id);
-				var message = document.getElementsByClassName('membership');
-				$(message).html('<span class="feedback"> Request sent</span>');
+			//callback
+			var callback =  function() {
+				var messageDiv = document.getElementsByClassName('membership');
+				var i = 0;
+				while($(messageDiv[i]).attr("id") != id) {
+					i++;
+				}
+				$(messageDiv[i]).html('<td class="feedback"> Request sent</span>');
 			};	
-			l_ajaxPost(baseURL+'groups/requestMembership', callback2, {group_id: id}); 
+			l_ajaxPost(baseURL+'groups/requestMembership', callback, {group_id: id}); 
 		});
-		//////////////////////////////
 	}
 	l_ajaxPost(baseURL+'groups/listGroups', callBack);
 }
+//this function ensures not only that the page loads (as the once above).
+//but also makes sure that the th elements loaded are clickable. (grouplistliink).
+//It also makes the membership class clickable for requestmembership.
+function listRequestsPage() {
 
-//function that
-function groupListLi() {
+	var callBack = function(data) {
+		$('#groupsInfo').html(data);
+		groupListLink('th');
+		//if clicked:
+		$('.membership').bind("click", function() {
+
+			var thisEle = $(this);
+
+			//get the id in question
+			var userId = $(this).attr("id");
+			//get the group id
+			var groupEle = $(this).closest('div');
+			var groupId = $(groupEle).attr("id");
+
+			//display message in correct messagespan
+			var callBack = function() {
+				$(thisEle).html('<td class="feedback"> User added</span>');
+			}
+
+			l_ajaxPost(baseURL+'groups/addUser', callBack, {group_id: groupId, user_id: userId}); 
+		});
+	}
+	l_ajaxPost(baseURL+'groups/listRequests', callBack);
+}
+//function that ensures the th and li elements 
+//are clickable after being loaded with ajax.
+function groupListLink(ele) {
 	//when the li elements are clicked.
-	$('#grouplist li').click(function(e) {
+	$('#grouplist '+ele).click(function(e) {
 		//get id of the element clicked.
 		var groupId = this.id;
-
 		var callBack = function(data) {
 			$('#groupsInfo').html(data);
-			e.preventDefault();
 		}
 		l_ajaxPost(baseURL+'groups/listGroup/'+groupId, callBack);
 	});
@@ -193,15 +226,14 @@ This is a function that ensures two things:
 	is loaded and the url changes.
 */
 function sideTabIndex() {
-	console.log(urlParts.length);
 	if(document.getElementById('frontpage') && urlParts.length == urlLength) {
 	//	console.log("hello");
 		ratedInfoPage();
 	};
-	if(document.getElementById('profileInfo') && urlParts.length == urlLength - 1) {
+	if(document.getElementById('profileInfo') && urlParts.length == urlLength) {
 		profileInfoPage();
 	};
-	if(document.getElementById('groupsInfo') ){//&& urlParts.length == 6) {
+	if(document.getElementById('groupsInfo') && urlParts.length == urlLength) {
 		groupInfoPage();
 	};
 
@@ -218,7 +250,7 @@ function sideTabIndex() {
 		/*case 'movies':
 			ratedInfoPage();
 			break;*/
-		case 'users': case 'edit':
+		case 'users':
 			//profileInfoPage();
 			break;
 		case 'groups':
@@ -321,11 +353,12 @@ sideTabIndex();
 			tabSelect('groups3', '#003d4c', 'white');
 			tabSelect('groups1');
 			$('#groupsInfo').html(data);
-			groupListLi();
+			groupListLink('li');
 		}
 		l_ajaxPost(baseURL+'users/groupsInfo', callBack);
 	});
-	
+
+//This is what im working now!
 	$('#groups2').click(function(e) {
 
 		var callBack = function(data) {
@@ -333,7 +366,7 @@ sideTabIndex();
 			tabSelect('groups3', '#003d4c', 'white');
 			tabSelect('groups2');
 			$('#groupsInfo').html(data);
-			//groupListLi();
+			listRequestsPage();
 		}
 		l_ajaxPost(baseURL+'groups/listRequests', callBack);
 	});
@@ -400,14 +433,18 @@ sideTabIndex();
 	});
 
 
-	//action for when the id "moviespage" is clicked
+	//action for the logouttab in maintabs
 	$('#logoutpage').click(function(e) {
 		window.location = baseURL+'users/logout';
 	});
 
-	//action for when the id "moviespage" is clicked
+	//action for the login tab.
 	$('#loginpage').click(function(e) {
 		window.location = baseURL+'users/login';
+	});
+	//action for the register tab.
+	$('#registerpage').click(function(e) {
+		window.location = baseURL+'users/add';
 	});
 
 

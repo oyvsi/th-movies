@@ -78,7 +78,7 @@ class GroupsController extends AppController {
 															   'Group.groupName'),
 									 'joins' => array(
 												array(
-													  'table'=>'membershiprequests',
+													  'table'=>'membership_requests',
 													   'alias'=>'MembershipRequest',
 													   'type'=>'LEFT',
 													   'conditions' => array(
@@ -95,7 +95,7 @@ class GroupsController extends AppController {
 									  'recursive' => 0,
 									 'joins' => array(
 												array(
-													  'table'=>'membershiprequests',
+													  'table'=>'membership_requests',
 													   'alias'=>'MembershipRequest',
 													   'type'=>'LEFT',
 													   'conditions' => array(

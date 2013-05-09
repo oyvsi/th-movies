@@ -48,7 +48,7 @@ $(document).ready(function() {
 		};	
 		ajaxPost('groups/requestMembership', {group_id: id}, callback); 
 	});
-*/	
+
 	$("[class^='user_']").bind("click", function() {
 		var userClass = $(this).attr("class");
 		var userId = parseInt(userClass.split('_')[1]);
@@ -59,7 +59,7 @@ $(document).ready(function() {
 		};	
 		ajaxPost('groups/addUser', {group_id: groupId, user_id: userId}, callback); 
 	});
-
+*/	
 	$('#AddTag #tag').focus(function() {
 		$(this).val('');	
 	});

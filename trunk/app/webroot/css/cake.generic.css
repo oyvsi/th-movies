@@ -163,13 +163,28 @@ p {
 	width: 70%;
 	min-height: 120px;
 }
-
 #groupsInfo li {
 	list-style-type: none;
 	font-weight: bold;
 	cursor: pointer;
 }
 #groupsInfo li:hover {
+	text-decoration: underline;
+}
+#groupsInfo table {
+	width: 50%;
+	background: white;
+	color: #003d4c;
+}
+#groupsInfo th {
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+}
+#groupsInfo td {
+	border: none;
+}
+#groupsInfo th:hover {
 	text-decoration: underline;
 }
 /***************/
