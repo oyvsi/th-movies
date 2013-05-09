@@ -21,6 +21,7 @@ class GroupsController extends AppController {
 			$this->layout = 'ajax';
 			$data = $this->Group->find('all');
 			$memberships = $this->Group->Membership->find('all', array('conditions' => array('user_id' => $this->user)));
+
 			$this->set('groups', $data);
 			$this->set('memberships', $memberships);
 		}
