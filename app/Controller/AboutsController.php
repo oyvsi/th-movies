@@ -10,11 +10,19 @@ class AboutsController extends AppController {
 
 	private $aboutLaff = "Was born yesterday. Abortion failed.";
 
-
+	/**
+	* Index
+	*
+	*/
 	public function index() {
 		
 		
 	}
+	
+	/**
+	* Info about the makers of TH-movies
+	* 
+	*/
 	public function about() {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';

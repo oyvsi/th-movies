@@ -30,7 +30,12 @@ class MoviesController extends AppController {
 		} 
 
 	}
-
+	/**
+	* Function shows info about a movie. Also gives
+	* users the possibility to rate and tag. 
+	* The page shows current rating and avg rating.
+	*
+	*/
 	public function movie() {
 	
 		if($this->user && isset($this->Movie->Rating->data['Rating']['rating'])) {
@@ -70,6 +75,10 @@ class MoviesController extends AppController {
 		$this->render('movie');
 	}
 
+	/**
+	* Fuction adds an users rating to a movie.
+	*
+	*/
 	public function rate() {
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
@@ -80,6 +89,11 @@ class MoviesController extends AppController {
 		}	
 	}
 
+	/**
+	* Fuction shows all tags on a movie,
+	* and offers tag possebilities to the movie
+	*
+	*/
 	public function tag() {
 		if($this->request->is('ajax')) 
 			$this->autoRender = false;
@@ -101,13 +115,21 @@ class MoviesController extends AppController {
 			$this->Movie->MoviesTags->save(array('movie_id' => $this->movie_id, 'tag_id' => $dbTag['Tag']['id']));
 	}
 
+	/**
+	* Function deletes a rating.
+	*
+	*/
 	public function drop() {
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
 			$this->Movie->Rating->delete();
 		}
 	}
-	
+
+	/**
+	* Fuction makes a list of the top movies.
+	*
+	*/	
 	public function top() {
 		
 		$ratings = $this->Movie->Rating->find('all', array(
@@ -136,13 +158,23 @@ class MoviesController extends AppController {
 		arsort($movieRatings);
 		$this->set('rated', $movieRatings);
 	}
-	
+
+	/**
+	* Fuction makes a list of latest rated movies.
+	*
+	*/	
 	public function latestMovies() {
 		$this->set('latestMovies', $this->Movie->Rating->find('all', 
 		array(	'order' => array('Rating.modified DESC')
 		)));
 	}
 
+	/**
+	* Fuction shows a users rating based on logged in user
+	* or $user
+	*
+	* @params int $user
+	*/
 	public function rated($user = null) {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
@@ -154,6 +186,10 @@ class MoviesController extends AppController {
 		}
 	}	
 
+	/**
+	* Fuction searches for movies.
+	*
+	*/
 	public function searchMovies() {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
