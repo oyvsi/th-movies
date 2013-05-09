@@ -47,7 +47,6 @@ class UsersController extends AppController {
 
 			}
 		}
-		//cakephp magic runs profileInfo.ctp (its viewfile).
 	}
 
 	/**
