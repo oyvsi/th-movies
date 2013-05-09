@@ -164,7 +164,7 @@ class GroupsController extends AppController {
 		    $id = $this->Group->MembershipRequest->findByUserIdAndGroupId($userId, $groupId);
 		    print_r($id);
 		    $this->Group->MembershipRequest->id = $id['MembershipRequest']['id'];
-		    $this->Group->MembershipRequest->saveField('pending', 1);
+		    $this->Group->MembershipRequest->saveField('pending', 0);
             $this->Group->Membership->save($this->request->data);
 	
 		}
