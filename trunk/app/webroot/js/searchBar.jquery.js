@@ -45,7 +45,6 @@ $(document).ready(function() {
 	$(document).click(
 		function() {
 		var itsMore = document.getElementById('moremovies');
-		console.log(itsMore);
 		//clearSearch();
 	});
 

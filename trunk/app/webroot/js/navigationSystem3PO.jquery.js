@@ -11,7 +11,9 @@
 	url changes.
 */
 //MÅ ENDRES FOR Å TILPASSE SEG ULIKE URL-OPPSETT:
-var urlLength = 7;
+var urlLength = 5;
+
+
 
 function l_ajaxPost(url, callback, data) {
 
@@ -153,9 +155,11 @@ function profileInfoPage() {
 }
 
 //this function ensures not only that the page loads (as the once above).
-//but also makes sure that the th elements loaded are clickable. (grouplistliink).
+//but also makes sure that the th elements loaded are clickable. (grouplistlink).
 //It also makes the membership class clickable for requestmembership.
 function groupInfoPage() {
+
+	//a callback for the javascript that are to work on this page.
 	var callBack = function(data) {
 		$('#groupsInfo').html(data);
 		groupListLink('th');
@@ -173,11 +177,23 @@ function groupInfoPage() {
 			};	
 			l_ajaxPost(baseURL+'groups/requestMembership', callback, {group_id: id}); 
 		});
+
+		//callback for when i get the data from a function that returns membershit requests
+		var callback = function (data) {
+
+		console.log(data);
+		//the li id in question is called "groups2".
+			}
+		//ajax that calls for some data returned.
+		//l_ajaxPost(baseURL+'groups/listRequests', callback);
 	}
+
+
+
 	l_ajaxPost(baseURL+'groups/listGroups', callBack);
 }
 //this function ensures not only that the page loads (as the once above).
-//but also makes sure that the th elements loaded are clickable. (grouplistliink).
+//but also makes sure that the th elements loaded are clickable. (grouplistlink).
 //It also makes the membership class clickable for requestmembership.
 function listRequestsPage() {
 
@@ -226,6 +242,8 @@ This is a function that ensures two things:
 	is loaded and the url changes.
 */
 function sideTabIndex() {
+	console.log(urlParts.length);
+
 	if(document.getElementById('frontpage') && urlParts.length == urlLength) {
 	//	console.log("hello");
 		ratedInfoPage();
@@ -347,7 +365,6 @@ sideTabIndex();
 	});
 	//action for when the id "groups1" is clicked
 	$('#groups1').click(function(e) {
-
 		var callBack = function(data) {
 			tabSelect('groups2', '#003d4c', 'white');
 			tabSelect('groups3', '#003d4c', 'white');
