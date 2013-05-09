@@ -182,7 +182,7 @@ class GroupsController extends AppController {
 	/**
 	* Fuction lists members in a group with id $id.
 	*
-	* @params int $id
+	* @param int $id
 	*/
 	public function _getMembers($id) {
 		return $this->Group->Membership->find('all', array('conditions' => array('Group.id' => $id)));	
