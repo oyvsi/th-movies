@@ -20,6 +20,8 @@
 		<ul>
 			<li id='loginpage'>Login
 			</li>
+			<li id='registerpage'>Register
+			</li>
 		</ul>"; }
 	
 		//	<li id='moviepage'>Movies</li>  var movies-side
