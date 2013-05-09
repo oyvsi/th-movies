@@ -65,7 +65,11 @@
 		</div>
 
 		<div id="sidetabs">
-			<?php echo $this->fetch('sideTabs'); ?>
+			<?php 
+				if($this->Session->read('Auth.User')) {
+					echo $this->fetch('sideTabs'); 
+				}
+			?>
 		</div>
 
 		<div id="footer">

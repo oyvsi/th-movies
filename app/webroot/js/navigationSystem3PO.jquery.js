@@ -11,7 +11,7 @@
 	url changes.
 */
 //MÅ ENDRES FOR Å TILPASSE SEG ULIKE URL-OPPSETT:
-var urlLength = 8;
+var urlLength = 5;
 
 function l_ajaxPost(url, callback, data) {
 
@@ -45,12 +45,9 @@ function tabSelect(div, bgcolor, text) {
 		bgcolor = 'white';
 		text = '#003d4c';
 	}
-	console.log(header);
 	if(header) {
 		header.style.backgroundColor = bgcolor;
 		header.style.color = text;
-	} else {
-		console.log("fuck all");
 	}
 }
 
@@ -62,10 +59,16 @@ $(document).ready(function() {
 	var urlParts = urlInfo.split('/');
 	var urlEnd = urlParts[urlParts.length-1];//+urlParts[urlParts.length-1];
 	//console.log(urlEnd);
+	console.log(urlEnd);
+
 	if(urlParts[urlParts.length - 3] == 'movies' || urlParts[urlParts.length - 3] == 'Tags') {
 		tabSelect('homepage');
 	} else {		
 		switch(urlEnd) {
+			case 'login':
+				tabSelect('loginpage');
+				break;
+
 			case 'users': 
 				tabSelect('userpage');
 				tabSelect('user2');
@@ -190,7 +193,7 @@ This is a function that ensures two things:
 	is loaded and the url changes.
 */
 function sideTabIndex() {
-	//console.log(urlParts.length);
+	console.log(urlParts.length);
 	if(document.getElementById('frontpage') && urlParts.length == urlLength) {
 	//	console.log("hello");
 		ratedInfoPage();
@@ -350,7 +353,6 @@ sideTabIndex();
 
 //action for when the id "about1" is clicked
 	$('#about1').click(function(e) {
-		console.log("tattar");
 		var callBack = function(data) {
 			tabSelect('about2', '#003d4c', 'white');
 			tabSelect('about3', '#003d4c', 'white');
