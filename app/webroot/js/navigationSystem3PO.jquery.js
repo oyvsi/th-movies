@@ -181,7 +181,7 @@ function groupInfoPage() {
 		//callback for when i get the data from a function that returns membershit requests
 		var callback = function (data) {
 
-		console.log(data);
+		//console.log(data);
 		//the li id in question is called "groups2".
 			}
 		//ajax that calls for some data returned.
@@ -242,7 +242,7 @@ This is a function that ensures two things:
 	is loaded and the url changes.
 */
 function sideTabIndex() {
-	console.log(urlParts.length);
+	//console.log(urlParts.length);
 
 	if(document.getElementById('frontpage') && urlParts.length == urlLength) {
 	//	console.log("hello");

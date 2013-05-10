@@ -15,7 +15,7 @@ $(document).ready(function() {
 				var output = '<li class="search_item" id="' + movie.id + '"><span id="title">' + movie.original_title + ' (' + movie.release_date + ')</span><span id="thumb"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w92' + movie.poster_path + '" /></thumb></li>';
 				$("#movies").append(output);
 				if(index == 4) {
-					$("#movies").append('<li class="search_item" id="moremovies">More movies! (Down Arrow here m8y) </li>');
+					$("#movies").append('<li class="search_item" id="moremovies">More movies! (Arrow down or click) </li>');
 				}
 				$('#movies li:gt(5)').hide();
 				if(index == 9) {
@@ -40,14 +40,25 @@ $(document).ready(function() {
 		$('#searchBox').val('');
 		$('#movies').html('');
 	}
-//calls clear function when the document is clicked anywhere.
-//mouseover anywhere is a bit harsh innit...?
-	$(document).click(
-		function() {
-		var itsMore = document.getElementById('moremovies');
-		//clearSearch();
-	});
 
+//calls clearsearch function if anything but the searchbox or "moremovies" (title)
+//is clicked
+	$(document).click(function(e) {
+		var ele = document.elementFromPoint(e.clientX, e.clientY);
+		var id = ele.id;
+
+		if(id == 'searchBox' || id == 'title') {
+			console.log('do nothing');
+		} else {
+			clearSearch();
+		}
+	});
+//calls clearsearch if esc is clicked
+	$(document).keyup(function(event) {
+		if (event.keyCode === 27) {
+			clearSearch();
+		}
+	});
 
 
 	$('#searchBox').keyup(function(event){
@@ -80,8 +91,6 @@ $(document).ready(function() {
 					$current.removeClass("selected");
 					$prev.addClass("selected");
 				}
-			} else if (event.keyCode === 27) {
-				clearSearch();
 			}
 			var searchValue = $(this).val();
 			if(searchValue.length > 3) {
@@ -99,54 +108,19 @@ $(document).ready(function() {
 		} else {
 			$("#movies").append("No alphanumeric ova here");
 		}
-	//calls clear function when the document is clicked anywhere.
-	//mouseover anywhere is a bit harsh innit...?
-		$(document).click(
-			function() {
-			var itsMore = document.getElementById('moremovies');
-			if(itsMore) {
-				clearSearch();
-			}
-		});
-
 	});
-/*
-	$('#moremovies').click(
-			function(e) {
 
-				console.log('wassup');
-				$next = $('li[id*=moremovies]').next();
-				$('#movies li:gt(4)').show();
-				$('li[id*=moremovies]').remove();
-				$next.addClass('selected');
-		});
-*/
-
-$('#movies').delegate('li', 'click', function() {
-	if (this.id != 'moremovies') {
-		document.location = baseURL + 'movies/movie/' + this.id;
-	} else {
-		$next = $('li[id*=moremovies]').next();
-		$('#movies li:gt(4)').show();
-		$('li[id*=moremovies]').remove();
-		$next.addClass('selected');
-	}
-
-
-		//document.location = baseURL + 'movies/movie/' + this.id;
-});
-
-
-/* I have not seen proof of this code doing anything other than creating console errors. - laffedr8
-$('#movies').mouseover(function(){
-	$next.removeClass('selected');
-});
-
-$('#movies').mouseout(function(){
-	$next.addClass('selected');
-});
-*/
-
+//makes it so that you can mouseclick "more movies"
+	$('#movies').delegate('li', 'click', function() {
+		if (this.id != 'moremovies') {
+			document.location = baseURL + 'movies/movie/' + this.id;
+		} else {
+			$next = $('li[id*=moremovies]').next();
+			$('#movies li:gt(4)').show();
+			$('li[id*=moremovies]').remove();
+			$next.addClass('selected');
+		}
+	});
 });
 
 
