@@ -10,51 +10,40 @@
 
 
 //"<td class=\"membership\" id=" . $group['Group']['id'] .  ">" . $this->Html->image('list-add.png') . '</td>'; 
-	function checkIfRequested($group, $addMark, $user) {
-		//$addMark = "<td class='membership'>".$this->Html->image('list-add.png')."</td>";
-		$requestSent = "Already requested";
+	function checkIfRequested($group, $addMark, $user, $class) {
 
+		$requestSent = false;
+			foreach($group['MembershipRequest'] as $request) {
+				if($request['pending'] == 1 && $request['user_id'] == $user['id']) {
+					$requestSent = true;
+				}
+			}
 
-		foreach($group['MembershipRequest'] as $request) {
-			if($request['pending'] == 1 && $request['user_id'] == $user['id']) {
-				return $requestSent;
-			}
+		if($requestSent && $class) {
+			return "none";
 		}
-		return $addMark;
-	}
-/*
-	foreach($groups as $group) {
-		foreach($group['MembershipRequest'] as $request) {
-			if($request['pending']) {
-				echo "<pre>";
-				print_r($request['pending']);
-				echo "</pre>";
-			}
+		else if($requestSent && !$class) {
+			return "Already requested";
+		}
+		else if(!$requestSent && $class) {
+			return "membership";
+		}
+		else if(!$requestSent && !$class) {
+			return $addMark;
 		}
 	}
-*/
 
 	$memberOf = array();
 	foreach($memberships as $membership) {
 	 	array_push($memberOf, $membership['Group']['groupName']);
 	}
-/*
-	$i = 0;
-	foreach($membershipRequests as $membershipRequest) {
-		if($user['id'] == $membershiRequest[$i]['id'] && !$membershipRequest[$i]['pending']) {
 
-			echo "<pre>";
-			print_r($membershipRequest[$i]['group_id']);
-			echo "</pre>";
-		}
-	}
-*/
 	foreach($groups as $group) {
 		echo "<tr>";
 	/*	$imgMarkup = (in_array($group['Group']['groupName'], $memberOf, true)) ? '<span>' . $this->Html->image('check-mark.png') . '</span>' : "<span class=\"membership\" id=" . $group['Group']['id'] .  ">" . $this->Html->image('list-add.png') . '</span>'; 
 */
 
-		$imgMarkup = (in_array($group['Group']['groupName'], $memberOf, true)) ? '<td>' . $this->Html->image('check-mark.png') . '</td>' : '<td class="membership" id='.$group['Group']['id'].'>'.checkIfRequested($group, $addMark, $user). '</td>';
+		$imgMarkup = (in_array($group['Group']['groupName'], $memberOf, true)) ? '<td>' . $this->Html->image('check-mark.png') . '</td>' : '<td class='.checkIfRequested($group, $addMark, $user, true).' id='.$group['Group']['id'].'>'.checkIfRequested($group, $addMark, $user, false). '</td>';
 
 		//"<td class=\"membership\" id=" . $group['Group']['id'] .  ">" . $this->Html->image('list-add.png') . '</td>'; 
 
