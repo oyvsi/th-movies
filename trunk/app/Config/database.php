@@ -60,7 +60,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '12ganger12',
+		'password' => '',
 		'database' => 'th_movies',
 		'prefix' => '',
 		'encoding' => 'utf8',

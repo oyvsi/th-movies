@@ -62,6 +62,7 @@ function groupInfoPage() {
 	var callBack = function(data) {
 		$('#groupsInfo').html(data);
 		groupListLink('th');
+
 		$('.membership').bind("click", function() {
 			//gets id clicked.
 			var id = $(this).attr("id");
@@ -212,6 +213,7 @@ function listRequestsPage() {
 		$('#groupsInfo').html(data);
 		groupListLink('th');
 		//if clicked:
+
 		$('.membership').bind("click", function() {
 
 
@@ -221,7 +223,7 @@ function listRequestsPage() {
 			var userId = $(this).attr("id");
 			//get the group id
 			var groupEle = $(this).closest('div');
-			var groupId = $(groupEle).attr("id");
+			var groupId = groupEle.attr("id");
 
 			//display message in correct messagespan
 			var callBack = function(data) {
@@ -233,6 +235,7 @@ function listRequestsPage() {
 				var replaceTex = document.createTextNode("User added");
 				replaceEle.appendChild(replaceTex);
 				thisEle[0].parentNode.replaceChild(replaceEle, thisEle[0]);
+
 			}
 
 			l_ajaxPost(baseURL+'groups/addUser', callBack, {group_id: groupId, user_id: userId}); 
@@ -373,6 +376,7 @@ sideTabIndex();
 	//action for when the id "groups1" is clicked
 	$('#groups1').click(function(e) {
 		var callBack = function(data) {
+			//console.log(data);
 			tabSelect('groups2', '#003d4c', 'white');
 			tabSelect('groups3', '#003d4c', 'white');
 			tabSelect('groups1');
@@ -383,16 +387,15 @@ sideTabIndex();
 	});
 
 //This is what im working now!
-	$('#groups2').click(function(e) {
+	$('#groups2').click(function() {
 
-		var callBack = function(data) {
+	//	var callBack = function(data) {
 			tabSelect('groups1', '#003d4c', 'white');
 			tabSelect('groups3', '#003d4c', 'white');
 			tabSelect('groups2');
-			$('#groupsInfo').html(data);
 			listRequestsPage();
-		}
-		l_ajaxPost(baseURL+'groups/listRequests', callBack);
+	//	}
+	//	l_ajaxPost(baseURL+'groups/listRequests', callBack);
 	});
 	
 	$('#groups3').click(function(e) {

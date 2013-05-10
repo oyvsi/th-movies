@@ -9,7 +9,7 @@
 	echo "<input type='submit' id='newGroup'  value='New Group'/>";
 
 
-//"<td class=\"membership\" id=" . $group['Group']['id'] .  ">" . $this->Html->image('list-add.png') . '</td>'; 
+//magic function
 	function checkIfRequested($group, $addMark, $user, $class) {
 
 		$requestSent = false;
@@ -32,26 +32,28 @@
 			return $addMark;
 		}
 	}
-
-	$memberOf = array();
+//magic stuff
+	$groupIds = array();
+	$userIds = array();
 	foreach($memberships as $membership) {
-	 	array_push($memberOf, $membership['Group']['groupName']);
+	 	array_push($groupIds, $membership['Membership']['group_id']);
+	 	array_push($userIds, $membership['Membership']['user_id']);
 	}
 
+	$i = 0;
 	foreach($groups as $group) {
+		++$i;
 		echo "<tr>";
-	/*	$imgMarkup = (in_array($group['Group']['groupName'], $memberOf, true)) ? '<span>' . $this->Html->image('check-mark.png') . '</span>' : "<span class=\"membership\" id=" . $group['Group']['id'] .  ">" . $this->Html->image('list-add.png') . '</span>'; 
-*/
+		if($group['Group']['owner'] == $user['id'] || $group['Membership']['user_id'] == $userIds[$i]) {
+			$imgMarkup = '<td>' . $this->Html->image('check-mark.png') . '</td>';
 
-		$imgMarkup = (in_array($group['Group']['groupName'], $memberOf, true)) ? '<td>' . $this->Html->image('check-mark.png') . '</td>' : '<td class='.checkIfRequested($group, $addMark, $user, true).' id='.$group['Group']['id'].'>'.checkIfRequested($group, $addMark, $user, false). '</td>';
+		} else {
+			$imgMarkup = '<td class='.checkIfRequested($group, $addMark, $user, true).' id='.$group['Group']['id'].'>'.checkIfRequested($group, $addMark, $user, false). '</td>';
+		}
 
-		//"<td class=\"membership\" id=" . $group['Group']['id'] .  ">" . $this->Html->image('list-add.png') . '</td>'; 
-
-
-
-		//echo '<p>' .  $this->Html->link($group['Group']['groupName'], '/groups/listGroup/' . $group['Group']['id']) . $imgMarkup;
 		echo '<th id='.$group['Group']['id'].'>'. $group['Group']['groupName'] .'</th>'. $imgMarkup;
 		echo "</tr>";	
+		$i++;
 	} 
 
 ?>
