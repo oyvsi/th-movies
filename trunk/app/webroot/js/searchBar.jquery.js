@@ -54,10 +54,11 @@ $(document).ready(function() {
 		}
 	});
 //calls clearsearch if esc is clicked
-	$(document).keyup(function(event) {
-		if (event.keyCode === 27) {
-			clearSearch();
-		}
+$(document).keyup(function(event) {
+	if (event.keyCode === 27) {
+		event.preventDefault();
+		clearSearch();
+	}
 	});
 
 
