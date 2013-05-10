@@ -72,23 +72,17 @@ function groupInfoPage() {
 				while($(messageDiv[i]).attr("id") != id) {
 					i++;
 				}
-				$(messageDiv[i]).html('<span class="feedback"> Request sent</span>');
+				//ensure that "request sent" is not clickable by replacing the parentnode 
+				//(the class membership is clickable).
+				var replaceEle = document.createElement("td");
+				replaceEle.className = "feedback";
+				var replaceTex = document.createTextNode("Request sent");
+				replaceEle.appendChild(replaceTex);
+				messageDiv[i].parentNode.replaceChild(replaceEle, messageDiv[i]);
 			};	
 			l_ajaxPost(baseURL+'groups/requestMembership', callback, {group_id: id}); 
 		});
-
-		//callback for when i get the data from a function that returns membershit requests
-		var callback = function (data) {
-
-		//console.log(data);
-		//the li id in question is called "groups2".
-			}
-		//ajax that calls for some data returned.
-		//l_ajaxPost(baseURL+'groups/listRequests', callback);
 	}
-
-
-
 	l_ajaxPost(baseURL+'groups/listGroups', callBack);
 }
 
@@ -220,6 +214,7 @@ function listRequestsPage() {
 		//if clicked:
 		$('.membership').bind("click", function() {
 
+
 			var thisEle = $(this);
 
 			//get the id in question
@@ -229,8 +224,15 @@ function listRequestsPage() {
 			var groupId = $(groupEle).attr("id");
 
 			//display message in correct messagespan
-			var callBack = function() {
-				$(thisEle).html('<td class="feedback"> User added</span>');
+			var callBack = function(data) {
+
+				//ensure that "request sent" is not clickable by replacing the parentnode 
+				//(the class membership is clickable).
+				var replaceEle = document.createElement("td");
+				replaceEle.className = "feedback";
+				var replaceTex = document.createTextNode("User added");
+				replaceEle.appendChild(replaceTex);
+				thisEle[0].parentNode.replaceChild(replaceEle, thisEle[0]);
 			}
 
 			l_ajaxPost(baseURL+'groups/addUser', callBack, {group_id: groupId, user_id: userId}); 
@@ -472,43 +474,5 @@ sideTabIndex();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
-
-/*
-function ajaxCall(controller, action, searchString, callBack) {
-         $.ajax({
-                   type: 'GET',
-                    url: controller + action,
-                    data: { search: searchString },
-					dataType: "html",
-                    success: callBack
-           });
-	}
-
-$(document).ready(function() {
-	$('#sidebar a').click(function(e) {
-		var urlInfo = $(this).attr('href');
-		var urlParts = urlInfo.split('#');
-		var searchCallBack = function(data) {
-			console.log(data);
-			$('#'+urlParts[3]).html(data);
-		}
-		ajaxCall(urlParts[0], urlParts[1], urlParts[2], searchCallBack);
-		e.preventDefault();
-	});
-});
-*/

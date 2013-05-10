@@ -96,7 +96,7 @@ class GroupsController extends AppController {
 															   'Group.groupName'),
 									 'joins' => array(
 												array(
-													  'table'=>'membership_requests',
+													  'table'=>'membershiprequests',
 													   'alias'=>'MembershipRequest',
 													   'type'=>'LEFT',
 													   'conditions' => array(
@@ -113,7 +113,7 @@ class GroupsController extends AppController {
 									  'recursive' => 0,
 									 'joins' => array(
 												array(
-													  'table'=>'membership_requests',
+													  'table'=>'membershiprequests',
 													   'alias'=>'MembershipRequest',
 													   'type'=>'LEFT',
 													   'conditions' => array(
@@ -161,12 +161,19 @@ class GroupsController extends AppController {
 		    $this->autoRender = false;
 		    $userId = $this->request->data['user_id'];
 		    $groupId = $this->request->data['group_id'];
-		    $id = $this->Group->MembershipRequest->findByUserIdAndGroupId($userId, $groupId);
-		    print_r($id);
-		    $this->Group->MembershipRequest->id = $id['MembershipRequest']['id'];
-		    $this->Group->MembershipRequest->saveField('pending', 0);
-            $this->Group->Membership->save($this->request->data);
-	
+
+		   	$id = $this->Group->MembershipRequest->findByUserIdAndGroupId($userId, $groupId);
+
+		    if(empty($id)) {
+		    	print_r('the id was empty');
+		    	$this->Group->MembershipRequest->save($this->request->data);
+
+		    } else {
+		    	$this->Group->MembershipRequest->id = $id['MembershipRequest']['id'];
+		   		$this->Group->MembershipRequest->saveField('pending', 0);
+		    }
+
+		    $this->Group->Membership->save($this->request->data);
 		}
 	}
 	

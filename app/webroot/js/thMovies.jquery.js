@@ -101,12 +101,23 @@ $(document).on('keydown', 'input.groupName', function(event) {
 			
 });
 
+
+
 $(document).on("click", 'input#newGroup', function() {
 		var html = $(this).html();
 		$(this).replaceWith("<div id='newGroupWrapper'> <input class='groupName' type='text' value='Group name...'> <input class='submitGroup' type='submit'></div>");
 		$('input.groupName').focus();
 	
-});		
+});
+
+//clears value when anything is balls
+$(document).on('keydown', 'input.groupName', function(event) {
+	if(event.keyCode) {
+		if(this.value == 'Group name...') {
+			this.value = '';
+		}
+	}
+});
 
 $(document).on("click", '.submitGroup', function() {
 		var groupName = $('.groupName').val();
@@ -114,16 +125,14 @@ $(document).on("click", '.submitGroup', function() {
 			var dataArr = data.split('/');
 			//using function from navigationsystem. FUck cakephp, hello ajax
 
-			var callBack = function() {
+			var callBack = function(data) {
 				groupInfoPage();
+				console.log(data);
 			}
-
-			l_ajaxPost(baseURL+'groups/addUser', callBack, {group_id: dataArr[0], user_id: dataArr[1]}); 
-
-			$('#newGroupWrapper').replaceWith('<p> Group created </p>');
+			l_ajaxPost(baseURL+'groups/addUser', callBack, {group_id: dataArr[0], user_id: dataArr[1], pending: 0}); 
 		};
 		if(groupName.length > 3) {
-			ajaxPost('/groups/createGroup', {groupName: groupName}, callback, true);
+			ajaxPost('groups/createGroup', {groupName: groupName}, callback, true);
 		} else {
 			$('#newGroupWrapper').append("<p class='error'> The name must be longer then 3 chars </p>");
 		}

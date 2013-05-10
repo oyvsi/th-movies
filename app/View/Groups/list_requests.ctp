@@ -1,6 +1,7 @@
 <div class="requests"> 
 <?php
 	if($groups) {
+
 		$viewArray = array();
 		$i = 0;
 		foreach($groups as $group) {
@@ -13,7 +14,7 @@
 			echo '<table>';
 		foreach($groupName as $users) {
 			foreach($users as $userId => $userName) {
-				echo '<tr><td><span class="membership" id="' . $userId .  '">' . $userName . $this->Html->image('list-add.png') . '</span>' .'</td></tr>';
+				echo '<tr><th>'.$userName .'</th><td class="membership" id="' . $userId .  '">' . $this->Html->image('list-add.png') .'</td></tr>';
 			}
 		}
 		echo '</table>';
