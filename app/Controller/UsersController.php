@@ -39,7 +39,7 @@ class UsersController extends AppController {
 	public function groupsInfo($user = null) {
 		if($this->request->is('ajax')) {
 			$this->layout = 'ajax';
-
+			print_r($user);
 			if($user === null) {
 				$user = $this->Auth->user('username');
 				$this->set('userID', $this->Auth->user('id'));

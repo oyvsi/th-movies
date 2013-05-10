@@ -29,7 +29,6 @@ $(document).ready(function() {
 
 	$('#drop_rating').bind("click", function() {
 		var callback =  function() {
-			console.log('cool beans');
 			$('#star').raty('score', 0);
 			$('#rating-hint').html('');
 		};	
@@ -80,7 +79,6 @@ $("#AddTag").submit(function() {
 		var movie = $('.rating').attr('id');
 		var action = $(this).attr('action');
 		var callback = function() {
-		console.log('base: ' + baseURL);
 		$('#tags').append(' <span class="tag"><a href="' + baseURL + 'Tags/findMovies/' + tag + '">' + tag + '</a> |</span>');
 		$('#AddTag #tag').blur();
 		};
@@ -127,7 +125,6 @@ $(document).on("click", '.submitGroup', function() {
 
 			var callBack = function(data) {
 				groupInfoPage();
-				console.log(data);
 			}
 			l_ajaxPost(baseURL+'groups/addUser', callBack, {group_id: dataArr[0], user_id: dataArr[1], pending: 0}); 
 		};
