@@ -1,8 +1,4 @@
 <div id="frontpage">
-
-<h1>Welcome to ThMovies</h1>
-<p>This is a very cool website where you can rate you're favorite (or least favorite) movies</p>
-
 </div>
 
 <?php 
@@ -17,9 +13,15 @@
 			)));
 	$this->end();
 
+?>
+	<div id="frontpage">
+<?php
 
 	if(!$user) {
-		echo $this->Html->link('Register', array('controller' => 'Users', 'action' => 'add'));
-		//echo $user['username'];
+		echo "<h1>Welcome to ThMovies</h1>
+		<p>This is a very cool website where you can rate you're favorite (or least favorite) movies</p>";
+
 	}
+?>
+</div>
 
