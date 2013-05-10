@@ -53,6 +53,60 @@ function tabSelect(div, bgcolor, text) {
 	}
 }
 
+//this function ensures not only that the page loads (as the once above).
+//but also makes sure that the th elements loaded are clickable. (grouplistlink).
+//It also makes the membership class clickable for requestmembership.
+function groupInfoPage() {
+
+	//a callback for the javascript that are to work on this page.
+	var callBack = function(data) {
+		$('#groupsInfo').html(data);
+		groupListLink('th');
+		$('.membership').bind("click", function() {
+			//gets id clicked.
+			var id = $(this).attr("id");
+			//callback
+			var callback =  function() {
+				var messageDiv = document.getElementsByClassName('membership');
+				var i = 0;
+				while($(messageDiv[i]).attr("id") != id) {
+					i++;
+				}
+				$(messageDiv[i]).html('<span class="feedback"> Request sent</span>');
+			};	
+			l_ajaxPost(baseURL+'groups/requestMembership', callback, {group_id: id}); 
+		});
+
+		//callback for when i get the data from a function that returns membershit requests
+		var callback = function (data) {
+
+		//console.log(data);
+		//the li id in question is called "groups2".
+			}
+		//ajax that calls for some data returned.
+		//l_ajaxPost(baseURL+'groups/listRequests', callback);
+	}
+
+
+
+	l_ajaxPost(baseURL+'groups/listGroups', callBack);
+}
+
+
+//function that ensures the th and li elements 
+//are clickable after being loaded with ajax.
+function groupListLink(ele) {
+	//when the li elements are clicked.
+	$('#grouplist '+ele).click(function(e) {
+		//get id of the element clicked.
+		var groupId = this.id;
+		var callBack = function(data) {
+			$('#groupsInfo').html(data);
+		}
+		l_ajaxPost(baseURL+'groups/listGroup/'+groupId, callBack);
+	});
+}
+
 //ensures page is properly loaded.
 $(document).ready(function() {
 
@@ -154,44 +208,7 @@ function profileInfoPage() {
 	l_ajaxPost(baseURL+'users/profileInfo', callBack);
 }
 
-//this function ensures not only that the page loads (as the once above).
-//but also makes sure that the th elements loaded are clickable. (grouplistlink).
-//It also makes the membership class clickable for requestmembership.
-function groupInfoPage() {
 
-	//a callback for the javascript that are to work on this page.
-	var callBack = function(data) {
-		$('#groupsInfo').html(data);
-		groupListLink('th');
-		$('.membership').bind("click", function() {
-			//gets id clicked.
-			var id = $(this).attr("id");
-			//callback
-			var callback =  function() {
-				var messageDiv = document.getElementsByClassName('membership');
-				var i = 0;
-				while($(messageDiv[i]).attr("id") != id) {
-					i++;
-				}
-				$(messageDiv[i]).html('<td class="feedback"> Request sent</span>');
-			};	
-			l_ajaxPost(baseURL+'groups/requestMembership', callback, {group_id: id}); 
-		});
-
-		//callback for when i get the data from a function that returns membershit requests
-		var callback = function (data) {
-
-		//console.log(data);
-		//the li id in question is called "groups2".
-			}
-		//ajax that calls for some data returned.
-		//l_ajaxPost(baseURL+'groups/listRequests', callback);
-	}
-
-
-
-	l_ajaxPost(baseURL+'groups/listGroups', callBack);
-}
 //this function ensures not only that the page loads (as the once above).
 //but also makes sure that the th elements loaded are clickable. (grouplistlink).
 //It also makes the membership class clickable for requestmembership.
@@ -221,19 +238,7 @@ function listRequestsPage() {
 	}
 	l_ajaxPost(baseURL+'groups/listRequests', callBack);
 }
-//function that ensures the th and li elements 
-//are clickable after being loaded with ajax.
-function groupListLink(ele) {
-	//when the li elements are clicked.
-	$('#grouplist '+ele).click(function(e) {
-		//get id of the element clicked.
-		var groupId = this.id;
-		var callBack = function(data) {
-			$('#groupsInfo').html(data);
-		}
-		l_ajaxPost(baseURL+'groups/listGroup/'+groupId, callBack);
-	});
-}
+
 
 /*
 This is a function that ensures two things:

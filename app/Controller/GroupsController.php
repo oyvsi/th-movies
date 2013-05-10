@@ -179,6 +179,11 @@ class GroupsController extends AppController {
 		    $this->autoRender = false;
 			$this->Group->set(array('owner' => $this->user['id']));
 			$this->Group->save($this->request->data);
+
+			$groupId = $this->Group->getInsertID();
+			$userId = $this->user['id'];
+
+			print($groupId."/".$userId);
 		}
 	}
 	
