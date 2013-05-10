@@ -1,4 +1,4 @@
-<div class="users form">
+<div class="usersform">
 <?php echo $this->Session->flash('auth'); ?>
 <?php echo $this->Form->create('User'); ?>
     <fieldset>
