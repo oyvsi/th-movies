@@ -110,7 +110,16 @@ $(document).on("click", 'input#newGroup', function() {
 
 $(document).on("click", '.submitGroup', function() {
 		var groupName = $('.groupName').val();
-		var callback = function() {
+		var callback = function(data) {
+			var dataArr = data.split('/');
+			//using function from navigationsystem. FUck cakephp, hello ajax
+
+			var callBack = function() {
+				groupInfoPage();
+			}
+
+			l_ajaxPost(baseURL+'groups/addUser', callBack, {group_id: dataArr[0], user_id: dataArr[1]}); 
+
 			$('#newGroupWrapper').replaceWith('<p> Group created </p>');
 		};
 		if(groupName.length > 3) {
